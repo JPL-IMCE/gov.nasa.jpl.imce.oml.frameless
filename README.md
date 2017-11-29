@@ -13,8 +13,7 @@
 
 ## Building
 
-This depends on [typelevel/frameless](https://github.com/typelevel/frameless) with a fix 
-for this issue https://github.com/typelevel/frameless/issues/213
+This library depends on [typelevel/frameless](https://github.com/typelevel/frameless).
 
 ## Description
 

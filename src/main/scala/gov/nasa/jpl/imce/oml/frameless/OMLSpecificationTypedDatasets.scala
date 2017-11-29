@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Copyright 2017 California Institute of Technology ("Caltech").
+ * Copyright 2016 California Institute of Technology ("Caltech").
  * U.S. Government sponsorship acknowledged.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,20 +14,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  * License Terms
- *
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
  */
+
 
 package gov.nasa.jpl.imce.oml.frameless
 
@@ -37,6 +25,7 @@ import frameless.{Injection, TypedDataset}
 import gov.nasa.jpl.imce.oml.covariantTag
 import gov.nasa.jpl.imce.oml.covariantTag.@@
 import gov.nasa.jpl.imce.oml.tables
+import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.SparkSession
 
 import scala.collection.immutable.Seq
@@ -62,7 +51,7 @@ object OMLSpecificationTypedDatasets {
   	def invert(s: String): tables.LiteralNumberType = tables.LiteralNumberType.fromString(s)
   }
 
-  def createEmptyOMLSpecificationTypedDatasets()(implicit sqlContext: SparkSession)
+  def createEmptyOMLSpecificationTypedDatasets()(implicit sqlContext: SQLContext) // frameless 0.5.0: use SparkSession instead.
   : OMLSpecificationTypedDatasets
   = OMLSpecificationTypedDatasets(
     annotationProperties = 
@@ -332,7 +321,7 @@ object OMLSpecificationTypedDatasets {
     
   def convertToOMLSpecificationTypedDatasets
   (t: tables.OMLSpecificationTables)
-  (implicit sqlContext: SparkSession)
+  (implicit sqlContext: SQLContext) // frameless 0.5.0: use SparkSession instead.
   : OMLSpecificationTypedDatasets
   = OMLSpecificationTypedDatasets(
     annotationProperties = 
@@ -967,7 +956,7 @@ object OMLSpecificationTypedDatasets {
 
   def extractFromOMLSpecificationTypedDatasets
   (t: OMLSpecificationTypedDatasets)
-  (implicit sqlContext: SparkSession)
+  (implicit sqlContext: SQLContext) // frameless 0.5.0: use SparkSession instead.
   : tables.OMLSpecificationTables
   = {
   	import frameless.syntax.DefaultSparkDelay
@@ -1540,7 +1529,7 @@ object OMLSpecificationTypedDatasets {
 
   def parquetReadOMLSpecificationTables
   (dir: Path)
-  (implicit spark: SparkSession, sqlContext: SparkSession)
+  (implicit spark: SparkSession, sqlContext: SQLContext)
   : Try[tables.OMLSpecificationTables]
   = nonFatalCatch[Try[tables.OMLSpecificationTables]]
     .withApply {
@@ -2089,7 +2078,7 @@ object OMLSpecificationTypedDatasets {
   def parquetWriteOMLSpecificationTables
   (t: tables.OMLSpecificationTables,
    dir: Path)
-  (implicit spark: SparkSession, sqlContext: SparkSession)
+  (implicit spark: SparkSession, sqlContext: SQLContext)
   : Try[Unit]
   = nonFatalCatch[Try[Unit]]
     .withApply {

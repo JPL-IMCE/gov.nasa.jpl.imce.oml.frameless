@@ -17,6 +17,6 @@ object Settings {
     val ammonite = "1.0.3"
     val circeVersion = "0.9.0-M2"
     val catsCoreVersion = "1.0.0-RC1"
-    val framelessVersion = "0.5.0-SNAPSHOT"
+    val framelessVersion = "0.4.0" // "0.5.0-SNAPSHOT"
   }
 }
