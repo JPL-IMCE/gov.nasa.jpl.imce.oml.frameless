@@ -1,0 +1,1277 @@
+/*
+ * Copyright 2016 California Institute of Technology ("Caltech").
+ * U.S. Government sponsorship acknowledged.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ * License Terms
+ */
+
+ 
+package gov.nasa.jpl.imce.oml.frameless
+
+import frameless.CatalystCast
+import gov.nasa.jpl.imce.oml.tables.taggedTypes
+import scala.Any
+
+object OMLCatalystCasts {
+	val theInstance = new CatalystCast[Any, Any] {}
+	
+	// 2 casts for AnonymousConceptUnionAxiom
+	
+	implicit val AnonymousConceptUnionAxiom2ConceptTreeDisjunctionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AnonymousConceptUnionAxiomUUID,
+	    taggedTypes.ConceptTreeDisjunctionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AnonymousConceptUnionAxiomUUID,
+	    taggedTypes.ConceptTreeDisjunctionUUID]]
+	
+	implicit val AnonymousConceptUnionAxiom2DisjointUnionOfConceptsAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AnonymousConceptUnionAxiomUUID,
+	    taggedTypes.DisjointUnionOfConceptsAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AnonymousConceptUnionAxiomUUID,
+	    taggedTypes.DisjointUnionOfConceptsAxiomUUID]]
+	
+	// 2 casts for Aspect
+	
+	implicit val Aspect2EntityUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AspectUUID,
+	    taggedTypes.EntityUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AspectUUID,
+	    taggedTypes.EntityUUID]]
+	
+	implicit val Aspect2UnaryTermKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AspectUUID,
+	    taggedTypes.UnaryTermKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AspectUUID,
+	    taggedTypes.UnaryTermKindUUID]]
+	
+	// 1 casts for AspectPredicate
+	
+	implicit val AspectPredicate2UnarySegmentPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AspectPredicateUUID,
+	    taggedTypes.UnarySegmentPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AspectPredicateUUID,
+	    taggedTypes.UnarySegmentPredicateUUID]]
+	
+	// 1 casts for AspectSpecializationAxiom
+	
+	implicit val AspectSpecializationAxiom2SpecializationAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AspectSpecializationAxiomUUID,
+	    taggedTypes.SpecializationAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AspectSpecializationAxiomUUID,
+	    taggedTypes.SpecializationAxiomUUID]]
+	
+	// 1 casts for BinaryScalarRestriction
+	
+	implicit val BinaryScalarRestriction2RestrictedDataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.BinaryScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.BinaryScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]]
+	
+	// 1 casts for BinarySegmentForwardPropertyPredicate
+	
+	implicit val BinarySegmentForwardPropertyPredicate2BinarySegmentPropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.BinarySegmentForwardPropertyPredicateUUID,
+	    taggedTypes.BinarySegmentPropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.BinarySegmentForwardPropertyPredicateUUID,
+	    taggedTypes.BinarySegmentPropertyPredicateUUID]]
+	
+	// 1 casts for BinarySegmentPropertyPredicate
+	
+	implicit val BinarySegmentPropertyPredicate2SegmentPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.BinarySegmentPropertyPredicateUUID,
+	    taggedTypes.SegmentPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.BinarySegmentPropertyPredicateUUID,
+	    taggedTypes.SegmentPredicateUUID]]
+	
+	// 1 casts for BinarySegmentReversePropertyPredicate
+	
+	implicit val BinarySegmentReversePropertyPredicate2BinarySegmentPropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.BinarySegmentReversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentPropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.BinarySegmentReversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentPropertyPredicateUUID]]
+	
+	// 1 casts for Bundle
+	
+	implicit val Bundle2TerminologyBoxUUIDCast
+	: CatalystCast
+	  [ taggedTypes.BundleUUID,
+	    taggedTypes.TerminologyBoxUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.BundleUUID,
+	    taggedTypes.TerminologyBoxUUID]]
+	
+	// 1 casts for BundledTerminologyAxiom
+	
+	implicit val BundledTerminologyAxiom2TerminologyBundleAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.BundledTerminologyAxiomUUID,
+	    taggedTypes.TerminologyBundleAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.BundledTerminologyAxiomUUID,
+	    taggedTypes.TerminologyBundleAxiomUUID]]
+	
+	// 1 casts for ChainRule
+	
+	implicit val ChainRule2RuleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ChainRuleUUID,
+	    taggedTypes.RuleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ChainRuleUUID,
+	    taggedTypes.RuleUUID]]
+	
+	// 2 casts for Concept
+	
+	implicit val Concept2ConceptualEntityUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptUUID,
+	    taggedTypes.ConceptualEntityUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptUUID,
+	    taggedTypes.ConceptualEntityUUID]]
+	
+	implicit val Concept2UnaryTermKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptUUID,
+	    taggedTypes.UnaryTermKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptUUID,
+	    taggedTypes.UnaryTermKindUUID]]
+	
+	// 1 casts for ConceptDesignationTerminologyAxiom
+	
+	implicit val ConceptDesignationTerminologyAxiom2TerminologyBoxAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptDesignationTerminologyAxiomUUID,
+	    taggedTypes.TerminologyBoxAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptDesignationTerminologyAxiomUUID,
+	    taggedTypes.TerminologyBoxAxiomUUID]]
+	
+	// 1 casts for ConceptInstance
+	
+	implicit val ConceptInstance2ConceptualEntitySingletonInstanceUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptInstanceUUID,
+	    taggedTypes.ConceptualEntitySingletonInstanceUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptInstanceUUID,
+	    taggedTypes.ConceptualEntitySingletonInstanceUUID]]
+	
+	// 1 casts for ConceptPredicate
+	
+	implicit val ConceptPredicate2UnarySegmentPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptPredicateUUID,
+	    taggedTypes.UnarySegmentPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptPredicateUUID,
+	    taggedTypes.UnarySegmentPredicateUUID]]
+	
+	// 1 casts for ConceptSpecializationAxiom
+	
+	implicit val ConceptSpecializationAxiom2SpecializationAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptSpecializationAxiomUUID,
+	    taggedTypes.SpecializationAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptSpecializationAxiomUUID,
+	    taggedTypes.SpecializationAxiomUUID]]
+	
+	// 1 casts for ConceptTreeDisjunction
+	
+	implicit val ConceptTreeDisjunction2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptTreeDisjunctionUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptTreeDisjunctionUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 1 casts for ConceptualEntity
+	
+	implicit val ConceptualEntity2EntityUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptualEntityUUID,
+	    taggedTypes.EntityUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptualEntityUUID,
+	    taggedTypes.EntityUUID]]
+	
+	// 2 casts for ConceptualEntitySingletonInstance
+	
+	implicit val ConceptualEntitySingletonInstance2ResourceUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptualEntitySingletonInstanceUUID,
+	    taggedTypes.ResourceUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptualEntitySingletonInstanceUUID,
+	    taggedTypes.ResourceUUID]]
+	
+	implicit val ConceptualEntitySingletonInstance2TerminologyInstanceAssertionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptualEntitySingletonInstanceUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptualEntitySingletonInstanceUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 1 casts for DataRange
+	
+	implicit val DataRange2DatatypeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DataRangeUUID,
+	    taggedTypes.DatatypeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DataRangeUUID,
+	    taggedTypes.DatatypeUUID]]
+	
+	// 2 casts for DataRelationship
+	
+	implicit val DataRelationship2DirectedBinaryRelationshipKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DataRelationshipUUID,
+	    taggedTypes.DirectedBinaryRelationshipKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DataRelationshipUUID,
+	    taggedTypes.DirectedBinaryRelationshipKindUUID]]
+	
+	implicit val DataRelationship2TermUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DataRelationshipUUID,
+	    taggedTypes.TermUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DataRelationshipUUID,
+	    taggedTypes.TermUUID]]
+	
+	// 1 casts for DataRelationshipDomain
+	
+	implicit val DataRelationshipDomain2DataRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DataRelationshipDomainUUID,
+	    taggedTypes.DataRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DataRelationshipDomainUUID,
+	    taggedTypes.DataRelationshipUUID]]
+	
+	// 1 casts for DataRelationshipFromEntity
+	
+	implicit val DataRelationshipFromEntity2DataRelationshipDomainUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DataRelationshipFromEntityUUID,
+	    taggedTypes.DataRelationshipDomainUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DataRelationshipFromEntityUUID,
+	    taggedTypes.DataRelationshipDomainUUID]]
+	
+	// 1 casts for DataRelationshipFromStructure
+	
+	implicit val DataRelationshipFromStructure2DataRelationshipDomainUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DataRelationshipFromStructureUUID,
+	    taggedTypes.DataRelationshipDomainUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DataRelationshipFromStructureUUID,
+	    taggedTypes.DataRelationshipDomainUUID]]
+	
+	// 1 casts for DataRelationshipRange
+	
+	implicit val DataRelationshipRange2DataRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DataRelationshipRangeUUID,
+	    taggedTypes.DataRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DataRelationshipRangeUUID,
+	    taggedTypes.DataRelationshipUUID]]
+	
+	// 1 casts for DataRelationshipToScalar
+	
+	implicit val DataRelationshipToScalar2DataRelationshipRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DataRelationshipToScalarUUID,
+	    taggedTypes.DataRelationshipRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DataRelationshipToScalarUUID,
+	    taggedTypes.DataRelationshipRangeUUID]]
+	
+	// 1 casts for DataRelationshipToStructure
+	
+	implicit val DataRelationshipToStructure2DataRelationshipRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DataRelationshipToStructureUUID,
+	    taggedTypes.DataRelationshipRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DataRelationshipToStructureUUID,
+	    taggedTypes.DataRelationshipRangeUUID]]
+	
+	// 1 casts for Datatype
+	
+	implicit val Datatype2TermUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DatatypeUUID,
+	    taggedTypes.TermUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DatatypeUUID,
+	    taggedTypes.TermUUID]]
+	
+	// 1 casts for DescriptionBox
+	
+	implicit val DescriptionBox2ModuleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DescriptionBoxUUID,
+	    taggedTypes.ModuleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DescriptionBoxUUID,
+	    taggedTypes.ModuleUUID]]
+	
+	// 1 casts for DescriptionBoxExtendsClosedWorldDefinitions
+	
+	implicit val DescriptionBoxExtendsClosedWorldDefinitions2DescriptionBoxRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DescriptionBoxExtendsClosedWorldDefinitionsUUID,
+	    taggedTypes.DescriptionBoxRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DescriptionBoxExtendsClosedWorldDefinitionsUUID,
+	    taggedTypes.DescriptionBoxRelationshipUUID]]
+	
+	// 1 casts for DescriptionBoxRefinement
+	
+	implicit val DescriptionBoxRefinement2DescriptionBoxRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DescriptionBoxRefinementUUID,
+	    taggedTypes.DescriptionBoxRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DescriptionBoxRefinementUUID,
+	    taggedTypes.DescriptionBoxRelationshipUUID]]
+	
+	// 1 casts for DescriptionBoxRelationship
+	
+	implicit val DescriptionBoxRelationship2ModuleEdgeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DescriptionBoxRelationshipUUID,
+	    taggedTypes.ModuleEdgeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DescriptionBoxRelationshipUUID,
+	    taggedTypes.ModuleEdgeUUID]]
+	
+	// 1 casts for DirectedBinaryRelationshipKind
+	
+	implicit val DirectedBinaryRelationshipKind2TermUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DirectedBinaryRelationshipKindUUID,
+	    taggedTypes.TermUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DirectedBinaryRelationshipKindUUID,
+	    taggedTypes.TermUUID]]
+	
+	// 1 casts for DisjointUnionOfConceptsAxiom
+	
+	implicit val DisjointUnionOfConceptsAxiom2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.DisjointUnionOfConceptsAxiomUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.DisjointUnionOfConceptsAxiomUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 1 casts for Entity
+	
+	implicit val Entity2TermUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityUUID,
+	    taggedTypes.TermUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityUUID,
+	    taggedTypes.TermUUID]]
+	
+	// 1 casts for EntityExistentialRestrictionAxiom
+	
+	implicit val EntityExistentialRestrictionAxiom2EntityRestrictionAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityExistentialRestrictionAxiomUUID,
+	    taggedTypes.EntityRestrictionAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityExistentialRestrictionAxiomUUID,
+	    taggedTypes.EntityRestrictionAxiomUUID]]
+	
+	// 2 casts for EntityRelationship
+	
+	implicit val EntityRelationship2DirectedBinaryRelationshipKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityRelationshipUUID,
+	    taggedTypes.DirectedBinaryRelationshipKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityRelationshipUUID,
+	    taggedTypes.DirectedBinaryRelationshipKindUUID]]
+	
+	implicit val EntityRelationship2TermUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityRelationshipUUID,
+	    taggedTypes.TermUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityRelationshipUUID,
+	    taggedTypes.TermUUID]]
+	
+	// 1 casts for EntityRestrictionAxiom
+	
+	implicit val EntityRestrictionAxiom2TermAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityRestrictionAxiomUUID,
+	    taggedTypes.TermAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityRestrictionAxiomUUID,
+	    taggedTypes.TermAxiomUUID]]
+	
+	// 3 casts for EntityScalarDataProperty
+	
+	implicit val EntityScalarDataProperty2DataRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipUUID]]
+	
+	implicit val EntityScalarDataProperty2DataRelationshipFromEntityUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipFromEntityUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipFromEntityUUID]]
+	
+	implicit val EntityScalarDataProperty2DataRelationshipToScalarUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipToScalarUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipToScalarUUID]]
+	
+	// 1 casts for EntityScalarDataPropertyExistentialRestrictionAxiom
+	
+	implicit val EntityScalarDataPropertyExistentialRestrictionAxiom2EntityScalarDataPropertyRestrictionAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyExistentialRestrictionAxiomUUID,
+	    taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyExistentialRestrictionAxiomUUID,
+	    taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID]]
+	
+	// 1 casts for EntityScalarDataPropertyParticularRestrictionAxiom
+	
+	implicit val EntityScalarDataPropertyParticularRestrictionAxiom2EntityScalarDataPropertyRestrictionAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyParticularRestrictionAxiomUUID,
+	    taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyParticularRestrictionAxiomUUID,
+	    taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID]]
+	
+	// 1 casts for EntityScalarDataPropertyRestrictionAxiom
+	
+	implicit val EntityScalarDataPropertyRestrictionAxiom2TermAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID,
+	    taggedTypes.TermAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID,
+	    taggedTypes.TermAxiomUUID]]
+	
+	// 1 casts for EntityScalarDataPropertyUniversalRestrictionAxiom
+	
+	implicit val EntityScalarDataPropertyUniversalRestrictionAxiom2EntityScalarDataPropertyRestrictionAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUniversalRestrictionAxiomUUID,
+	    taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUniversalRestrictionAxiomUUID,
+	    taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID]]
+	
+	// 3 casts for EntityStructuredDataProperty
+	
+	implicit val EntityStructuredDataProperty2DataRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipUUID]]
+	
+	implicit val EntityStructuredDataProperty2DataRelationshipFromEntityUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipFromEntityUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipFromEntityUUID]]
+	
+	implicit val EntityStructuredDataProperty2DataRelationshipToStructureUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipToStructureUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipToStructureUUID]]
+	
+	// 2 casts for EntityStructuredDataPropertyParticularRestrictionAxiom
+	
+	implicit val EntityStructuredDataPropertyParticularRestrictionAxiom2EntityStructuredDataPropertyRestrictionAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyParticularRestrictionAxiomUUID,
+	    taggedTypes.EntityStructuredDataPropertyRestrictionAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyParticularRestrictionAxiomUUID,
+	    taggedTypes.EntityStructuredDataPropertyRestrictionAxiomUUID]]
+	
+	implicit val EntityStructuredDataPropertyParticularRestrictionAxiom2RestrictionStructuredDataPropertyContextUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyParticularRestrictionAxiomUUID,
+	    taggedTypes.RestrictionStructuredDataPropertyContextUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyParticularRestrictionAxiomUUID,
+	    taggedTypes.RestrictionStructuredDataPropertyContextUUID]]
+	
+	// 1 casts for EntityStructuredDataPropertyRestrictionAxiom
+	
+	implicit val EntityStructuredDataPropertyRestrictionAxiom2TermAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyRestrictionAxiomUUID,
+	    taggedTypes.TermAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyRestrictionAxiomUUID,
+	    taggedTypes.TermAxiomUUID]]
+	
+	// 1 casts for EntityUniversalRestrictionAxiom
+	
+	implicit val EntityUniversalRestrictionAxiom2EntityRestrictionAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityUniversalRestrictionAxiomUUID,
+	    taggedTypes.EntityRestrictionAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityUniversalRestrictionAxiomUUID,
+	    taggedTypes.EntityRestrictionAxiomUUID]]
+	
+	// 1 casts for IRIScalarRestriction
+	
+	implicit val IRIScalarRestriction2RestrictedDataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.IRIScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.IRIScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]]
+	
+	// 1 casts for Module
+	
+	implicit val Module2ResourceUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ModuleUUID,
+	    taggedTypes.ResourceUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ModuleUUID,
+	    taggedTypes.ResourceUUID]]
+	
+	// 1 casts for ModuleEdge
+	
+	implicit val ModuleEdge2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ModuleEdgeUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ModuleEdgeUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 1 casts for ModuleElement
+	
+	implicit val ModuleElement2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ModuleElementUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ModuleElementUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 1 casts for NumericScalarRestriction
+	
+	implicit val NumericScalarRestriction2RestrictedDataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.NumericScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.NumericScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]]
+	
+	// 1 casts for PlainLiteralScalarRestriction
+	
+	implicit val PlainLiteralScalarRestriction2RestrictedDataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.PlainLiteralScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.PlainLiteralScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]]
+	
+	// 2 casts for ReifiedRelationship
+	
+	implicit val ReifiedRelationship2ConceptualEntityUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipUUID,
+	    taggedTypes.ConceptualEntityUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipUUID,
+	    taggedTypes.ConceptualEntityUUID]]
+	
+	implicit val ReifiedRelationship2EntityRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipUUID,
+	    taggedTypes.EntityRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipUUID,
+	    taggedTypes.EntityRelationshipUUID]]
+	
+	// 1 casts for ReifiedRelationshipInstance
+	
+	implicit val ReifiedRelationshipInstance2ConceptualEntitySingletonInstanceUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceUUID,
+	    taggedTypes.ConceptualEntitySingletonInstanceUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceUUID,
+	    taggedTypes.ConceptualEntitySingletonInstanceUUID]]
+	
+	// 1 casts for ReifiedRelationshipInstanceDomain
+	
+	implicit val ReifiedRelationshipInstanceDomain2TerminologyInstanceAssertionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceDomainUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceDomainUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 1 casts for ReifiedRelationshipInstanceRange
+	
+	implicit val ReifiedRelationshipInstanceRange2TerminologyInstanceAssertionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceRangeUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceRangeUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 1 casts for ReifiedRelationshipInversePropertyPredicate
+	
+	implicit val ReifiedRelationshipInversePropertyPredicate2BinarySegmentReversePropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]]
+	
+	// 1 casts for ReifiedRelationshipPredicate
+	
+	implicit val ReifiedRelationshipPredicate2UnarySegmentPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipPredicateUUID,
+	    taggedTypes.UnarySegmentPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipPredicateUUID,
+	    taggedTypes.UnarySegmentPredicateUUID]]
+	
+	// 1 casts for ReifiedRelationshipPropertyPredicate
+	
+	implicit val ReifiedRelationshipPropertyPredicate2BinarySegmentForwardPropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipPropertyPredicateUUID,
+	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipPropertyPredicateUUID,
+	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
+	
+	// 1 casts for ReifiedRelationshipSourceInversePropertyPredicate
+	
+	implicit val ReifiedRelationshipSourceInversePropertyPredicate2BinarySegmentReversePropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipSourceInversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipSourceInversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]]
+	
+	// 1 casts for ReifiedRelationshipSourcePropertyPredicate
+	
+	implicit val ReifiedRelationshipSourcePropertyPredicate2BinarySegmentForwardPropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipSourcePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipSourcePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
+	
+	// 1 casts for ReifiedRelationshipSpecializationAxiom
+	
+	implicit val ReifiedRelationshipSpecializationAxiom2SpecializationAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipSpecializationAxiomUUID,
+	    taggedTypes.SpecializationAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipSpecializationAxiomUUID,
+	    taggedTypes.SpecializationAxiomUUID]]
+	
+	// 1 casts for ReifiedRelationshipTargetInversePropertyPredicate
+	
+	implicit val ReifiedRelationshipTargetInversePropertyPredicate2BinarySegmentReversePropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipTargetInversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipTargetInversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]]
+	
+	// 1 casts for ReifiedRelationshipTargetPropertyPredicate
+	
+	implicit val ReifiedRelationshipTargetPropertyPredicate2BinarySegmentForwardPropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipTargetPropertyPredicateUUID,
+	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipTargetPropertyPredicateUUID,
+	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
+	
+	// 1 casts for Resource
+	
+	implicit val Resource2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ResourceUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ResourceUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 1 casts for RestrictedDataRange
+	
+	implicit val RestrictedDataRange2DataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RestrictedDataRangeUUID,
+	    taggedTypes.DataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RestrictedDataRangeUUID,
+	    taggedTypes.DataRangeUUID]]
+	
+	// 1 casts for RestrictionScalarDataPropertyValue
+	
+	implicit val RestrictionScalarDataPropertyValue2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RestrictionScalarDataPropertyValueUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RestrictionScalarDataPropertyValueUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 1 casts for RestrictionStructuredDataPropertyContext
+	
+	implicit val RestrictionStructuredDataPropertyContext2ModuleElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RestrictionStructuredDataPropertyContextUUID,
+	    taggedTypes.ModuleElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RestrictionStructuredDataPropertyContextUUID,
+	    taggedTypes.ModuleElementUUID]]
+	
+	// 1 casts for RestrictionStructuredDataPropertyTuple
+	
+	implicit val RestrictionStructuredDataPropertyTuple2RestrictionStructuredDataPropertyContextUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RestrictionStructuredDataPropertyTupleUUID,
+	    taggedTypes.RestrictionStructuredDataPropertyContextUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RestrictionStructuredDataPropertyTupleUUID,
+	    taggedTypes.RestrictionStructuredDataPropertyContextUUID]]
+	
+	// 2 casts for RootConceptTaxonomyAxiom
+	
+	implicit val RootConceptTaxonomyAxiom2ConceptTreeDisjunctionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RootConceptTaxonomyAxiomUUID,
+	    taggedTypes.ConceptTreeDisjunctionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RootConceptTaxonomyAxiomUUID,
+	    taggedTypes.ConceptTreeDisjunctionUUID]]
+	
+	implicit val RootConceptTaxonomyAxiom2TerminologyBundleStatementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RootConceptTaxonomyAxiomUUID,
+	    taggedTypes.TerminologyBundleStatementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RootConceptTaxonomyAxiomUUID,
+	    taggedTypes.TerminologyBundleStatementUUID]]
+	
+	// 1 casts for Rule
+	
+	implicit val Rule2TermUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RuleUUID,
+	    taggedTypes.TermUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RuleUUID,
+	    taggedTypes.TermUUID]]
+	
+	// 1 casts for RuleBodySegment
+	
+	implicit val RuleBodySegment2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RuleBodySegmentUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RuleBodySegmentUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 2 casts for Scalar
+	
+	implicit val Scalar2DataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarUUID,
+	    taggedTypes.DataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarUUID,
+	    taggedTypes.DataRangeUUID]]
+	
+	implicit val Scalar2UnaryTermKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarUUID,
+	    taggedTypes.UnaryTermKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarUUID,
+	    taggedTypes.UnaryTermKindUUID]]
+	
+	// 3 casts for ScalarDataProperty
+	
+	implicit val ScalarDataProperty2DataRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipUUID]]
+	
+	implicit val ScalarDataProperty2DataRelationshipFromStructureUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipFromStructureUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipFromStructureUUID]]
+	
+	implicit val ScalarDataProperty2DataRelationshipToScalarUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipToScalarUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarDataPropertyUUID,
+	    taggedTypes.DataRelationshipToScalarUUID]]
+	
+	// 1 casts for ScalarDataPropertyValue
+	
+	implicit val ScalarDataPropertyValue2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarDataPropertyValueUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarDataPropertyValueUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 1 casts for ScalarOneOfLiteralAxiom
+	
+	implicit val ScalarOneOfLiteralAxiom2TermAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarOneOfLiteralAxiomUUID,
+	    taggedTypes.TermAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarOneOfLiteralAxiomUUID,
+	    taggedTypes.TermAxiomUUID]]
+	
+	// 1 casts for ScalarOneOfRestriction
+	
+	implicit val ScalarOneOfRestriction2RestrictedDataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarOneOfRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarOneOfRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]]
+	
+	// 1 casts for SegmentPredicate
+	
+	implicit val SegmentPredicate2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SegmentPredicateUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SegmentPredicateUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 1 casts for SingletonInstanceScalarDataPropertyValue
+	
+	implicit val SingletonInstanceScalarDataPropertyValue2ModuleElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SingletonInstanceScalarDataPropertyValueUUID,
+	    taggedTypes.ModuleElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SingletonInstanceScalarDataPropertyValueUUID,
+	    taggedTypes.ModuleElementUUID]]
+	
+	// 1 casts for SingletonInstanceStructuredDataPropertyContext
+	
+	implicit val SingletonInstanceStructuredDataPropertyContext2ElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID,
+	    taggedTypes.ElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID,
+	    taggedTypes.ElementUUID]]
+	
+	// 2 casts for SingletonInstanceStructuredDataPropertyValue
+	
+	implicit val SingletonInstanceStructuredDataPropertyValue2ModuleElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SingletonInstanceStructuredDataPropertyValueUUID,
+	    taggedTypes.ModuleElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SingletonInstanceStructuredDataPropertyValueUUID,
+	    taggedTypes.ModuleElementUUID]]
+	
+	implicit val SingletonInstanceStructuredDataPropertyValue2SingletonInstanceStructuredDataPropertyContextUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SingletonInstanceStructuredDataPropertyValueUUID,
+	    taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SingletonInstanceStructuredDataPropertyValueUUID,
+	    taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID]]
+	
+	// 1 casts for SpecializationAxiom
+	
+	implicit val SpecializationAxiom2TermAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SpecializationAxiomUUID,
+	    taggedTypes.TermAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SpecializationAxiomUUID,
+	    taggedTypes.TermAxiomUUID]]
+	
+	// 1 casts for SpecificDisjointConceptAxiom
+	
+	implicit val SpecificDisjointConceptAxiom2DisjointUnionOfConceptsAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SpecificDisjointConceptAxiomUUID,
+	    taggedTypes.DisjointUnionOfConceptsAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SpecificDisjointConceptAxiomUUID,
+	    taggedTypes.DisjointUnionOfConceptsAxiomUUID]]
+	
+	// 1 casts for StringScalarRestriction
+	
+	implicit val StringScalarRestriction2RestrictedDataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.StringScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.StringScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]]
+	
+	// 2 casts for Structure
+	
+	implicit val Structure2DatatypeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.StructureUUID,
+	    taggedTypes.DatatypeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.StructureUUID,
+	    taggedTypes.DatatypeUUID]]
+	
+	implicit val Structure2UnaryTermKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.StructureUUID,
+	    taggedTypes.UnaryTermKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.StructureUUID,
+	    taggedTypes.UnaryTermKindUUID]]
+	
+	// 3 casts for StructuredDataProperty
+	
+	implicit val StructuredDataProperty2DataRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.StructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.StructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipUUID]]
+	
+	implicit val StructuredDataProperty2DataRelationshipFromStructureUUIDCast
+	: CatalystCast
+	  [ taggedTypes.StructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipFromStructureUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.StructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipFromStructureUUID]]
+	
+	implicit val StructuredDataProperty2DataRelationshipToStructureUUIDCast
+	: CatalystCast
+	  [ taggedTypes.StructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipToStructureUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.StructuredDataPropertyUUID,
+	    taggedTypes.DataRelationshipToStructureUUID]]
+	
+	// 1 casts for StructuredDataPropertyTuple
+	
+	implicit val StructuredDataPropertyTuple2SingletonInstanceStructuredDataPropertyContextUUIDCast
+	: CatalystCast
+	  [ taggedTypes.StructuredDataPropertyTupleUUID,
+	    taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.StructuredDataPropertyTupleUUID,
+	    taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID]]
+	
+	// 1 casts for SynonymScalarRestriction
+	
+	implicit val SynonymScalarRestriction2RestrictedDataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SynonymScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SynonymScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]]
+	
+	// 2 casts for Term
+	
+	implicit val Term2ResourceUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TermUUID,
+	    taggedTypes.ResourceUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TermUUID,
+	    taggedTypes.ResourceUUID]]
+	
+	implicit val Term2TerminologyBoxStatementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TermUUID,
+	    taggedTypes.TerminologyBoxStatementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TermUUID,
+	    taggedTypes.TerminologyBoxStatementUUID]]
+	
+	// 1 casts for TermAxiom
+	
+	implicit val TermAxiom2TerminologyBoxStatementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TermAxiomUUID,
+	    taggedTypes.TerminologyBoxStatementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TermAxiomUUID,
+	    taggedTypes.TerminologyBoxStatementUUID]]
+	
+	// 1 casts for TerminologyAxiom
+	
+	implicit val TerminologyAxiom2ModuleEdgeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyAxiomUUID,
+	    taggedTypes.ModuleEdgeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyAxiomUUID,
+	    taggedTypes.ModuleEdgeUUID]]
+	
+	// 1 casts for TerminologyBox
+	
+	implicit val TerminologyBox2ModuleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyBoxUUID,
+	    taggedTypes.ModuleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyBoxUUID,
+	    taggedTypes.ModuleUUID]]
+	
+	// 1 casts for TerminologyBoxAxiom
+	
+	implicit val TerminologyBoxAxiom2TerminologyAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyBoxAxiomUUID,
+	    taggedTypes.TerminologyAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyBoxAxiomUUID,
+	    taggedTypes.TerminologyAxiomUUID]]
+	
+	// 1 casts for TerminologyBoxStatement
+	
+	implicit val TerminologyBoxStatement2ModuleElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyBoxStatementUUID,
+	    taggedTypes.ModuleElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyBoxStatementUUID,
+	    taggedTypes.ModuleElementUUID]]
+	
+	// 1 casts for TerminologyBundleAxiom
+	
+	implicit val TerminologyBundleAxiom2TerminologyAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyBundleAxiomUUID,
+	    taggedTypes.TerminologyAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyBundleAxiomUUID,
+	    taggedTypes.TerminologyAxiomUUID]]
+	
+	// 1 casts for TerminologyBundleStatement
+	
+	implicit val TerminologyBundleStatement2ModuleElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyBundleStatementUUID,
+	    taggedTypes.ModuleElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyBundleStatementUUID,
+	    taggedTypes.ModuleElementUUID]]
+	
+	// 1 casts for TerminologyExtensionAxiom
+	
+	implicit val TerminologyExtensionAxiom2TerminologyBoxAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyExtensionAxiomUUID,
+	    taggedTypes.TerminologyBoxAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyExtensionAxiomUUID,
+	    taggedTypes.TerminologyBoxAxiomUUID]]
+	
+	// 1 casts for TerminologyGraph
+	
+	implicit val TerminologyGraph2TerminologyBoxUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyGraphUUID,
+	    taggedTypes.TerminologyBoxUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyGraphUUID,
+	    taggedTypes.TerminologyBoxUUID]]
+	
+	// 1 casts for TerminologyInstanceAssertion
+	
+	implicit val TerminologyInstanceAssertion2ModuleElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyInstanceAssertionUUID,
+	    taggedTypes.ModuleElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyInstanceAssertionUUID,
+	    taggedTypes.ModuleElementUUID]]
+	
+	// 1 casts for TerminologyNestingAxiom
+	
+	implicit val TerminologyNestingAxiom2TerminologyBoxAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TerminologyNestingAxiomUUID,
+	    taggedTypes.TerminologyBoxAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TerminologyNestingAxiomUUID,
+	    taggedTypes.TerminologyBoxAxiomUUID]]
+	
+	// 1 casts for TimeScalarRestriction
+	
+	implicit val TimeScalarRestriction2RestrictedDataRangeUUIDCast
+	: CatalystCast
+	  [ taggedTypes.TimeScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.TimeScalarRestrictionUUID,
+	    taggedTypes.RestrictedDataRangeUUID]]
+	
+	// 1 casts for UnarySegmentPredicate
+	
+	implicit val UnarySegmentPredicate2SegmentPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.UnarySegmentPredicateUUID,
+	    taggedTypes.SegmentPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.UnarySegmentPredicateUUID,
+	    taggedTypes.SegmentPredicateUUID]]
+	
+	// 1 casts for UnaryTermKind
+	
+	implicit val UnaryTermKind2TermUUIDCast
+	: CatalystCast
+	  [ taggedTypes.UnaryTermKindUUID,
+	    taggedTypes.TermUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.UnaryTermKindUUID,
+	    taggedTypes.TermUUID]]
+	
+	// 1 casts for UnreifiedRelationship
+	
+	implicit val UnreifiedRelationship2EntityRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipUUID,
+	    taggedTypes.EntityRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipUUID,
+	    taggedTypes.EntityRelationshipUUID]]
+	
+	// 1 casts for UnreifiedRelationshipInstanceTuple
+	
+	implicit val UnreifiedRelationshipInstanceTuple2TerminologyInstanceAssertionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipInstanceTupleUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipInstanceTupleUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 1 casts for UnreifiedRelationshipInversePropertyPredicate
+	
+	implicit val UnreifiedRelationshipInversePropertyPredicate2BinarySegmentReversePropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipInversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipInversePropertyPredicateUUID,
+	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]]
+	
+	// 1 casts for UnreifiedRelationshipPropertyPredicate
+	
+	implicit val UnreifiedRelationshipPropertyPredicate2BinarySegmentForwardPropertyPredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipPropertyPredicateUUID,
+	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipPropertyPredicateUUID,
+	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
+	
+}
