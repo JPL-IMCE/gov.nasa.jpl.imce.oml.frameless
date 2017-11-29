@@ -22,5 +22,5 @@ git config --global user.name "Travis CI"
 
 export CI=true
 
-sbt -jvm-opts travis/jvmopts.compile -Dproject.version=$TRAVIS_TAG publishSigned ghpagesPushSite < /dev/null
+sbt -jvm-opts travis/jvmopts.compile -Dproject.version=$TRAVIS_TAG publishSigned universal:publish ghpagesPushSite < /dev/null
 
