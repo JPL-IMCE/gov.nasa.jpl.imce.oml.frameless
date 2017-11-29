@@ -80,21 +80,24 @@ lazy val core = Project("omlFrameless", file("."))
     scalacOptions in (Compile, doc) += "-Xplugin-disable:artima-supersafe",
     scalacOptions in (Test, doc) += "-Xplugin-disable:artima-supersafe",
 
+    libraryDependencies ++= List(
+      // frameless-cats 0.4.0 has an outdated dependency on cats-core 1.0.0-MF.
+      "org.typelevel" %% "frameless-cats"      % Settings.versions.framelessVersion exclude("org.typelevel", "cats-core_" + scalaBinaryVersion.value),
+      "org.typelevel" %% "frameless-dataset"   % Settings.versions.framelessVersion,
+      "org.typelevel" %% "frameless-ml"        % Settings.versions.framelessVersion
+    ),
+
     libraryDependencies ++= Seq(
     
       "com.lihaoyi" %% "ammonite" % Settings.versions.ammonite cross CrossVersion.full,
       
       "org.typelevel" %% "cats-core" % Settings.versions.catsCoreVersion,
+      "org.typelevel" %% "cats-effect" % Settings.versions.catsEffectVersion,
+      "org.typelevel" %% "cats-mtl-core" % Settings.versions.catsMTLVersion,
       "io.circe" %% "circe-generic" % Settings.versions.circeVersion,
       "io.circe" %% "circe-literal" % Settings.versions.circeVersion,
       "io.circe" %% "circe-optics" % Settings.versions.circeVersion,
       "io.circe" %% "circe-parser" % Settings.versions.circeVersion
-    ),
-
-    libraryDependencies ++= List(
-      "org.typelevel" %% "frameless-cats"      % Settings.versions.framelessVersion,
-      "org.typelevel" %% "frameless-dataset"   % Settings.versions.framelessVersion,
-      "org.typelevel" %% "frameless-ml"        % Settings.versions.framelessVersion
     )
   )
   .dependsOnSourceProjectRefOrLibraryArtifacts(
