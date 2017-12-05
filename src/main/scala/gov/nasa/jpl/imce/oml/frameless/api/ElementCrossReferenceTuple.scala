@@ -21,12 +21,6 @@ package gov.nasa.jpl.imce.oml.frameless.api
 
 import gov.nasa.jpl.imce.oml.tables._
 
-case class AnnotationPropertyValue(
-  uuid: taggedTypes.AnnotationPropertyValueUUID,
-    
-  subjectUUID: taggedTypes.LogicalElementUUID,
-    
-  propertyUUID: taggedTypes.AnnotationPropertyUUID,
-    
-  value: taggedTypes.StringDataType
+case class ElementCrossReferenceTuple(
+  uuid: taggedTypes.ElementCrossReferenceTupleUUID
 )

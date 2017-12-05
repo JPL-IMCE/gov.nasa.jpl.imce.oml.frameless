@@ -26,6 +26,42 @@ import scala.Any
 object OMLCatalystCasts {
 	val theInstance = new CatalystCast[Any, Any] {}
 	
+	// 2 casts for AnnotationProperty
+	
+	implicit val AnnotationProperty2IntrinsicIdentityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AnnotationPropertyUUID,
+	    taggedTypes.IntrinsicIdentityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AnnotationPropertyUUID,
+	    taggedTypes.IntrinsicIdentityKindUUID]]
+	
+	implicit val AnnotationProperty2NonLogicalElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AnnotationPropertyUUID,
+	    taggedTypes.NonLogicalElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AnnotationPropertyUUID,
+	    taggedTypes.NonLogicalElementUUID]]
+	
+	// 2 casts for AnnotationPropertyValue
+	
+	implicit val AnnotationPropertyValue2NonLogicalElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AnnotationPropertyValueUUID,
+	    taggedTypes.NonLogicalElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AnnotationPropertyValueUUID,
+	    taggedTypes.NonLogicalElementUUID]]
+	
+	implicit val AnnotationPropertyValue2ValueCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AnnotationPropertyValueUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AnnotationPropertyValueUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]]
+	
 	// 2 casts for AnonymousConceptUnionAxiom
 	
 	implicit val AnonymousConceptUnionAxiom2ConceptTreeDisjunctionUUIDCast
@@ -212,13 +248,13 @@ object OMLCatalystCasts {
 	
 	// 1 casts for ConceptTreeDisjunction
 	
-	implicit val ConceptTreeDisjunction2ElementUUIDCast
+	implicit val ConceptTreeDisjunction2ElementCrossReferenceTupleUUIDCast
 	: CatalystCast
 	  [ taggedTypes.ConceptTreeDisjunctionUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.ElementCrossReferenceTupleUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ConceptTreeDisjunctionUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	// 1 casts for ConceptualEntity
 	
@@ -247,6 +283,16 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ConceptualEntitySingletonInstanceUUID,
 	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 1 casts for CrossReferencableKind
+	
+	implicit val CrossReferencableKind2CrossReferencabilityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.CrossReferencableKindUUID,
+	    taggedTypes.CrossReferencabilityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.CrossReferencableKindUUID,
+	    taggedTypes.CrossReferencabilityKindUUID]]
 	
 	// 1 casts for DataRange
 	
@@ -398,13 +444,39 @@ object OMLCatalystCasts {
 	
 	// 1 casts for DisjointUnionOfConceptsAxiom
 	
-	implicit val DisjointUnionOfConceptsAxiom2ElementUUIDCast
+	implicit val DisjointUnionOfConceptsAxiom2ElementCrossReferenceTupleUUIDCast
 	: CatalystCast
 	  [ taggedTypes.DisjointUnionOfConceptsAxiomUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.ElementCrossReferenceTupleUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.DisjointUnionOfConceptsAxiomUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
+	
+	// 3 casts for ElementCrossReferenceTuple
+	
+	implicit val ElementCrossReferenceTuple2CrossReferencableKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ElementCrossReferenceTupleUUID,
+	    taggedTypes.CrossReferencableKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ElementCrossReferenceTupleUUID,
+	    taggedTypes.CrossReferencableKindUUID]]
+	
+	implicit val ElementCrossReferenceTuple2ExtrinsicIdentityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ElementCrossReferenceTupleUUID,
+	    taggedTypes.ExtrinsicIdentityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ElementCrossReferenceTupleUUID,
+	    taggedTypes.ExtrinsicIdentityKindUUID]]
+	
+	implicit val ElementCrossReferenceTuple2LogicalElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ElementCrossReferenceTupleUUID,
+	    taggedTypes.LogicalElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ElementCrossReferenceTupleUUID,
+	    taggedTypes.LogicalElementUUID]]
 	
 	// 1 casts for Entity
 	
@@ -444,7 +516,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.EntityRelationshipUUID,
 	    taggedTypes.TermUUID]]
 	
-	// 1 casts for EntityRestrictionAxiom
+	// 2 casts for EntityRestrictionAxiom
+	
+	implicit val EntityRestrictionAxiom2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityRestrictionAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityRestrictionAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	implicit val EntityRestrictionAxiom2TermAxiomUUIDCast
 	: CatalystCast
@@ -480,7 +560,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.EntityScalarDataPropertyUUID,
 	    taggedTypes.DataRelationshipToScalarUUID]]
 	
-	// 1 casts for EntityScalarDataPropertyExistentialRestrictionAxiom
+	// 2 casts for EntityScalarDataPropertyExistentialRestrictionAxiom
+	
+	implicit val EntityScalarDataPropertyExistentialRestrictionAxiom2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyExistentialRestrictionAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyExistentialRestrictionAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	implicit val EntityScalarDataPropertyExistentialRestrictionAxiom2EntityScalarDataPropertyRestrictionAxiomUUIDCast
 	: CatalystCast
@@ -490,7 +578,7 @@ object OMLCatalystCasts {
 	  [ taggedTypes.EntityScalarDataPropertyExistentialRestrictionAxiomUUID,
 	    taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID]]
 	
-	// 1 casts for EntityScalarDataPropertyParticularRestrictionAxiom
+	// 2 casts for EntityScalarDataPropertyParticularRestrictionAxiom
 	
 	implicit val EntityScalarDataPropertyParticularRestrictionAxiom2EntityScalarDataPropertyRestrictionAxiomUUIDCast
 	: CatalystCast
@@ -500,7 +588,23 @@ object OMLCatalystCasts {
 	  [ taggedTypes.EntityScalarDataPropertyParticularRestrictionAxiomUUID,
 	    taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID]]
 	
-	// 1 casts for EntityScalarDataPropertyRestrictionAxiom
+	implicit val EntityScalarDataPropertyParticularRestrictionAxiom2ValueCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyParticularRestrictionAxiomUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyParticularRestrictionAxiomUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]]
+	
+	// 2 casts for EntityScalarDataPropertyRestrictionAxiom
+	
+	implicit val EntityScalarDataPropertyRestrictionAxiom2ExtrinsicIdentityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID,
+	    taggedTypes.ExtrinsicIdentityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID,
+	    taggedTypes.ExtrinsicIdentityKindUUID]]
 	
 	implicit val EntityScalarDataPropertyRestrictionAxiom2TermAxiomUUIDCast
 	: CatalystCast
@@ -510,7 +614,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.EntityScalarDataPropertyRestrictionAxiomUUID,
 	    taggedTypes.TermAxiomUUID]]
 	
-	// 1 casts for EntityScalarDataPropertyUniversalRestrictionAxiom
+	// 2 casts for EntityScalarDataPropertyUniversalRestrictionAxiom
+	
+	implicit val EntityScalarDataPropertyUniversalRestrictionAxiom2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUniversalRestrictionAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityScalarDataPropertyUniversalRestrictionAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	implicit val EntityScalarDataPropertyUniversalRestrictionAxiom2EntityScalarDataPropertyRestrictionAxiomUUIDCast
 	: CatalystCast
@@ -564,7 +676,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.EntityStructuredDataPropertyParticularRestrictionAxiomUUID,
 	    taggedTypes.RestrictionStructuredDataPropertyContextUUID]]
 	
-	// 1 casts for EntityStructuredDataPropertyRestrictionAxiom
+	// 2 casts for EntityStructuredDataPropertyRestrictionAxiom
+	
+	implicit val EntityStructuredDataPropertyRestrictionAxiom2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyRestrictionAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityStructuredDataPropertyRestrictionAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	implicit val EntityStructuredDataPropertyRestrictionAxiom2TermAxiomUUIDCast
 	: CatalystCast
@@ -584,6 +704,16 @@ object OMLCatalystCasts {
 	  [ taggedTypes.EntityUniversalRestrictionAxiomUUID,
 	    taggedTypes.EntityRestrictionAxiomUUID]]
 	
+	// 1 casts for ExtrinsicIdentityKind
+	
+	implicit val ExtrinsicIdentityKind2IdentityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ExtrinsicIdentityKindUUID,
+	    taggedTypes.IdentityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ExtrinsicIdentityKindUUID,
+	    taggedTypes.IdentityKindUUID]]
+	
 	// 1 casts for IRIScalarRestriction
 	
 	implicit val IRIScalarRestriction2RestrictedDataRangeUUIDCast
@@ -593,6 +723,44 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.IRIScalarRestrictionUUID,
 	    taggedTypes.RestrictedDataRangeUUID]]
+	
+	// 1 casts for IdentityKind
+	
+	implicit val IdentityKind2CrossReferencabilityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.IdentityKindUUID,
+	    taggedTypes.CrossReferencabilityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.IdentityKindUUID,
+	    taggedTypes.CrossReferencabilityKindUUID]]
+	
+	// 2 casts for IntrinsicIdentityKind
+	
+	implicit val IntrinsicIdentityKind2CrossReferencableKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.IntrinsicIdentityKindUUID,
+	    taggedTypes.CrossReferencableKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.IntrinsicIdentityKindUUID,
+	    taggedTypes.CrossReferencableKindUUID]]
+	
+	implicit val IntrinsicIdentityKind2IdentityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.IntrinsicIdentityKindUUID,
+	    taggedTypes.IdentityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.IntrinsicIdentityKindUUID,
+	    taggedTypes.IdentityKindUUID]]
+	
+	// 1 casts for LogicalElement
+	
+	implicit val LogicalElement2IdentityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.LogicalElementUUID,
+	    taggedTypes.IdentityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.LogicalElementUUID,
+	    taggedTypes.IdentityKindUUID]]
 	
 	// 1 casts for Module
 	
@@ -606,23 +774,43 @@ object OMLCatalystCasts {
 	
 	// 1 casts for ModuleEdge
 	
-	implicit val ModuleEdge2ElementUUIDCast
+	implicit val ModuleEdge2ElementCrossReferenceTupleUUIDCast
 	: CatalystCast
 	  [ taggedTypes.ModuleEdgeUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.ElementCrossReferenceTupleUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ModuleEdgeUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	// 1 casts for ModuleElement
 	
-	implicit val ModuleElement2ElementUUIDCast
+	implicit val ModuleElement2LogicalElementUUIDCast
 	: CatalystCast
 	  [ taggedTypes.ModuleElementUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.LogicalElementUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ModuleElementUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.LogicalElementUUID]]
+	
+	// 1 casts for NonCrossReferencableKind
+	
+	implicit val NonCrossReferencableKind2CrossReferencabilityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.NonCrossReferencableKindUUID,
+	    taggedTypes.CrossReferencabilityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.NonCrossReferencableKindUUID,
+	    taggedTypes.CrossReferencabilityKindUUID]]
+	
+	// 1 casts for NonLogicalElement
+	
+	implicit val NonLogicalElement2IdentityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.NonLogicalElementUUID,
+	    taggedTypes.IdentityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.NonLogicalElementUUID,
+	    taggedTypes.IdentityKindUUID]]
 	
 	// 1 casts for NumericScalarRestriction
 	
@@ -672,7 +860,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.ReifiedRelationshipInstanceUUID,
 	    taggedTypes.ConceptualEntitySingletonInstanceUUID]]
 	
-	// 1 casts for ReifiedRelationshipInstanceDomain
+	// 2 casts for ReifiedRelationshipInstanceDomain
+	
+	implicit val ReifiedRelationshipInstanceDomain2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceDomainUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceDomainUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	implicit val ReifiedRelationshipInstanceDomain2TerminologyInstanceAssertionUUIDCast
 	: CatalystCast
@@ -682,7 +878,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.ReifiedRelationshipInstanceDomainUUID,
 	    taggedTypes.TerminologyInstanceAssertionUUID]]
 	
-	// 1 casts for ReifiedRelationshipInstanceRange
+	// 2 casts for ReifiedRelationshipInstanceRange
+	
+	implicit val ReifiedRelationshipInstanceRange2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceRangeUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipInstanceRangeUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	implicit val ReifiedRelationshipInstanceRange2TerminologyInstanceAssertionUUIDCast
 	: CatalystCast
@@ -772,15 +976,23 @@ object OMLCatalystCasts {
 	  [ taggedTypes.ReifiedRelationshipTargetPropertyPredicateUUID,
 	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
 	
-	// 1 casts for Resource
+	// 2 casts for Resource
 	
-	implicit val Resource2ElementUUIDCast
+	implicit val Resource2IntrinsicIdentityKindUUIDCast
 	: CatalystCast
 	  [ taggedTypes.ResourceUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.IntrinsicIdentityKindUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ResourceUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.IntrinsicIdentityKindUUID]]
+	
+	implicit val Resource2LogicalElementUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ResourceUUID,
+	    taggedTypes.LogicalElementUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ResourceUUID,
+	    taggedTypes.LogicalElementUUID]]
 	
 	// 1 casts for RestrictedDataRange
 	
@@ -792,17 +1004,33 @@ object OMLCatalystCasts {
 	  [ taggedTypes.RestrictedDataRangeUUID,
 	    taggedTypes.DataRangeUUID]]
 	
-	// 1 casts for RestrictionScalarDataPropertyValue
+	// 2 casts for RestrictionScalarDataPropertyValue
 	
-	implicit val RestrictionScalarDataPropertyValue2ElementUUIDCast
+	implicit val RestrictionScalarDataPropertyValue2LogicalElementUUIDCast
 	: CatalystCast
 	  [ taggedTypes.RestrictionScalarDataPropertyValueUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.LogicalElementUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.RestrictionScalarDataPropertyValueUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.LogicalElementUUID]]
 	
-	// 1 casts for RestrictionStructuredDataPropertyContext
+	implicit val RestrictionScalarDataPropertyValue2ValueCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RestrictionScalarDataPropertyValueUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RestrictionScalarDataPropertyValueUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]]
+	
+	// 2 casts for RestrictionStructuredDataPropertyContext
+	
+	implicit val RestrictionStructuredDataPropertyContext2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RestrictionStructuredDataPropertyContextUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RestrictionStructuredDataPropertyContextUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	implicit val RestrictionStructuredDataPropertyContext2ModuleElementUUIDCast
 	: CatalystCast
@@ -852,13 +1080,13 @@ object OMLCatalystCasts {
 	
 	// 1 casts for RuleBodySegment
 	
-	implicit val RuleBodySegment2ElementUUIDCast
+	implicit val RuleBodySegment2ElementCrossReferenceTupleUUIDCast
 	: CatalystCast
 	  [ taggedTypes.RuleBodySegmentUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.ElementCrossReferenceTupleUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.RuleBodySegmentUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	// 2 casts for Scalar
 	
@@ -904,17 +1132,25 @@ object OMLCatalystCasts {
 	  [ taggedTypes.ScalarDataPropertyUUID,
 	    taggedTypes.DataRelationshipToScalarUUID]]
 	
-	// 1 casts for ScalarDataPropertyValue
+	// 2 casts for ScalarDataPropertyValue
 	
-	implicit val ScalarDataPropertyValue2ElementUUIDCast
+	implicit val ScalarDataPropertyValue2LogicalElementUUIDCast
 	: CatalystCast
 	  [ taggedTypes.ScalarDataPropertyValueUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.LogicalElementUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ScalarDataPropertyValueUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.LogicalElementUUID]]
 	
-	// 1 casts for ScalarOneOfLiteralAxiom
+	implicit val ScalarDataPropertyValue2ValueCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarDataPropertyValueUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarDataPropertyValueUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]]
+	
+	// 2 casts for ScalarOneOfLiteralAxiom
 	
 	implicit val ScalarOneOfLiteralAxiom2TermAxiomUUIDCast
 	: CatalystCast
@@ -923,6 +1159,14 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ScalarOneOfLiteralAxiomUUID,
 	    taggedTypes.TermAxiomUUID]]
+	
+	implicit val ScalarOneOfLiteralAxiom2ValueCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ScalarOneOfLiteralAxiomUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ScalarOneOfLiteralAxiomUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]]
 	
 	// 1 casts for ScalarOneOfRestriction
 	
@@ -936,15 +1180,15 @@ object OMLCatalystCasts {
 	
 	// 1 casts for SegmentPredicate
 	
-	implicit val SegmentPredicate2ElementUUIDCast
+	implicit val SegmentPredicate2ElementCrossReferenceTupleUUIDCast
 	: CatalystCast
 	  [ taggedTypes.SegmentPredicateUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.ElementCrossReferenceTupleUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.SegmentPredicateUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
-	// 1 casts for SingletonInstanceScalarDataPropertyValue
+	// 2 casts for SingletonInstanceScalarDataPropertyValue
 	
 	implicit val SingletonInstanceScalarDataPropertyValue2ModuleElementUUIDCast
 	: CatalystCast
@@ -954,15 +1198,23 @@ object OMLCatalystCasts {
 	  [ taggedTypes.SingletonInstanceScalarDataPropertyValueUUID,
 	    taggedTypes.ModuleElementUUID]]
 	
+	implicit val SingletonInstanceScalarDataPropertyValue2ValueCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SingletonInstanceScalarDataPropertyValueUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SingletonInstanceScalarDataPropertyValueUUID,
+	    taggedTypes.ValueCrossReferenceTupleUUID]]
+	
 	// 1 casts for SingletonInstanceStructuredDataPropertyContext
 	
-	implicit val SingletonInstanceStructuredDataPropertyContext2ElementUUIDCast
+	implicit val SingletonInstanceStructuredDataPropertyContext2ElementCrossReferenceTupleUUIDCast
 	: CatalystCast
 	  [ taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID,
-	    taggedTypes.ElementUUID]
+	    taggedTypes.ElementCrossReferenceTupleUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID,
-	    taggedTypes.ElementUUID]]
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	// 2 casts for SingletonInstanceStructuredDataPropertyValue
 	
@@ -982,7 +1234,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.SingletonInstanceStructuredDataPropertyValueUUID,
 	    taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID]]
 	
-	// 1 casts for SpecializationAxiom
+	// 2 casts for SpecializationAxiom
+	
+	implicit val SpecializationAxiom2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SpecializationAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SpecializationAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	implicit val SpecializationAxiom2TermAxiomUUIDCast
 	: CatalystCast
@@ -1244,7 +1504,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.UnreifiedRelationshipUUID,
 	    taggedTypes.EntityRelationshipUUID]]
 	
-	// 1 casts for UnreifiedRelationshipInstanceTuple
+	// 2 casts for UnreifiedRelationshipInstanceTuple
+	
+	implicit val UnreifiedRelationshipInstanceTuple2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipInstanceTupleUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipInstanceTupleUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
 	
 	implicit val UnreifiedRelationshipInstanceTuple2TerminologyInstanceAssertionUUIDCast
 	: CatalystCast
@@ -1273,5 +1541,23 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.UnreifiedRelationshipPropertyPredicateUUID,
 	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
+	
+	// 2 casts for ValueCrossReferenceTuple
+	
+	implicit val ValueCrossReferenceTuple2ExtrinsicIdentityKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ValueCrossReferenceTupleUUID,
+	    taggedTypes.ExtrinsicIdentityKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ValueCrossReferenceTupleUUID,
+	    taggedTypes.ExtrinsicIdentityKindUUID]]
+	
+	implicit val ValueCrossReferenceTuple2NonCrossReferencableKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ValueCrossReferenceTupleUUID,
+	    taggedTypes.NonCrossReferencableKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ValueCrossReferenceTupleUUID,
+	    taggedTypes.NonCrossReferencableKindUUID]]
 	
 }

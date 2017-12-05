@@ -30,6 +30,10 @@ object OMLProjections {
 	import OMLSpecificationTypedDatasets._
 	import OMLCatalystCasts._
 	
+	// 2 smart projects for api.AnnotationProperty
+	
+	// 2 smart projects for api.AnnotationPropertyValue
+	
 	// 2 smart projects for api.AnonymousConceptUnionAxiom
 	
 	implicit val AnonymousConceptUnionAxiom2DisjointUnionOfConceptsAxiomProjection
@@ -598,6 +602,8 @@ object OMLProjections {
 
 	// 2 smart projects for api.ConceptualEntitySingletonInstance
 	
+	// 1 smart projects for api.CrossReferencableKind
+	
 	// 1 smart projects for api.DataRange
 	
 	implicit val DataRange2DatatypeProjection
@@ -984,6 +990,8 @@ object OMLProjections {
 
 	// 1 smart projects for api.DisjointUnionOfConceptsAxiom
 	
+	// 3 smart projects for api.ElementCrossReferenceTuple
+	
 	// 1 smart projects for api.Entity
 	
 	implicit val Entity2TermProjection
@@ -1118,7 +1126,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.EntityRestrictionAxiom
+	// 2 smart projects for api.EntityRestrictionAxiom
 	
 	implicit val EntityRestrictionAxiom2TermAxiomProjection
 	: SmartProject
@@ -1250,7 +1258,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.EntityScalarDataPropertyExistentialRestrictionAxiom
+	// 2 smart projects for api.EntityScalarDataPropertyExistentialRestrictionAxiom
 	
 	implicit val EntityScalarDataPropertyExistentialRestrictionAxiom2EntityScalarDataPropertyRestrictionAxiomProjection
 	: SmartProject
@@ -1286,7 +1294,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.EntityScalarDataPropertyParticularRestrictionAxiom
+	// 2 smart projects for api.EntityScalarDataPropertyParticularRestrictionAxiom
 	
 	implicit val EntityScalarDataPropertyParticularRestrictionAxiom2EntityScalarDataPropertyRestrictionAxiomProjection
 	: SmartProject
@@ -1322,7 +1330,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.EntityScalarDataPropertyRestrictionAxiom
+	// 2 smart projects for api.EntityScalarDataPropertyRestrictionAxiom
 	
 	implicit val EntityScalarDataPropertyRestrictionAxiom2TermAxiomProjection
 	: SmartProject
@@ -1350,7 +1358,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.EntityScalarDataPropertyUniversalRestrictionAxiom
+	// 2 smart projects for api.EntityScalarDataPropertyUniversalRestrictionAxiom
 	
 	implicit val EntityScalarDataPropertyUniversalRestrictionAxiom2EntityScalarDataPropertyRestrictionAxiomProjection
 	: SmartProject
@@ -1548,7 +1556,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.EntityStructuredDataPropertyRestrictionAxiom
+	// 2 smart projects for api.EntityStructuredDataPropertyRestrictionAxiom
 	
 	implicit val EntityStructuredDataPropertyRestrictionAxiom2TermAxiomProjection
 	: SmartProject
@@ -1616,6 +1624,8 @@ object OMLProjections {
 	        result
 	      })
 
+	// 1 smart projects for api.ExtrinsicIdentityKind
+	
 	// 1 smart projects for api.IRIScalarRestriction
 	
 	implicit val IRIScalarRestriction2RestrictedDataRangeProjection
@@ -1652,11 +1662,21 @@ object OMLProjections {
 	        result
 	      })
 
+	// 1 smart projects for api.IdentityKind
+	
+	// 2 smart projects for api.IntrinsicIdentityKind
+	
+	// 1 smart projects for api.LogicalElement
+	
 	// 1 smart projects for api.Module
 	
 	// 1 smart projects for api.ModuleEdge
 	
 	// 1 smart projects for api.ModuleElement
+	
+	// 1 smart projects for api.NonCrossReferencableKind
+	
+	// 1 smart projects for api.NonLogicalElement
 	
 	// 1 smart projects for api.NumericScalarRestriction
 	
@@ -1864,9 +1884,9 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.ReifiedRelationshipInstanceDomain
+	// 2 smart projects for api.ReifiedRelationshipInstanceDomain
 	
-	// 1 smart projects for api.ReifiedRelationshipInstanceRange
+	// 2 smart projects for api.ReifiedRelationshipInstanceRange
 	
 	// 1 smart projects for api.ReifiedRelationshipInversePropertyPredicate
 	
@@ -2092,7 +2112,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.Resource
+	// 2 smart projects for api.Resource
 	
 	// 1 smart projects for api.RestrictedDataRange
 	
@@ -2126,9 +2146,9 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.RestrictionScalarDataPropertyValue
+	// 2 smart projects for api.RestrictionScalarDataPropertyValue
 	
-	// 1 smart projects for api.RestrictionStructuredDataPropertyContext
+	// 2 smart projects for api.RestrictionStructuredDataPropertyContext
 	
 	// 1 smart projects for api.RestrictionStructuredDataPropertyTuple
 	
@@ -2382,9 +2402,9 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.ScalarDataPropertyValue
+	// 2 smart projects for api.ScalarDataPropertyValue
 	
-	// 1 smart projects for api.ScalarOneOfLiteralAxiom
+	// 2 smart projects for api.ScalarOneOfLiteralAxiom
 	
 	implicit val ScalarOneOfLiteralAxiom2TermAxiomProjection
 	: SmartProject
@@ -2450,7 +2470,7 @@ object OMLProjections {
 
 	// 1 smart projects for api.SegmentPredicate
 	
-	// 1 smart projects for api.SingletonInstanceScalarDataPropertyValue
+	// 2 smart projects for api.SingletonInstanceScalarDataPropertyValue
 	
 	// 1 smart projects for api.SingletonInstanceStructuredDataPropertyContext
 	
@@ -2482,7 +2502,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.SpecializationAxiom
+	// 2 smart projects for api.SpecializationAxiom
 	
 	implicit val SpecializationAxiom2TermAxiomProjection
 	: SmartProject
@@ -3156,7 +3176,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.UnreifiedRelationshipInstanceTuple
+	// 2 smart projects for api.UnreifiedRelationshipInstanceTuple
 	
 	// 1 smart projects for api.UnreifiedRelationshipInversePropertyPredicate
 	
@@ -3214,4 +3234,6 @@ object OMLProjections {
 	        result
 	      })
 
+	// 2 smart projects for api.ValueCrossReferenceTuple
+	
 }
