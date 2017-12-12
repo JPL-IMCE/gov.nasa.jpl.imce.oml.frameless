@@ -46,7 +46,7 @@ import scala.Predef.String
 object Parquet2Tables {
 
   def usage(): Unit = {
-    System.err.println(s"Usage: <program> <dir1> <output *.json.zip>")
+    System.err.println(s"Usage: <program> <dir1> <output *.omlzip>")
     System.exit(-1)
   }
 
