@@ -2784,6 +2784,62 @@ object OMLProjections {
 	        result
 	      })
 
+	// 2 smart projects for api.SubDataPropertyOfAxiom
+	
+	implicit val SubDataPropertyOfAxiom2TermAxiomProjection
+	: SmartProject
+	  [ api.SubDataPropertyOfAxiom,
+	    api.TermAxiom]
+	= SmartProject
+	  [ api.SubDataPropertyOfAxiom,
+	    api.TermAxiom](
+	      (x: TypedDataset[api.SubDataPropertyOfAxiom]) => {
+	        val x_uuid: TypedColumn[api.SubDataPropertyOfAxiom, taggedTypes.TermAxiomUUID]
+	        = x.col[taggedTypes.SubDataPropertyOfAxiomUUID]('uuid).cast[taggedTypes.TermAxiomUUID]
+	    
+	        val x_tboxUUID: TypedColumn[api.SubDataPropertyOfAxiom, taggedTypes.TerminologyBoxUUID]
+	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
+	    
+	        val result
+	        : TypedDataset[api.TermAxiom]
+	        = x
+	          .selectMany
+	          .applyProduct(
+	            x_uuid :: 
+	            x_tboxUUID ::
+	            HNil)
+	          .as[api.TermAxiom]
+	        result
+	      })
+
+	// 2 smart projects for api.SubObjectPropertyOfAxiom
+	
+	implicit val SubObjectPropertyOfAxiom2TermAxiomProjection
+	: SmartProject
+	  [ api.SubObjectPropertyOfAxiom,
+	    api.TermAxiom]
+	= SmartProject
+	  [ api.SubObjectPropertyOfAxiom,
+	    api.TermAxiom](
+	      (x: TypedDataset[api.SubObjectPropertyOfAxiom]) => {
+	        val x_uuid: TypedColumn[api.SubObjectPropertyOfAxiom, taggedTypes.TermAxiomUUID]
+	        = x.col[taggedTypes.SubObjectPropertyOfAxiomUUID]('uuid).cast[taggedTypes.TermAxiomUUID]
+	    
+	        val x_tboxUUID: TypedColumn[api.SubObjectPropertyOfAxiom, taggedTypes.TerminologyBoxUUID]
+	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
+	    
+	        val result
+	        : TypedDataset[api.TermAxiom]
+	        = x
+	          .selectMany
+	          .applyProduct(
+	            x_uuid :: 
+	            x_tboxUUID ::
+	            HNil)
+	          .as[api.TermAxiom]
+	        result
+	      })
+
 	// 1 smart projects for api.SynonymScalarRestriction
 	
 	implicit val SynonymScalarRestriction2RestrictedDataRangeProjection

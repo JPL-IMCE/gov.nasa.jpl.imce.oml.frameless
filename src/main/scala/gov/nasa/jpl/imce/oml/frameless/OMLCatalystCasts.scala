@@ -1326,6 +1326,42 @@ object OMLCatalystCasts {
 	  [ taggedTypes.StructuredDataPropertyTupleUUID,
 	    taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID]]
 	
+	// 2 casts for SubDataPropertyOfAxiom
+	
+	implicit val SubDataPropertyOfAxiom2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SubDataPropertyOfAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SubDataPropertyOfAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
+	
+	implicit val SubDataPropertyOfAxiom2TermAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SubDataPropertyOfAxiomUUID,
+	    taggedTypes.TermAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SubDataPropertyOfAxiomUUID,
+	    taggedTypes.TermAxiomUUID]]
+	
+	// 2 casts for SubObjectPropertyOfAxiom
+	
+	implicit val SubObjectPropertyOfAxiom2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SubObjectPropertyOfAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SubObjectPropertyOfAxiomUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
+	
+	implicit val SubObjectPropertyOfAxiom2TermAxiomUUIDCast
+	: CatalystCast
+	  [ taggedTypes.SubObjectPropertyOfAxiomUUID,
+	    taggedTypes.TermAxiomUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.SubObjectPropertyOfAxiomUUID,
+	    taggedTypes.TermAxiomUUID]]
+	
 	// 1 casts for SynonymScalarRestriction
 	
 	implicit val SynonymScalarRestriction2RestrictedDataRangeUUIDCast

@@ -282,6 +282,14 @@ object OMLSpecificationTypedDatasets {
     TypedDataset.create[api.StructuredDataPropertyTuple](
       Seq.empty[api.StructuredDataPropertyTuple]),
   
+    subDataPropertyOfAxioms = 
+    TypedDataset.create[api.SubDataPropertyOfAxiom](
+      Seq.empty[api.SubDataPropertyOfAxiom]),
+  
+    subObjectPropertyOfAxioms = 
+    TypedDataset.create[api.SubObjectPropertyOfAxiom](
+      Seq.empty[api.SubObjectPropertyOfAxiom]),
+  
     synonymScalarRestrictions = 
     TypedDataset.create[api.SynonymScalarRestriction](
       Seq.empty[api.SynonymScalarRestriction]),
@@ -860,6 +868,24 @@ object OMLSpecificationTypedDatasets {
          uuid = i.uuid,
          structuredDataPropertyUUID = i.structuredDataPropertyUUID,
          structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID))),
+  
+    subDataPropertyOfAxioms = 
+    TypedDataset.create[api.SubDataPropertyOfAxiom](
+      t.subDataPropertyOfAxioms.map(i =>
+       api.SubDataPropertyOfAxiom(
+         uuid = i.uuid,
+         tboxUUID = i.tboxUUID,
+         subPropertyUUID = i.subPropertyUUID,
+         superPropertyUUID = i.superPropertyUUID))),
+  
+    subObjectPropertyOfAxioms = 
+    TypedDataset.create[api.SubObjectPropertyOfAxiom](
+      t.subObjectPropertyOfAxioms.map(i =>
+       api.SubObjectPropertyOfAxiom(
+         uuid = i.uuid,
+         tboxUUID = i.tboxUUID,
+         subPropertyUUID = i.subPropertyUUID,
+         superPropertyUUID = i.superPropertyUUID))),
   
     synonymScalarRestrictions = 
     TypedDataset.create[api.SynonymScalarRestriction](
@@ -1442,6 +1468,22 @@ object OMLSpecificationTypedDatasets {
   	    structuredDataPropertyUUID = i.structuredDataPropertyUUID,
   	    structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID)),
   	
+  	  subDataPropertyOfAxioms = 
+  	t.subDataPropertyOfAxioms.collect().run().to[Seq].map(i =>
+  	  tables.SubDataPropertyOfAxiom(
+  	    uuid = i.uuid,
+  	    tboxUUID = i.tboxUUID,
+  	    subPropertyUUID = i.subPropertyUUID,
+  	    superPropertyUUID = i.superPropertyUUID)),
+  	
+  	  subObjectPropertyOfAxioms = 
+  	t.subObjectPropertyOfAxioms.collect().run().to[Seq].map(i =>
+  	  tables.SubObjectPropertyOfAxiom(
+  	    uuid = i.uuid,
+  	    tboxUUID = i.tboxUUID,
+  	    subPropertyUUID = i.subPropertyUUID,
+  	    superPropertyUUID = i.superPropertyUUID)),
+  	
   	  synonymScalarRestrictions = 
   	t.synonymScalarRestrictions.collect().run().to[Seq].map(i =>
   	  tables.SynonymScalarRestriction(
@@ -2001,6 +2043,22 @@ object OMLSpecificationTypedDatasets {
   	      .collect()
   	      .to[Seq],
   	    
+  	      subDataPropertyOfAxioms = 
+  	      spark
+  	      .read
+  	      .parquet((dir / "SubDataPropertyOfAxiom.parquet").toIO.getAbsolutePath)
+  	      .as[tables.SubDataPropertyOfAxiom]
+  	      .collect()
+  	      .to[Seq],
+  	    
+  	      subObjectPropertyOfAxioms = 
+  	      spark
+  	      .read
+  	      .parquet((dir / "SubObjectPropertyOfAxiom.parquet").toIO.getAbsolutePath)
+  	      .as[tables.SubObjectPropertyOfAxiom]
+  	      .collect()
+  	      .to[Seq],
+  	    
   	      synonymScalarRestrictions = 
   	      spark
   	      .read
@@ -2434,6 +2492,18 @@ object OMLSpecificationTypedDatasets {
       .parquet((dir / "StructuredDataPropertyTuple.parquet").toIO.getAbsolutePath())
       
       t
+      .subDataPropertyOfAxioms
+      .toDF()
+      .write
+      .parquet((dir / "SubDataPropertyOfAxiom.parquet").toIO.getAbsolutePath())
+      
+      t
+      .subObjectPropertyOfAxioms
+      .toDF()
+      .write
+      .parquet((dir / "SubObjectPropertyOfAxiom.parquet").toIO.getAbsolutePath())
+      
+      t
       .synonymScalarRestrictions
       .toDF()
       .write
@@ -2690,6 +2760,12 @@ case class OMLSpecificationTypedDatasets
 
   structuredDataPropertyTuples
   : TypedDataset[api.StructuredDataPropertyTuple],
+
+  subDataPropertyOfAxioms
+  : TypedDataset[api.SubDataPropertyOfAxiom],
+
+  subObjectPropertyOfAxioms
+  : TypedDataset[api.SubObjectPropertyOfAxiom],
 
   synonymScalarRestrictions
   : TypedDataset[api.SynonymScalarRestriction],
