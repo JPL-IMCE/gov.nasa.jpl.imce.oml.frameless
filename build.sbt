@@ -70,7 +70,7 @@ lazy val core = Project("omlFrameless", file("."))
     },
 
     // skip doc on stage
-    mappings in (Compile, packageDoc) := Seq(),
+    // mappings in (Compile, packageDoc) := Seq(),
 
     resolvers += Resolver.bintrayRepo("jpl-imce", "gov.nasa.jpl.imce"),
 
