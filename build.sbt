@@ -69,6 +69,13 @@ lazy val core = Project("omlFrameless", file("."))
       result
     },
 
+    scalacOptions in (Compile,doc) ++= Seq(
+      "-diagrams",
+      "-doc-title", name.value,
+      "-doc-root-content", baseDirectory.value + "/rootdoc.txt"),
+
+    // the setting below is too broad.
+    // from http://www.scala-sbt.org/sbt-native-packager/formats/universal.html#skip-packagedoc-task-on-stage
     // skip doc on stage
     // mappings in (Compile, packageDoc) := Seq(),
 
