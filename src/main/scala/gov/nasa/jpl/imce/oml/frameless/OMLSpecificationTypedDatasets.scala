@@ -337,6 +337,7 @@ object OMLSpecificationTypedDatasets {
       t.annotationProperties.map(i =>
        api.AnnotationProperty(
          uuid = i.uuid,
+         moduleUUID = i.moduleUUID,
          iri = i.iri,
          abbrevIRI = i.abbrevIRI))),
   
@@ -992,6 +993,7 @@ object OMLSpecificationTypedDatasets {
   	t.annotationProperties.collect().run().to[Seq].map(i =>
   	  tables.AnnotationProperty(
   	    uuid = i.uuid,
+  	    moduleUUID = i.moduleUUID,
   	    iri = i.iri,
   	    abbrevIRI = i.abbrevIRI)),
   	

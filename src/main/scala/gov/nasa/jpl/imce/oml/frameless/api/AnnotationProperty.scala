@@ -24,6 +24,8 @@ import gov.nasa.jpl.imce.oml.tables._
 case class AnnotationProperty(
   uuid: taggedTypes.AnnotationPropertyUUID,
     
+  moduleUUID: taggedTypes.ModuleUUID,
+    
   iri: taggedTypes.IRI,
     
   abbrevIRI: taggedTypes.AbbrevIRI
