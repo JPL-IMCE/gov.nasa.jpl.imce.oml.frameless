@@ -47,7 +47,13 @@
       </span>
       </h4>
       
-          <div id="comment" class="fullcommenttop"><div class="comment cmt"><h3> Frameless-based SPARK API for the Ontological Modeling Language </h3></div></div>
+          <div id="comment" class="fullcommenttop"><div class="comment cmt"><h3> Frameless-based SPARK API for the Ontological Modeling Language </h3><h4> 1. OML Frameless API </h4><p>Each concrete OML metaclass has a corresponding OML Frameless API case class.</p><p><a href="gov/nasa/jpl/imce/oml/frameless/api/package.html" class="extype" name="gov.nasa.jpl.imce.oml.frameless.api">oml.frameless.api</a></p><p>Note that all UUID fields are typed with a covariant tag.
+This provides compile-time verification for UUID cross-references.</p><h4> 2. Frameless-based Apache Spark Dataset for OML </h4><p>This case class is a big tupe of Frameless-based Apache Spark TypedDatasets,
+one for each of OML's concrete metaclasses in the <a href="gov/nasa/jpl/imce/oml/frameless/api/package.html" class="extype" name="gov.nasa.jpl.imce.oml.frameless.api">gov.nasa.jpl.imce.oml.frameless.api</a>.</p><p><a href="gov/nasa/jpl/imce/oml/frameless/OMLSpecificationTypedDatasets.html" class="extype" name="gov.nasa.jpl.imce.oml.frameless.OMLSpecificationTypedDatasets">oml.frameless.OMLSpecificationTypedDatasets</a></p><h4> 3. Apache Parquet file conversions for OML </h4><p><a href="gov/nasa/jpl/imce/oml/frameless/conversions/Parquet2Tables$.html" class="extype" name="gov.nasa.jpl.imce.oml.frameless.conversions.Parquet2Tables">oml.frameless.conversions.Parquet2Tables</a></p><p>This command-line tool takes two arguments:
+- A path to a directory with <code><code>*.parquet</code> files that will be read
+- A path to a </code><code>*.omlzip</code> file which will be written with the OML contents read from the parquet files.</p><p><a href="gov/nasa/jpl/imce/oml/frameless/conversions/Tables2Parquet$.html" class="extype" name="gov.nasa.jpl.imce.oml.frameless.conversions.Tables2Parquet">oml.frameless.conversions.Tables2Parquet</a></p><p>This command-line tool takes two arguments:
+- A path to an OASIS XML Catalog file named <code>oml.catalog.xml</code> from which all <code>*.omlzip</code> files will be read
+- A path to directory which will be written with parquet files for OML</p></div></div>
         
 
       <div id="mbrsel">
