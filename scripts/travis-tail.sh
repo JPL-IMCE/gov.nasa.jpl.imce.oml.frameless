@@ -42,7 +42,3 @@ travis_jigger() {
   echo -e "\n\033[31;1mTimeout reached. Terminating $@\033[0m\n"
   kill -9 $cmd_pid
 }
-
-travis_wait 30 false
-
-#travis_wait 30 sbt -batch clean compile doc < /dev/null
