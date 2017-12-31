@@ -10,8 +10,9 @@ travis_tail() {
 
   local cmd="$@"
   local log_file=travis_wait_$$.log
+  echo "# Log of $cmd" > $log_file
 
-  $cmd >$log_file 2>&1 &
+  $cmd >>$log_file 2>&1 &
   local cmd_pid=$!
 
   tail -f $log_file &
