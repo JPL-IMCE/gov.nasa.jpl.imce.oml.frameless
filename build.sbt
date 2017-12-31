@@ -108,7 +108,9 @@ lazy val core = Project("omlFrameless", file("."))
       "io.circe" %% "circe-literal" % Settings.versions.circeVersion,
       "io.circe" %% "circe-optics" % Settings.versions.circeVersion,
       "io.circe" %% "circe-parser" % Settings.versions.circeVersion
-    )
+    ),
+    dependencyOverrides += "com.fasterxml.jackson.module" % "jackson-module-paranamer" % Settings.versions.spark_jackson % "compile",
+    dependencyOverrides += "com.fasterxml.jackson.module" %% "jackson-module-scala" % Settings.versions.spark_jackson % "compile"
   )
   .dependsOnSourceProjectRefOrLibraryArtifacts(
     "oml-resolver",

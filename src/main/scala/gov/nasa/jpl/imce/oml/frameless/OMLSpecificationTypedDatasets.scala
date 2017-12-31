@@ -1578,560 +1578,1516 @@ object OMLSpecificationTypedDatasets {
   = nonFatalCatch[Try[tables.OMLSpecificationTables]]
     .withApply {
       (cause: java.lang.Throwable) =>
-        cause.fillInStackTrace()
         Failure(cause)
     }
     .apply {
   	  dir.toIO.mkdirs()
 
       import spark.implicits._
-	  import scala.Predef.refArrayOps
+      import scala.Predef.refArrayOps
 	  
+      val annotationProperties
+      : Seq[tables.AnnotationProperty]
+      = spark
+        .read
+        .parquet((dir / "AnnotationProperty.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.AnnotationPropertyRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 moduleUUID,
+                 iri,
+                 abbrevIRI ) =>
+            OMLReaders.AnnotationPropertyTuple2Type(
+              uuid,
+              moduleUUID,
+              iri,
+              abbrevIRI )
+        }
+        .to[Seq]
+      
+      val annotationPropertyValues
+      : Seq[tables.AnnotationPropertyValue]
+      = spark
+        .read
+        .parquet((dir / "AnnotationPropertyValue.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.AnnotationPropertyValueRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 subjectUUID,
+                 propertyUUID,
+                 value ) =>
+            OMLReaders.AnnotationPropertyValueTuple2Type(
+              uuid,
+              subjectUUID,
+              propertyUUID,
+              value )
+        }
+        .to[Seq]
+      
+      val anonymousConceptUnionAxioms
+      : Seq[tables.AnonymousConceptUnionAxiom]
+      = spark
+        .read
+        .parquet((dir / "AnonymousConceptUnionAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.AnonymousConceptUnionAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 disjointTaxonomyParentUUID,
+                 name ) =>
+            OMLReaders.AnonymousConceptUnionAxiomTuple2Type(
+              uuid,
+              disjointTaxonomyParentUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val aspects
+      : Seq[tables.Aspect]
+      = spark
+        .read
+        .parquet((dir / "Aspect.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.AspectRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 name ) =>
+            OMLReaders.AspectTuple2Type(
+              uuid,
+              tboxUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val aspectPredicates
+      : Seq[tables.AspectPredicate]
+      = spark
+        .read
+        .parquet((dir / "AspectPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.AspectPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 aspectUUID,
+                 bodySegmentUUID ) =>
+            OMLReaders.AspectPredicateTuple2Type(
+              uuid,
+              aspectUUID,
+              bodySegmentUUID )
+        }
+        .to[Seq]
+      
+      val aspectSpecializationAxioms
+      : Seq[tables.AspectSpecializationAxiom]
+      = spark
+        .read
+        .parquet((dir / "AspectSpecializationAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.AspectSpecializationAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 superAspectUUID,
+                 subEntityUUID ) =>
+            OMLReaders.AspectSpecializationAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              superAspectUUID,
+              subEntityUUID )
+        }
+        .to[Seq]
+      
+      val binaryScalarRestrictions
+      : Seq[tables.BinaryScalarRestriction]
+      = spark
+        .read
+        .parquet((dir / "BinaryScalarRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.BinaryScalarRestrictionRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRangeUUID,
+                 length,
+                 minLength,
+                 maxLength,
+                 name ) =>
+            OMLReaders.BinaryScalarRestrictionTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRangeUUID,
+              length,
+              minLength,
+              maxLength,
+              name )
+        }
+        .to[Seq]
+      
+      val bundles
+      : Seq[tables.Bundle]
+      = spark
+        .read
+        .parquet((dir / "Bundle.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.BundleRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 kind,
+                 iri ) =>
+            OMLReaders.BundleTuple2Type(
+              uuid,
+              kind,
+              iri )
+        }
+        .to[Seq]
+      
+      val bundledTerminologyAxioms
+      : Seq[tables.BundledTerminologyAxiom]
+      = spark
+        .read
+        .parquet((dir / "BundledTerminologyAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.BundledTerminologyAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bundleUUID,
+                 bundledTerminologyIRI ) =>
+            OMLReaders.BundledTerminologyAxiomTuple2Type(
+              uuid,
+              bundleUUID,
+              bundledTerminologyIRI )
+        }
+        .to[Seq]
+      
+      val chainRules
+      : Seq[tables.ChainRule]
+      = spark
+        .read
+        .parquet((dir / "ChainRule.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ChainRuleRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 name,
+                 headUUID ) =>
+            OMLReaders.ChainRuleTuple2Type(
+              uuid,
+              tboxUUID,
+              name,
+              headUUID )
+        }
+        .to[Seq]
+      
+      val concepts
+      : Seq[tables.Concept]
+      = spark
+        .read
+        .parquet((dir / "Concept.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ConceptRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 name ) =>
+            OMLReaders.ConceptTuple2Type(
+              uuid,
+              tboxUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val conceptDesignationTerminologyAxioms
+      : Seq[tables.ConceptDesignationTerminologyAxiom]
+      = spark
+        .read
+        .parquet((dir / "ConceptDesignationTerminologyAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ConceptDesignationTerminologyAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 designatedConceptUUID,
+                 designatedTerminologyIRI ) =>
+            OMLReaders.ConceptDesignationTerminologyAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              designatedConceptUUID,
+              designatedTerminologyIRI )
+        }
+        .to[Seq]
+      
+      val conceptInstances
+      : Seq[tables.ConceptInstance]
+      = spark
+        .read
+        .parquet((dir / "ConceptInstance.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ConceptInstanceRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 descriptionBoxUUID,
+                 singletonConceptClassifierUUID,
+                 name ) =>
+            OMLReaders.ConceptInstanceTuple2Type(
+              uuid,
+              descriptionBoxUUID,
+              singletonConceptClassifierUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val conceptPredicates
+      : Seq[tables.ConceptPredicate]
+      = spark
+        .read
+        .parquet((dir / "ConceptPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ConceptPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bodySegmentUUID,
+                 conceptUUID ) =>
+            OMLReaders.ConceptPredicateTuple2Type(
+              uuid,
+              bodySegmentUUID,
+              conceptUUID )
+        }
+        .to[Seq]
+      
+      val conceptSpecializationAxioms
+      : Seq[tables.ConceptSpecializationAxiom]
+      = spark
+        .read
+        .parquet((dir / "ConceptSpecializationAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ConceptSpecializationAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 superConceptUUID,
+                 subConceptUUID ) =>
+            OMLReaders.ConceptSpecializationAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              superConceptUUID,
+              subConceptUUID )
+        }
+        .to[Seq]
+      
+      val descriptionBoxes
+      : Seq[tables.DescriptionBox]
+      = spark
+        .read
+        .parquet((dir / "DescriptionBox.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.DescriptionBoxRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 kind,
+                 iri ) =>
+            OMLReaders.DescriptionBoxTuple2Type(
+              uuid,
+              kind,
+              iri )
+        }
+        .to[Seq]
+      
+      val descriptionBoxExtendsClosedWorldDefinitions
+      : Seq[tables.DescriptionBoxExtendsClosedWorldDefinitions]
+      = spark
+        .read
+        .parquet((dir / "DescriptionBoxExtendsClosedWorldDefinitions.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.DescriptionBoxExtendsClosedWorldDefinitionsRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 descriptionBoxUUID,
+                 closedWorldDefinitionsIRI ) =>
+            OMLReaders.DescriptionBoxExtendsClosedWorldDefinitionsTuple2Type(
+              uuid,
+              descriptionBoxUUID,
+              closedWorldDefinitionsIRI )
+        }
+        .to[Seq]
+      
+      val descriptionBoxRefinements
+      : Seq[tables.DescriptionBoxRefinement]
+      = spark
+        .read
+        .parquet((dir / "DescriptionBoxRefinement.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.DescriptionBoxRefinementRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 refiningDescriptionBoxUUID,
+                 refinedDescriptionBoxIRI ) =>
+            OMLReaders.DescriptionBoxRefinementTuple2Type(
+              uuid,
+              refiningDescriptionBoxUUID,
+              refinedDescriptionBoxIRI )
+        }
+        .to[Seq]
+      
+      val entityExistentialRestrictionAxioms
+      : Seq[tables.EntityExistentialRestrictionAxiom]
+      = spark
+        .read
+        .parquet((dir / "EntityExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.EntityExistentialRestrictionAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRelationUUID,
+                 restrictedDomainUUID,
+                 restrictedRangeUUID ) =>
+            OMLReaders.EntityExistentialRestrictionAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRelationUUID,
+              restrictedDomainUUID,
+              restrictedRangeUUID )
+        }
+        .to[Seq]
+      
+      val entityScalarDataProperties
+      : Seq[tables.EntityScalarDataProperty]
+      = spark
+        .read
+        .parquet((dir / "EntityScalarDataProperty.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.EntityScalarDataPropertyRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 domainUUID,
+                 rangeUUID,
+                 isIdentityCriteria,
+                 name ) =>
+            OMLReaders.EntityScalarDataPropertyTuple2Type(
+              uuid,
+              tboxUUID,
+              domainUUID,
+              rangeUUID,
+              isIdentityCriteria,
+              name )
+        }
+        .to[Seq]
+      
+      val entityScalarDataPropertyExistentialRestrictionAxioms
+      : Seq[tables.EntityScalarDataPropertyExistentialRestrictionAxiom]
+      = spark
+        .read
+        .parquet((dir / "EntityScalarDataPropertyExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.EntityScalarDataPropertyExistentialRestrictionAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedEntityUUID,
+                 scalarPropertyUUID,
+                 scalarRestrictionUUID ) =>
+            OMLReaders.EntityScalarDataPropertyExistentialRestrictionAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedEntityUUID,
+              scalarPropertyUUID,
+              scalarRestrictionUUID )
+        }
+        .to[Seq]
+      
+      val entityScalarDataPropertyParticularRestrictionAxioms
+      : Seq[tables.EntityScalarDataPropertyParticularRestrictionAxiom]
+      = spark
+        .read
+        .parquet((dir / "EntityScalarDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.EntityScalarDataPropertyParticularRestrictionAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedEntityUUID,
+                 scalarPropertyUUID,
+                 literalValue_literalType, literalValue_value,
+                 valueTypeUUID ) =>
+            OMLReaders.EntityScalarDataPropertyParticularRestrictionAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedEntityUUID,
+              scalarPropertyUUID,
+              literalValue_literalType, literalValue_value,
+              valueTypeUUID )
+        }
+        .to[Seq]
+      
+      val entityScalarDataPropertyUniversalRestrictionAxioms
+      : Seq[tables.EntityScalarDataPropertyUniversalRestrictionAxiom]
+      = spark
+        .read
+        .parquet((dir / "EntityScalarDataPropertyUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.EntityScalarDataPropertyUniversalRestrictionAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedEntityUUID,
+                 scalarPropertyUUID,
+                 scalarRestrictionUUID ) =>
+            OMLReaders.EntityScalarDataPropertyUniversalRestrictionAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedEntityUUID,
+              scalarPropertyUUID,
+              scalarRestrictionUUID )
+        }
+        .to[Seq]
+      
+      val entityStructuredDataProperties
+      : Seq[tables.EntityStructuredDataProperty]
+      = spark
+        .read
+        .parquet((dir / "EntityStructuredDataProperty.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.EntityStructuredDataPropertyRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 domainUUID,
+                 rangeUUID,
+                 isIdentityCriteria,
+                 name ) =>
+            OMLReaders.EntityStructuredDataPropertyTuple2Type(
+              uuid,
+              tboxUUID,
+              domainUUID,
+              rangeUUID,
+              isIdentityCriteria,
+              name )
+        }
+        .to[Seq]
+      
+      val entityStructuredDataPropertyParticularRestrictionAxioms
+      : Seq[tables.EntityStructuredDataPropertyParticularRestrictionAxiom]
+      = spark
+        .read
+        .parquet((dir / "EntityStructuredDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.EntityStructuredDataPropertyParticularRestrictionAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 structuredDataPropertyUUID,
+                 restrictedEntityUUID ) =>
+            OMLReaders.EntityStructuredDataPropertyParticularRestrictionAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              structuredDataPropertyUUID,
+              restrictedEntityUUID )
+        }
+        .to[Seq]
+      
+      val entityUniversalRestrictionAxioms
+      : Seq[tables.EntityUniversalRestrictionAxiom]
+      = spark
+        .read
+        .parquet((dir / "EntityUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.EntityUniversalRestrictionAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRelationUUID,
+                 restrictedDomainUUID,
+                 restrictedRangeUUID ) =>
+            OMLReaders.EntityUniversalRestrictionAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRelationUUID,
+              restrictedDomainUUID,
+              restrictedRangeUUID )
+        }
+        .to[Seq]
+      
+      val iriScalarRestrictions
+      : Seq[tables.IRIScalarRestriction]
+      = spark
+        .read
+        .parquet((dir / "IRIScalarRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.IRIScalarRestrictionRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRangeUUID,
+                 length,
+                 minLength,
+                 maxLength,
+                 name,
+                 pattern ) =>
+            OMLReaders.IRIScalarRestrictionTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRangeUUID,
+              length,
+              minLength,
+              maxLength,
+              name,
+              pattern )
+        }
+        .to[Seq]
+      
+      val numericScalarRestrictions
+      : Seq[tables.NumericScalarRestriction]
+      = spark
+        .read
+        .parquet((dir / "NumericScalarRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.NumericScalarRestrictionRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRangeUUID,
+                 minExclusive_literalType, minExclusive_value,
+                 minInclusive_literalType, minInclusive_value,
+                 maxExclusive_literalType, maxExclusive_value,
+                 maxInclusive_literalType, maxInclusive_value,
+                 name ) =>
+            OMLReaders.NumericScalarRestrictionTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRangeUUID,
+              minExclusive_literalType, minExclusive_value,
+              minInclusive_literalType, minInclusive_value,
+              maxExclusive_literalType, maxExclusive_value,
+              maxInclusive_literalType, maxInclusive_value,
+              name )
+        }
+        .to[Seq]
+      
+      val plainLiteralScalarRestrictions
+      : Seq[tables.PlainLiteralScalarRestriction]
+      = spark
+        .read
+        .parquet((dir / "PlainLiteralScalarRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.PlainLiteralScalarRestrictionRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRangeUUID,
+                 length,
+                 minLength,
+                 maxLength,
+                 name,
+                 langRange,
+                 pattern ) =>
+            OMLReaders.PlainLiteralScalarRestrictionTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRangeUUID,
+              length,
+              minLength,
+              maxLength,
+              name,
+              langRange,
+              pattern )
+        }
+        .to[Seq]
+      
+      val reifiedRelationships
+      : Seq[tables.ReifiedRelationship]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationship.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 sourceUUID,
+                 targetUUID,
+                 isAsymmetric,
+                 isEssential,
+                 isFunctional,
+                 isInverseEssential,
+                 isInverseFunctional,
+                 isIrreflexive,
+                 isReflexive,
+                 isSymmetric,
+                 isTransitive,
+                 name,
+                 unreifiedPropertyName,
+                 unreifiedInversePropertyName ) =>
+            OMLReaders.ReifiedRelationshipTuple2Type(
+              uuid,
+              tboxUUID,
+              sourceUUID,
+              targetUUID,
+              isAsymmetric,
+              isEssential,
+              isFunctional,
+              isInverseEssential,
+              isInverseFunctional,
+              isIrreflexive,
+              isReflexive,
+              isSymmetric,
+              isTransitive,
+              name,
+              unreifiedPropertyName,
+              unreifiedInversePropertyName )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipInstances
+      : Seq[tables.ReifiedRelationshipInstance]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipInstance.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipInstanceRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 descriptionBoxUUID,
+                 singletonReifiedRelationshipClassifierUUID,
+                 name ) =>
+            OMLReaders.ReifiedRelationshipInstanceTuple2Type(
+              uuid,
+              descriptionBoxUUID,
+              singletonReifiedRelationshipClassifierUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipInstanceDomains
+      : Seq[tables.ReifiedRelationshipInstanceDomain]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipInstanceDomain.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipInstanceDomainRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 descriptionBoxUUID,
+                 reifiedRelationshipInstanceUUID,
+                 domainUUID ) =>
+            OMLReaders.ReifiedRelationshipInstanceDomainTuple2Type(
+              uuid,
+              descriptionBoxUUID,
+              reifiedRelationshipInstanceUUID,
+              domainUUID )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipInstanceRanges
+      : Seq[tables.ReifiedRelationshipInstanceRange]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipInstanceRange.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipInstanceRangeRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 descriptionBoxUUID,
+                 reifiedRelationshipInstanceUUID,
+                 rangeUUID ) =>
+            OMLReaders.ReifiedRelationshipInstanceRangeTuple2Type(
+              uuid,
+              descriptionBoxUUID,
+              reifiedRelationshipInstanceUUID,
+              rangeUUID )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipInversePropertyPredicates
+      : Seq[tables.ReifiedRelationshipInversePropertyPredicate]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bodySegmentUUID,
+                 reifiedRelationshipUUID ) =>
+            OMLReaders.ReifiedRelationshipInversePropertyPredicateTuple2Type(
+              uuid,
+              bodySegmentUUID,
+              reifiedRelationshipUUID )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipPredicates
+      : Seq[tables.ReifiedRelationshipPredicate]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bodySegmentUUID,
+                 reifiedRelationshipUUID ) =>
+            OMLReaders.ReifiedRelationshipPredicateTuple2Type(
+              uuid,
+              bodySegmentUUID,
+              reifiedRelationshipUUID )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipPropertyPredicates
+      : Seq[tables.ReifiedRelationshipPropertyPredicate]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipPropertyPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bodySegmentUUID,
+                 reifiedRelationshipUUID ) =>
+            OMLReaders.ReifiedRelationshipPropertyPredicateTuple2Type(
+              uuid,
+              bodySegmentUUID,
+              reifiedRelationshipUUID )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipSourceInversePropertyPredicates
+      : Seq[tables.ReifiedRelationshipSourceInversePropertyPredicate]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipSourceInversePropertyPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bodySegmentUUID,
+                 reifiedRelationshipUUID ) =>
+            OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateTuple2Type(
+              uuid,
+              bodySegmentUUID,
+              reifiedRelationshipUUID )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipSourcePropertyPredicates
+      : Seq[tables.ReifiedRelationshipSourcePropertyPredicate]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipSourcePropertyPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bodySegmentUUID,
+                 reifiedRelationshipUUID ) =>
+            OMLReaders.ReifiedRelationshipSourcePropertyPredicateTuple2Type(
+              uuid,
+              bodySegmentUUID,
+              reifiedRelationshipUUID )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipSpecializationAxioms
+      : Seq[tables.ReifiedRelationshipSpecializationAxiom]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipSpecializationAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipSpecializationAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 superRelationshipUUID,
+                 subRelationshipUUID ) =>
+            OMLReaders.ReifiedRelationshipSpecializationAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              superRelationshipUUID,
+              subRelationshipUUID )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipTargetInversePropertyPredicates
+      : Seq[tables.ReifiedRelationshipTargetInversePropertyPredicate]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipTargetInversePropertyPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bodySegmentUUID,
+                 reifiedRelationshipUUID ) =>
+            OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateTuple2Type(
+              uuid,
+              bodySegmentUUID,
+              reifiedRelationshipUUID )
+        }
+        .to[Seq]
+      
+      val reifiedRelationshipTargetPropertyPredicates
+      : Seq[tables.ReifiedRelationshipTargetPropertyPredicate]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipTargetPropertyPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bodySegmentUUID,
+                 reifiedRelationshipUUID ) =>
+            OMLReaders.ReifiedRelationshipTargetPropertyPredicateTuple2Type(
+              uuid,
+              bodySegmentUUID,
+              reifiedRelationshipUUID )
+        }
+        .to[Seq]
+      
+      val restrictionScalarDataPropertyValues
+      : Seq[tables.RestrictionScalarDataPropertyValue]
+      = spark
+        .read
+        .parquet((dir / "RestrictionScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.RestrictionScalarDataPropertyValueRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 scalarDataPropertyUUID,
+                 scalarPropertyValue_literalType, scalarPropertyValue_value,
+                 structuredDataPropertyContextUUID,
+                 valueTypeUUID ) =>
+            OMLReaders.RestrictionScalarDataPropertyValueTuple2Type(
+              uuid,
+              scalarDataPropertyUUID,
+              scalarPropertyValue_literalType, scalarPropertyValue_value,
+              structuredDataPropertyContextUUID,
+              valueTypeUUID )
+        }
+        .to[Seq]
+      
+      val restrictionStructuredDataPropertyTuples
+      : Seq[tables.RestrictionStructuredDataPropertyTuple]
+      = spark
+        .read
+        .parquet((dir / "RestrictionStructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.RestrictionStructuredDataPropertyTupleRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 structuredDataPropertyUUID,
+                 structuredDataPropertyContextUUID ) =>
+            OMLReaders.RestrictionStructuredDataPropertyTupleTuple2Type(
+              uuid,
+              structuredDataPropertyUUID,
+              structuredDataPropertyContextUUID )
+        }
+        .to[Seq]
+      
+      val rootConceptTaxonomyAxioms
+      : Seq[tables.RootConceptTaxonomyAxiom]
+      = spark
+        .read
+        .parquet((dir / "RootConceptTaxonomyAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.RootConceptTaxonomyAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 bundleUUID,
+                 rootUUID ) =>
+            OMLReaders.RootConceptTaxonomyAxiomTuple2Type(
+              uuid,
+              bundleUUID,
+              rootUUID )
+        }
+        .to[Seq]
+      
+      val ruleBodySegments
+      : Seq[tables.RuleBodySegment]
+      = spark
+        .read
+        .parquet((dir / "RuleBodySegment.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.RuleBodySegmentRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 previousSegmentUUID,
+                 ruleUUID ) =>
+            OMLReaders.RuleBodySegmentTuple2Type(
+              uuid,
+              previousSegmentUUID,
+              ruleUUID )
+        }
+        .to[Seq]
+      
+      val scalars
+      : Seq[tables.Scalar]
+      = spark
+        .read
+        .parquet((dir / "Scalar.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ScalarRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 name ) =>
+            OMLReaders.ScalarTuple2Type(
+              uuid,
+              tboxUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val scalarDataProperties
+      : Seq[tables.ScalarDataProperty]
+      = spark
+        .read
+        .parquet((dir / "ScalarDataProperty.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ScalarDataPropertyRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 domainUUID,
+                 rangeUUID,
+                 name ) =>
+            OMLReaders.ScalarDataPropertyTuple2Type(
+              uuid,
+              tboxUUID,
+              domainUUID,
+              rangeUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val scalarDataPropertyValues
+      : Seq[tables.ScalarDataPropertyValue]
+      = spark
+        .read
+        .parquet((dir / "ScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ScalarDataPropertyValueRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 scalarDataPropertyUUID,
+                 scalarPropertyValue_literalType, scalarPropertyValue_value,
+                 structuredDataPropertyContextUUID,
+                 valueTypeUUID ) =>
+            OMLReaders.ScalarDataPropertyValueTuple2Type(
+              uuid,
+              scalarDataPropertyUUID,
+              scalarPropertyValue_literalType, scalarPropertyValue_value,
+              structuredDataPropertyContextUUID,
+              valueTypeUUID )
+        }
+        .to[Seq]
+      
+      val scalarOneOfLiteralAxioms
+      : Seq[tables.ScalarOneOfLiteralAxiom]
+      = spark
+        .read
+        .parquet((dir / "ScalarOneOfLiteralAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ScalarOneOfLiteralAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 axiomUUID,
+                 value_literalType, value_value,
+                 valueTypeUUID ) =>
+            OMLReaders.ScalarOneOfLiteralAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              axiomUUID,
+              value_literalType, value_value,
+              valueTypeUUID )
+        }
+        .to[Seq]
+      
+      val scalarOneOfRestrictions
+      : Seq[tables.ScalarOneOfRestriction]
+      = spark
+        .read
+        .parquet((dir / "ScalarOneOfRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ScalarOneOfRestrictionRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRangeUUID,
+                 name ) =>
+            OMLReaders.ScalarOneOfRestrictionTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRangeUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val singletonInstanceScalarDataPropertyValues
+      : Seq[tables.SingletonInstanceScalarDataPropertyValue]
+      = spark
+        .read
+        .parquet((dir / "SingletonInstanceScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.SingletonInstanceScalarDataPropertyValueRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 descriptionBoxUUID,
+                 singletonInstanceUUID,
+                 scalarDataPropertyUUID,
+                 scalarPropertyValue_literalType, scalarPropertyValue_value,
+                 valueTypeUUID ) =>
+            OMLReaders.SingletonInstanceScalarDataPropertyValueTuple2Type(
+              uuid,
+              descriptionBoxUUID,
+              singletonInstanceUUID,
+              scalarDataPropertyUUID,
+              scalarPropertyValue_literalType, scalarPropertyValue_value,
+              valueTypeUUID )
+        }
+        .to[Seq]
+      
+      val singletonInstanceStructuredDataPropertyValues
+      : Seq[tables.SingletonInstanceStructuredDataPropertyValue]
+      = spark
+        .read
+        .parquet((dir / "SingletonInstanceStructuredDataPropertyValue.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.SingletonInstanceStructuredDataPropertyValueRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 descriptionBoxUUID,
+                 singletonInstanceUUID,
+                 structuredDataPropertyUUID ) =>
+            OMLReaders.SingletonInstanceStructuredDataPropertyValueTuple2Type(
+              uuid,
+              descriptionBoxUUID,
+              singletonInstanceUUID,
+              structuredDataPropertyUUID )
+        }
+        .to[Seq]
+      
+      val specificDisjointConceptAxioms
+      : Seq[tables.SpecificDisjointConceptAxiom]
+      = spark
+        .read
+        .parquet((dir / "SpecificDisjointConceptAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.SpecificDisjointConceptAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 disjointTaxonomyParentUUID,
+                 disjointLeafUUID ) =>
+            OMLReaders.SpecificDisjointConceptAxiomTuple2Type(
+              uuid,
+              disjointTaxonomyParentUUID,
+              disjointLeafUUID )
+        }
+        .to[Seq]
+      
+      val stringScalarRestrictions
+      : Seq[tables.StringScalarRestriction]
+      = spark
+        .read
+        .parquet((dir / "StringScalarRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.StringScalarRestrictionRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRangeUUID,
+                 length,
+                 minLength,
+                 maxLength,
+                 name,
+                 pattern ) =>
+            OMLReaders.StringScalarRestrictionTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRangeUUID,
+              length,
+              minLength,
+              maxLength,
+              name,
+              pattern )
+        }
+        .to[Seq]
+      
+      val structures
+      : Seq[tables.Structure]
+      = spark
+        .read
+        .parquet((dir / "Structure.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.StructureRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 name ) =>
+            OMLReaders.StructureTuple2Type(
+              uuid,
+              tboxUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val structuredDataProperties
+      : Seq[tables.StructuredDataProperty]
+      = spark
+        .read
+        .parquet((dir / "StructuredDataProperty.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.StructuredDataPropertyRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 domainUUID,
+                 rangeUUID,
+                 name ) =>
+            OMLReaders.StructuredDataPropertyTuple2Type(
+              uuid,
+              tboxUUID,
+              domainUUID,
+              rangeUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val structuredDataPropertyTuples
+      : Seq[tables.StructuredDataPropertyTuple]
+      = spark
+        .read
+        .parquet((dir / "StructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.StructuredDataPropertyTupleRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 structuredDataPropertyUUID,
+                 structuredDataPropertyContextUUID ) =>
+            OMLReaders.StructuredDataPropertyTupleTuple2Type(
+              uuid,
+              structuredDataPropertyUUID,
+              structuredDataPropertyContextUUID )
+        }
+        .to[Seq]
+      
+      val subDataPropertyOfAxioms
+      : Seq[tables.SubDataPropertyOfAxiom]
+      = spark
+        .read
+        .parquet((dir / "SubDataPropertyOfAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.SubDataPropertyOfAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 subPropertyUUID,
+                 superPropertyUUID ) =>
+            OMLReaders.SubDataPropertyOfAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              subPropertyUUID,
+              superPropertyUUID )
+        }
+        .to[Seq]
+      
+      val subObjectPropertyOfAxioms
+      : Seq[tables.SubObjectPropertyOfAxiom]
+      = spark
+        .read
+        .parquet((dir / "SubObjectPropertyOfAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.SubObjectPropertyOfAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 subPropertyUUID,
+                 superPropertyUUID ) =>
+            OMLReaders.SubObjectPropertyOfAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              subPropertyUUID,
+              superPropertyUUID )
+        }
+        .to[Seq]
+      
+      val synonymScalarRestrictions
+      : Seq[tables.SynonymScalarRestriction]
+      = spark
+        .read
+        .parquet((dir / "SynonymScalarRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.SynonymScalarRestrictionRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRangeUUID,
+                 name ) =>
+            OMLReaders.SynonymScalarRestrictionTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRangeUUID,
+              name )
+        }
+        .to[Seq]
+      
+      val terminologyExtensionAxioms
+      : Seq[tables.TerminologyExtensionAxiom]
+      = spark
+        .read
+        .parquet((dir / "TerminologyExtensionAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.TerminologyExtensionAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 extendedTerminologyIRI ) =>
+            OMLReaders.TerminologyExtensionAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              extendedTerminologyIRI )
+        }
+        .to[Seq]
+      
+      val terminologyGraphs
+      : Seq[tables.TerminologyGraph]
+      = spark
+        .read
+        .parquet((dir / "TerminologyGraph.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.TerminologyGraphRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 kind,
+                 iri ) =>
+            OMLReaders.TerminologyGraphTuple2Type(
+              uuid,
+              kind,
+              iri )
+        }
+        .to[Seq]
+      
+      val terminologyNestingAxioms
+      : Seq[tables.TerminologyNestingAxiom]
+      = spark
+        .read
+        .parquet((dir / "TerminologyNestingAxiom.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.TerminologyNestingAxiomRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 nestingContextUUID,
+                 nestingTerminologyIRI ) =>
+            OMLReaders.TerminologyNestingAxiomTuple2Type(
+              uuid,
+              tboxUUID,
+              nestingContextUUID,
+              nestingTerminologyIRI )
+        }
+        .to[Seq]
+      
+      val timeScalarRestrictions
+      : Seq[tables.TimeScalarRestriction]
+      = spark
+        .read
+        .parquet((dir / "TimeScalarRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.TimeScalarRestrictionRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 restrictedRangeUUID,
+                 minExclusive,
+                 minInclusive,
+                 maxExclusive,
+                 maxInclusive,
+                 name ) =>
+            OMLReaders.TimeScalarRestrictionTuple2Type(
+              uuid,
+              tboxUUID,
+              restrictedRangeUUID,
+              minExclusive,
+              minInclusive,
+              maxExclusive,
+              maxInclusive,
+              name )
+        }
+        .to[Seq]
+      
+      val unreifiedRelationships
+      : Seq[tables.UnreifiedRelationship]
+      = spark
+        .read
+        .parquet((dir / "UnreifiedRelationship.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.UnreifiedRelationshipRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 tboxUUID,
+                 sourceUUID,
+                 targetUUID,
+                 isAsymmetric,
+                 isEssential,
+                 isFunctional,
+                 isInverseEssential,
+                 isInverseFunctional,
+                 isIrreflexive,
+                 isReflexive,
+                 isSymmetric,
+                 isTransitive,
+                 name ) =>
+            OMLReaders.UnreifiedRelationshipTuple2Type(
+              uuid,
+              tboxUUID,
+              sourceUUID,
+              targetUUID,
+              isAsymmetric,
+              isEssential,
+              isFunctional,
+              isInverseEssential,
+              isInverseFunctional,
+              isIrreflexive,
+              isReflexive,
+              isSymmetric,
+              isTransitive,
+              name )
+        }
+        .to[Seq]
+      
+      val unreifiedRelationshipInstanceTuples
+      : Seq[tables.UnreifiedRelationshipInstanceTuple]
+      = spark
+        .read
+        .parquet((dir / "UnreifiedRelationshipInstanceTuple.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.UnreifiedRelationshipInstanceTupleRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 descriptionBoxUUID,
+                 unreifiedRelationshipUUID,
+                 domainUUID,
+                 rangeUUID ) =>
+            OMLReaders.UnreifiedRelationshipInstanceTupleTuple2Type(
+              uuid,
+              descriptionBoxUUID,
+              unreifiedRelationshipUUID,
+              domainUUID,
+              rangeUUID )
+        }
+        .to[Seq]
+      
+      val unreifiedRelationshipInversePropertyPredicates
+      : Seq[tables.UnreifiedRelationshipInversePropertyPredicate]
+      = spark
+        .read
+        .parquet((dir / "UnreifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 unreifiedRelationshipUUID,
+                 bodySegmentUUID ) =>
+            OMLReaders.UnreifiedRelationshipInversePropertyPredicateTuple2Type(
+              uuid,
+              unreifiedRelationshipUUID,
+              bodySegmentUUID )
+        }
+        .to[Seq]
+      
+      val unreifiedRelationshipPropertyPredicates
+      : Seq[tables.UnreifiedRelationshipPropertyPredicate]
+      = spark
+        .read
+        .parquet((dir / "UnreifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateRow2Tuple)
+        .collect()
+        .map {
+          case ( uuid,
+                 unreifiedRelationshipUUID,
+                 bodySegmentUUID ) =>
+            OMLReaders.UnreifiedRelationshipPropertyPredicateTuple2Type(
+              uuid,
+              unreifiedRelationshipUUID,
+              bodySegmentUUID )
+        }
+        .to[Seq]
+
   	  Success(
   	    tables.OMLSpecificationTables(
-  	      annotationProperties = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "AnnotationProperty.parquet").toIO.getAbsolutePath)
-  	      .as[tables.AnnotationProperty]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      annotationPropertyValues = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "AnnotationPropertyValue.parquet").toIO.getAbsolutePath)
-  	      .as[tables.AnnotationPropertyValue]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      anonymousConceptUnionAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "AnonymousConceptUnionAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.AnonymousConceptUnionAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      aspects = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "Aspect.parquet").toIO.getAbsolutePath)
-  	      .as[tables.Aspect]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      aspectPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "AspectPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.AspectPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      aspectSpecializationAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "AspectSpecializationAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.AspectSpecializationAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      binaryScalarRestrictions = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "BinaryScalarRestriction.parquet").toIO.getAbsolutePath)
-  	      .as[tables.BinaryScalarRestriction]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      bundles = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "Bundle.parquet").toIO.getAbsolutePath)
-  	      .as[tables.Bundle]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      bundledTerminologyAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "BundledTerminologyAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.BundledTerminologyAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      chainRules = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ChainRule.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ChainRule]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      concepts = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "Concept.parquet").toIO.getAbsolutePath)
-  	      .as[tables.Concept]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      conceptDesignationTerminologyAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ConceptDesignationTerminologyAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ConceptDesignationTerminologyAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      conceptInstances = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ConceptInstance.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ConceptInstance]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      conceptPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ConceptPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ConceptPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      conceptSpecializationAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ConceptSpecializationAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ConceptSpecializationAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      descriptionBoxes = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "DescriptionBox.parquet").toIO.getAbsolutePath)
-  	      .as[tables.DescriptionBox]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      descriptionBoxExtendsClosedWorldDefinitions = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "DescriptionBoxExtendsClosedWorldDefinitions.parquet").toIO.getAbsolutePath)
-  	      .as[tables.DescriptionBoxExtendsClosedWorldDefinitions]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      descriptionBoxRefinements = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "DescriptionBoxRefinement.parquet").toIO.getAbsolutePath)
-  	      .as[tables.DescriptionBoxRefinement]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      entityExistentialRestrictionAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "EntityExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.EntityExistentialRestrictionAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      entityScalarDataProperties = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "EntityScalarDataProperty.parquet").toIO.getAbsolutePath)
-  	      .as[tables.EntityScalarDataProperty]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      entityScalarDataPropertyExistentialRestrictionAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "EntityScalarDataPropertyExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.EntityScalarDataPropertyExistentialRestrictionAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      entityScalarDataPropertyParticularRestrictionAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "EntityScalarDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.EntityScalarDataPropertyParticularRestrictionAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      entityScalarDataPropertyUniversalRestrictionAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "EntityScalarDataPropertyUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.EntityScalarDataPropertyUniversalRestrictionAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      entityStructuredDataProperties = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "EntityStructuredDataProperty.parquet").toIO.getAbsolutePath)
-  	      .as[tables.EntityStructuredDataProperty]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      entityStructuredDataPropertyParticularRestrictionAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "EntityStructuredDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.EntityStructuredDataPropertyParticularRestrictionAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      entityUniversalRestrictionAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "EntityUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.EntityUniversalRestrictionAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      iriScalarRestrictions = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "IRIScalarRestriction.parquet").toIO.getAbsolutePath)
-  	      .as[tables.IRIScalarRestriction]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      numericScalarRestrictions = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "NumericScalarRestriction.parquet").toIO.getAbsolutePath)
-  	      .as[tables.NumericScalarRestriction]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      plainLiteralScalarRestrictions = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "PlainLiteralScalarRestriction.parquet").toIO.getAbsolutePath)
-  	      .as[tables.PlainLiteralScalarRestriction]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationships = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationship.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationship]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipInstances = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipInstance.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipInstance]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipInstanceDomains = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipInstanceDomain.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipInstanceDomain]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipInstanceRanges = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipInstanceRange.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipInstanceRange]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipInversePropertyPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipInversePropertyPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipPropertyPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipPropertyPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipSourceInversePropertyPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipSourceInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipSourceInversePropertyPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipSourcePropertyPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipSourcePropertyPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipSourcePropertyPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipSpecializationAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipSpecializationAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipSpecializationAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipTargetInversePropertyPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipTargetInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipTargetInversePropertyPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      reifiedRelationshipTargetPropertyPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ReifiedRelationshipTargetPropertyPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ReifiedRelationshipTargetPropertyPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      restrictionScalarDataPropertyValues = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "RestrictionScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
-  	      .as[tables.RestrictionScalarDataPropertyValue]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      restrictionStructuredDataPropertyTuples = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "RestrictionStructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
-  	      .as[tables.RestrictionStructuredDataPropertyTuple]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      rootConceptTaxonomyAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "RootConceptTaxonomyAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.RootConceptTaxonomyAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      ruleBodySegments = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "RuleBodySegment.parquet").toIO.getAbsolutePath)
-  	      .as[tables.RuleBodySegment]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      scalars = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "Scalar.parquet").toIO.getAbsolutePath)
-  	      .as[tables.Scalar]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      scalarDataProperties = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ScalarDataProperty.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ScalarDataProperty]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      scalarDataPropertyValues = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ScalarDataPropertyValue]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      scalarOneOfLiteralAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ScalarOneOfLiteralAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ScalarOneOfLiteralAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      scalarOneOfRestrictions = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "ScalarOneOfRestriction.parquet").toIO.getAbsolutePath)
-  	      .as[tables.ScalarOneOfRestriction]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      singletonInstanceScalarDataPropertyValues = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "SingletonInstanceScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
-  	      .as[tables.SingletonInstanceScalarDataPropertyValue]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      singletonInstanceStructuredDataPropertyValues = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "SingletonInstanceStructuredDataPropertyValue.parquet").toIO.getAbsolutePath)
-  	      .as[tables.SingletonInstanceStructuredDataPropertyValue]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      specificDisjointConceptAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "SpecificDisjointConceptAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.SpecificDisjointConceptAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      stringScalarRestrictions = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "StringScalarRestriction.parquet").toIO.getAbsolutePath)
-  	      .as[tables.StringScalarRestriction]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      structures = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "Structure.parquet").toIO.getAbsolutePath)
-  	      .as[tables.Structure]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      structuredDataProperties = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "StructuredDataProperty.parquet").toIO.getAbsolutePath)
-  	      .as[tables.StructuredDataProperty]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      structuredDataPropertyTuples = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "StructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
-  	      .as[tables.StructuredDataPropertyTuple]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      subDataPropertyOfAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "SubDataPropertyOfAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.SubDataPropertyOfAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      subObjectPropertyOfAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "SubObjectPropertyOfAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.SubObjectPropertyOfAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      synonymScalarRestrictions = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "SynonymScalarRestriction.parquet").toIO.getAbsolutePath)
-  	      .as[tables.SynonymScalarRestriction]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      terminologyExtensionAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "TerminologyExtensionAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.TerminologyExtensionAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      terminologyGraphs = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "TerminologyGraph.parquet").toIO.getAbsolutePath)
-  	      .as[tables.TerminologyGraph]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      terminologyNestingAxioms = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "TerminologyNestingAxiom.parquet").toIO.getAbsolutePath)
-  	      .as[tables.TerminologyNestingAxiom]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      timeScalarRestrictions = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "TimeScalarRestriction.parquet").toIO.getAbsolutePath)
-  	      .as[tables.TimeScalarRestriction]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      unreifiedRelationships = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "UnreifiedRelationship.parquet").toIO.getAbsolutePath)
-  	      .as[tables.UnreifiedRelationship]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      unreifiedRelationshipInstanceTuples = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "UnreifiedRelationshipInstanceTuple.parquet").toIO.getAbsolutePath)
-  	      .as[tables.UnreifiedRelationshipInstanceTuple]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      unreifiedRelationshipInversePropertyPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "UnreifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.UnreifiedRelationshipInversePropertyPredicate]
-  	      .collect()
-  	      .to[Seq],
-  	    
-  	      unreifiedRelationshipPropertyPredicates = 
-  	      spark
-  	      .read
-  	      .parquet((dir / "UnreifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
-  	      .as[tables.UnreifiedRelationshipPropertyPredicate]
-  	      .collect()
-  	      .to[Seq]
+  	      annotationProperties,
+  	      terminologyGraphs,
+  	      bundles,
+  	      conceptDesignationTerminologyAxioms,
+  	      terminologyExtensionAxioms,
+  	      terminologyNestingAxioms,
+  	      aspects,
+  	      concepts,
+  	      reifiedRelationships,
+  	      unreifiedRelationships,
+  	      scalars,
+  	      structures,
+  	      binaryScalarRestrictions,
+  	      iriScalarRestrictions,
+  	      numericScalarRestrictions,
+  	      plainLiteralScalarRestrictions,
+  	      scalarOneOfRestrictions,
+  	      stringScalarRestrictions,
+  	      synonymScalarRestrictions,
+  	      timeScalarRestrictions,
+  	      entityScalarDataProperties,
+  	      entityStructuredDataProperties,
+  	      scalarDataProperties,
+  	      structuredDataProperties,
+  	      aspectSpecializationAxioms,
+  	      conceptSpecializationAxioms,
+  	      reifiedRelationshipSpecializationAxioms,
+  	      entityExistentialRestrictionAxioms,
+  	      entityUniversalRestrictionAxioms,
+  	      entityScalarDataPropertyExistentialRestrictionAxioms,
+  	      entityScalarDataPropertyParticularRestrictionAxioms,
+  	      entityScalarDataPropertyUniversalRestrictionAxioms,
+  	      scalarOneOfLiteralAxioms,
+  	      bundledTerminologyAxioms,
+  	      rootConceptTaxonomyAxioms,
+  	      specificDisjointConceptAxioms,
+  	      annotationPropertyValues,
+  	      anonymousConceptUnionAxioms,
+  	      aspectPredicates,
+  	      chainRules,
+  	      conceptInstances,
+  	      conceptPredicates,
+  	      descriptionBoxes,
+  	      descriptionBoxExtendsClosedWorldDefinitions,
+  	      descriptionBoxRefinements,
+  	      entityStructuredDataPropertyParticularRestrictionAxioms,
+  	      reifiedRelationshipInstances,
+  	      reifiedRelationshipInstanceDomains,
+  	      reifiedRelationshipInstanceRanges,
+  	      reifiedRelationshipInversePropertyPredicates,
+  	      reifiedRelationshipPredicates,
+  	      reifiedRelationshipPropertyPredicates,
+  	      reifiedRelationshipSourceInversePropertyPredicates,
+  	      reifiedRelationshipSourcePropertyPredicates,
+  	      reifiedRelationshipTargetInversePropertyPredicates,
+  	      reifiedRelationshipTargetPropertyPredicates,
+  	      restrictionScalarDataPropertyValues,
+  	      restrictionStructuredDataPropertyTuples,
+  	      ruleBodySegments,
+  	      scalarDataPropertyValues,
+  	      singletonInstanceScalarDataPropertyValues,
+  	      singletonInstanceStructuredDataPropertyValues,
+  	      structuredDataPropertyTuples,
+  	      subDataPropertyOfAxioms,
+  	      subObjectPropertyOfAxioms,
+  	      unreifiedRelationshipInstanceTuples,
+  	      unreifiedRelationshipInversePropertyPredicates,
+  	      unreifiedRelationshipPropertyPredicates
   	    ))
   	}
 
@@ -2143,421 +3099,419 @@ object OMLSpecificationTypedDatasets {
   = nonFatalCatch[Try[Unit]]
     .withApply {
       (cause: java.lang.Throwable) =>
-        cause.fillInStackTrace()
         Failure(cause)
     }
     .apply {
-    	  import spark.implicits._
 
   	  dir.toIO.mkdirs()
 
-      t
-      .annotationProperties
-      .toDF()
-      .write
-      .parquet((dir / "AnnotationProperty.parquet").toIO.getAbsolutePath())
-      
-      t
-      .annotationPropertyValues
-      .toDF()
-      .write
-      .parquet((dir / "AnnotationPropertyValue.parquet").toIO.getAbsolutePath())
-      
-      t
-      .anonymousConceptUnionAxioms
-      .toDF()
-      .write
-      .parquet((dir / "AnonymousConceptUnionAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .aspects
-      .toDF()
-      .write
-      .parquet((dir / "Aspect.parquet").toIO.getAbsolutePath())
-      
-      t
-      .aspectPredicates
-      .toDF()
-      .write
-      .parquet((dir / "AspectPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .aspectSpecializationAxioms
-      .toDF()
-      .write
-      .parquet((dir / "AspectSpecializationAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .binaryScalarRestrictions
-      .toDF()
-      .write
-      .parquet((dir / "BinaryScalarRestriction.parquet").toIO.getAbsolutePath())
-      
-      t
-      .bundles
-      .toDF()
-      .write
-      .parquet((dir / "Bundle.parquet").toIO.getAbsolutePath())
-      
-      t
-      .bundledTerminologyAxioms
-      .toDF()
-      .write
-      .parquet((dir / "BundledTerminologyAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .chainRules
-      .toDF()
-      .write
-      .parquet((dir / "ChainRule.parquet").toIO.getAbsolutePath())
-      
-      t
-      .concepts
-      .toDF()
-      .write
-      .parquet((dir / "Concept.parquet").toIO.getAbsolutePath())
-      
-      t
-      .conceptDesignationTerminologyAxioms
-      .toDF()
-      .write
-      .parquet((dir / "ConceptDesignationTerminologyAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .conceptInstances
-      .toDF()
-      .write
-      .parquet((dir / "ConceptInstance.parquet").toIO.getAbsolutePath())
-      
-      t
-      .conceptPredicates
-      .toDF()
-      .write
-      .parquet((dir / "ConceptPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .conceptSpecializationAxioms
-      .toDF()
-      .write
-      .parquet((dir / "ConceptSpecializationAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .descriptionBoxes
-      .toDF()
-      .write
-      .parquet((dir / "DescriptionBox.parquet").toIO.getAbsolutePath())
-      
-      t
-      .descriptionBoxExtendsClosedWorldDefinitions
-      .toDF()
-      .write
-      .parquet((dir / "DescriptionBoxExtendsClosedWorldDefinitions.parquet").toIO.getAbsolutePath())
-      
-      t
-      .descriptionBoxRefinements
-      .toDF()
-      .write
-      .parquet((dir / "DescriptionBoxRefinement.parquet").toIO.getAbsolutePath())
-      
-      t
-      .entityExistentialRestrictionAxioms
-      .toDF()
-      .write
-      .parquet((dir / "EntityExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .entityScalarDataProperties
-      .toDF()
-      .write
-      .parquet((dir / "EntityScalarDataProperty.parquet").toIO.getAbsolutePath())
-      
-      t
-      .entityScalarDataPropertyExistentialRestrictionAxioms
-      .toDF()
-      .write
-      .parquet((dir / "EntityScalarDataPropertyExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .entityScalarDataPropertyParticularRestrictionAxioms
-      .toDF()
-      .write
-      .parquet((dir / "EntityScalarDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .entityScalarDataPropertyUniversalRestrictionAxioms
-      .toDF()
-      .write
-      .parquet((dir / "EntityScalarDataPropertyUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .entityStructuredDataProperties
-      .toDF()
-      .write
-      .parquet((dir / "EntityStructuredDataProperty.parquet").toIO.getAbsolutePath())
-      
-      t
-      .entityStructuredDataPropertyParticularRestrictionAxioms
-      .toDF()
-      .write
-      .parquet((dir / "EntityStructuredDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .entityUniversalRestrictionAxioms
-      .toDF()
-      .write
-      .parquet((dir / "EntityUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .iriScalarRestrictions
-      .toDF()
-      .write
-      .parquet((dir / "IRIScalarRestriction.parquet").toIO.getAbsolutePath())
-      
-      t
-      .numericScalarRestrictions
-      .toDF()
-      .write
-      .parquet((dir / "NumericScalarRestriction.parquet").toIO.getAbsolutePath())
-      
-      t
-      .plainLiteralScalarRestrictions
-      .toDF()
-      .write
-      .parquet((dir / "PlainLiteralScalarRestriction.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationships
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationship.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipInstances
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipInstance.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipInstanceDomains
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipInstanceDomain.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipInstanceRanges
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipInstanceRange.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipInversePropertyPredicates
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipPredicates
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipPropertyPredicates
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipSourceInversePropertyPredicates
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipSourceInversePropertyPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipSourcePropertyPredicates
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipSourcePropertyPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipSpecializationAxioms
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipSpecializationAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipTargetInversePropertyPredicates
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipTargetInversePropertyPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .reifiedRelationshipTargetPropertyPredicates
-      .toDF()
-      .write
-      .parquet((dir / "ReifiedRelationshipTargetPropertyPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .restrictionScalarDataPropertyValues
-      .toDF()
-      .write
-      .parquet((dir / "RestrictionScalarDataPropertyValue.parquet").toIO.getAbsolutePath())
-      
-      t
-      .restrictionStructuredDataPropertyTuples
-      .toDF()
-      .write
-      .parquet((dir / "RestrictionStructuredDataPropertyTuple.parquet").toIO.getAbsolutePath())
-      
-      t
-      .rootConceptTaxonomyAxioms
-      .toDF()
-      .write
-      .parquet((dir / "RootConceptTaxonomyAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .ruleBodySegments
-      .toDF()
-      .write
-      .parquet((dir / "RuleBodySegment.parquet").toIO.getAbsolutePath())
-      
-      t
-      .scalars
-      .toDF()
-      .write
-      .parquet((dir / "Scalar.parquet").toIO.getAbsolutePath())
-      
-      t
-      .scalarDataProperties
-      .toDF()
-      .write
-      .parquet((dir / "ScalarDataProperty.parquet").toIO.getAbsolutePath())
-      
-      t
-      .scalarDataPropertyValues
-      .toDF()
-      .write
-      .parquet((dir / "ScalarDataPropertyValue.parquet").toIO.getAbsolutePath())
-      
-      t
-      .scalarOneOfLiteralAxioms
-      .toDF()
-      .write
-      .parquet((dir / "ScalarOneOfLiteralAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .scalarOneOfRestrictions
-      .toDF()
-      .write
-      .parquet((dir / "ScalarOneOfRestriction.parquet").toIO.getAbsolutePath())
-      
-      t
-      .singletonInstanceScalarDataPropertyValues
-      .toDF()
-      .write
-      .parquet((dir / "SingletonInstanceScalarDataPropertyValue.parquet").toIO.getAbsolutePath())
-      
-      t
-      .singletonInstanceStructuredDataPropertyValues
-      .toDF()
-      .write
-      .parquet((dir / "SingletonInstanceStructuredDataPropertyValue.parquet").toIO.getAbsolutePath())
-      
-      t
-      .specificDisjointConceptAxioms
-      .toDF()
-      .write
-      .parquet((dir / "SpecificDisjointConceptAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .stringScalarRestrictions
-      .toDF()
-      .write
-      .parquet((dir / "StringScalarRestriction.parquet").toIO.getAbsolutePath())
-      
-      t
-      .structures
-      .toDF()
-      .write
-      .parquet((dir / "Structure.parquet").toIO.getAbsolutePath())
-      
-      t
-      .structuredDataProperties
-      .toDF()
-      .write
-      .parquet((dir / "StructuredDataProperty.parquet").toIO.getAbsolutePath())
-      
-      t
-      .structuredDataPropertyTuples
-      .toDF()
-      .write
-      .parquet((dir / "StructuredDataPropertyTuple.parquet").toIO.getAbsolutePath())
-      
-      t
-      .subDataPropertyOfAxioms
-      .toDF()
-      .write
-      .parquet((dir / "SubDataPropertyOfAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .subObjectPropertyOfAxioms
-      .toDF()
-      .write
-      .parquet((dir / "SubObjectPropertyOfAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .synonymScalarRestrictions
-      .toDF()
-      .write
-      .parquet((dir / "SynonymScalarRestriction.parquet").toIO.getAbsolutePath())
-      
-      t
-      .terminologyExtensionAxioms
-      .toDF()
-      .write
-      .parquet((dir / "TerminologyExtensionAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .terminologyGraphs
-      .toDF()
-      .write
-      .parquet((dir / "TerminologyGraph.parquet").toIO.getAbsolutePath())
-      
-      t
-      .terminologyNestingAxioms
-      .toDF()
-      .write
-      .parquet((dir / "TerminologyNestingAxiom.parquet").toIO.getAbsolutePath())
-      
-      t
-      .timeScalarRestrictions
-      .toDF()
-      .write
-      .parquet((dir / "TimeScalarRestriction.parquet").toIO.getAbsolutePath())
-      
-      t
-      .unreifiedRelationships
-      .toDF()
-      .write
-      .parquet((dir / "UnreifiedRelationship.parquet").toIO.getAbsolutePath())
-      
-      t
-      .unreifiedRelationshipInstanceTuples
-      .toDF()
-      .write
-      .parquet((dir / "UnreifiedRelationshipInstanceTuple.parquet").toIO.getAbsolutePath())
-      
-      t
-      .unreifiedRelationshipInversePropertyPredicates
-      .toDF()
-      .write
-      .parquet((dir / "UnreifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath())
-      
-      t
-      .unreifiedRelationshipPropertyPredicates
-      .toDF()
-      .write
-      .parquet((dir / "UnreifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath())
+      TypedDataset
+        .create(t.annotationProperties)
+        .dataset
+        .write
+        .parquet((dir / "AnnotationProperty.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.annotationPropertyValues)
+        .dataset
+        .write
+        .parquet((dir / "AnnotationPropertyValue.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.anonymousConceptUnionAxioms)
+        .dataset
+        .write
+        .parquet((dir / "AnonymousConceptUnionAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.aspects)
+        .dataset
+        .write
+        .parquet((dir / "Aspect.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.aspectPredicates)
+        .dataset
+        .write
+        .parquet((dir / "AspectPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.aspectSpecializationAxioms)
+        .dataset
+        .write
+        .parquet((dir / "AspectSpecializationAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.binaryScalarRestrictions)
+        .dataset
+        .write
+        .parquet((dir / "BinaryScalarRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.bundles)
+        .dataset
+        .write
+        .parquet((dir / "Bundle.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.bundledTerminologyAxioms)
+        .dataset
+        .write
+        .parquet((dir / "BundledTerminologyAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.chainRules)
+        .dataset
+        .write
+        .parquet((dir / "ChainRule.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.concepts)
+        .dataset
+        .write
+        .parquet((dir / "Concept.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.conceptDesignationTerminologyAxioms)
+        .dataset
+        .write
+        .parquet((dir / "ConceptDesignationTerminologyAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.conceptInstances)
+        .dataset
+        .write
+        .parquet((dir / "ConceptInstance.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.conceptPredicates)
+        .dataset
+        .write
+        .parquet((dir / "ConceptPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.conceptSpecializationAxioms)
+        .dataset
+        .write
+        .parquet((dir / "ConceptSpecializationAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.descriptionBoxes)
+        .dataset
+        .write
+        .parquet((dir / "DescriptionBox.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.descriptionBoxExtendsClosedWorldDefinitions)
+        .dataset
+        .write
+        .parquet((dir / "DescriptionBoxExtendsClosedWorldDefinitions.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.descriptionBoxRefinements)
+        .dataset
+        .write
+        .parquet((dir / "DescriptionBoxRefinement.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.entityExistentialRestrictionAxioms)
+        .dataset
+        .write
+        .parquet((dir / "EntityExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.entityScalarDataProperties)
+        .dataset
+        .write
+        .parquet((dir / "EntityScalarDataProperty.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.entityScalarDataPropertyExistentialRestrictionAxioms)
+        .dataset
+        .write
+        .parquet((dir / "EntityScalarDataPropertyExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.entityScalarDataPropertyParticularRestrictionAxioms)
+        .dataset
+        .write
+        .parquet((dir / "EntityScalarDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.entityScalarDataPropertyUniversalRestrictionAxioms)
+        .dataset
+        .write
+        .parquet((dir / "EntityScalarDataPropertyUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.entityStructuredDataProperties)
+        .dataset
+        .write
+        .parquet((dir / "EntityStructuredDataProperty.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.entityStructuredDataPropertyParticularRestrictionAxioms)
+        .dataset
+        .write
+        .parquet((dir / "EntityStructuredDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.entityUniversalRestrictionAxioms)
+        .dataset
+        .write
+        .parquet((dir / "EntityUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.iriScalarRestrictions)
+        .dataset
+        .write
+        .parquet((dir / "IRIScalarRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.numericScalarRestrictions)
+        .dataset
+        .write
+        .parquet((dir / "NumericScalarRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.plainLiteralScalarRestrictions)
+        .dataset
+        .write
+        .parquet((dir / "PlainLiteralScalarRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationships)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationship.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipInstances)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipInstance.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipInstanceDomains)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipInstanceDomain.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipInstanceRanges)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipInstanceRange.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipInversePropertyPredicates)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipPredicates)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipPropertyPredicates)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipSourceInversePropertyPredicates)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipSourceInversePropertyPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipSourcePropertyPredicates)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipSourcePropertyPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipSpecializationAxioms)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipSpecializationAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipTargetInversePropertyPredicates)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipTargetInversePropertyPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.reifiedRelationshipTargetPropertyPredicates)
+        .dataset
+        .write
+        .parquet((dir / "ReifiedRelationshipTargetPropertyPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.restrictionScalarDataPropertyValues)
+        .dataset
+        .write
+        .parquet((dir / "RestrictionScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.restrictionStructuredDataPropertyTuples)
+        .dataset
+        .write
+        .parquet((dir / "RestrictionStructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.rootConceptTaxonomyAxioms)
+        .dataset
+        .write
+        .parquet((dir / "RootConceptTaxonomyAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.ruleBodySegments)
+        .dataset
+        .write
+        .parquet((dir / "RuleBodySegment.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.scalars)
+        .dataset
+        .write
+        .parquet((dir / "Scalar.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.scalarDataProperties)
+        .dataset
+        .write
+        .parquet((dir / "ScalarDataProperty.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.scalarDataPropertyValues)
+        .dataset
+        .write
+        .parquet((dir / "ScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.scalarOneOfLiteralAxioms)
+        .dataset
+        .write
+        .parquet((dir / "ScalarOneOfLiteralAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.scalarOneOfRestrictions)
+        .dataset
+        .write
+        .parquet((dir / "ScalarOneOfRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.singletonInstanceScalarDataPropertyValues)
+        .dataset
+        .write
+        .parquet((dir / "SingletonInstanceScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.singletonInstanceStructuredDataPropertyValues)
+        .dataset
+        .write
+        .parquet((dir / "SingletonInstanceStructuredDataPropertyValue.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.specificDisjointConceptAxioms)
+        .dataset
+        .write
+        .parquet((dir / "SpecificDisjointConceptAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.stringScalarRestrictions)
+        .dataset
+        .write
+        .parquet((dir / "StringScalarRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.structures)
+        .dataset
+        .write
+        .parquet((dir / "Structure.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.structuredDataProperties)
+        .dataset
+        .write
+        .parquet((dir / "StructuredDataProperty.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.structuredDataPropertyTuples)
+        .dataset
+        .write
+        .parquet((dir / "StructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.subDataPropertyOfAxioms)
+        .dataset
+        .write
+        .parquet((dir / "SubDataPropertyOfAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.subObjectPropertyOfAxioms)
+        .dataset
+        .write
+        .parquet((dir / "SubObjectPropertyOfAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.synonymScalarRestrictions)
+        .dataset
+        .write
+        .parquet((dir / "SynonymScalarRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.terminologyExtensionAxioms)
+        .dataset
+        .write
+        .parquet((dir / "TerminologyExtensionAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.terminologyGraphs)
+        .dataset
+        .write
+        .parquet((dir / "TerminologyGraph.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.terminologyNestingAxioms)
+        .dataset
+        .write
+        .parquet((dir / "TerminologyNestingAxiom.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.timeScalarRestrictions)
+        .dataset
+        .write
+        .parquet((dir / "TimeScalarRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.unreifiedRelationships)
+        .dataset
+        .write
+        .parquet((dir / "UnreifiedRelationship.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.unreifiedRelationshipInstanceTuples)
+        .dataset
+        .write
+        .parquet((dir / "UnreifiedRelationshipInstanceTuple.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.unreifiedRelationshipInversePropertyPredicates)
+        .dataset
+        .write
+        .parquet((dir / "UnreifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.unreifiedRelationshipPropertyPredicates)
+        .dataset
+        .write
+        .parquet((dir / "UnreifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
       
   	  Success(())
   	}
