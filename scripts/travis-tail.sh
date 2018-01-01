@@ -42,4 +42,5 @@ travis_jigger() {
 
   echo -e "\n\033[31;1mTimeout reached. Terminating $@\033[0m\n"
   kill -9 $cmd_pid
+  exit -1
 }
