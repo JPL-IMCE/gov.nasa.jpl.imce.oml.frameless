@@ -24,5 +24,10 @@ export CI=true
 
 . $(dirname $0)/travis-tail.sh
 
-travis_tail 60 sbt -batch -jvm-opts travis/jvmopts.compile -Dproject.version=$TRAVIS_TAG publishSigned universal:publish ghpagesPushSite < /dev/null
-
+echo "# 1/3..."
+travis_tail 60 sbt -batch -jvm-opts travis/jvmopts.compile -Dproject.version=$TRAVIS_TAG publishSigned < /dev/null
+echo "# 2/3..."
+travis_tail 60 sbt -batch -jvm-opts travis/jvmopts.compile -Dproject.version=$TRAVIS_TAG universal:publish < /dev/null
+echo "# 3/3..."
+travis_tail 60 sbt -batch -jvm-opts travis/jvmopts.compile -Dproject.version=$TRAVIS_TAG ghpagesPushSite < /dev/null
+echo "# Done!"
