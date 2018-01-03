@@ -35,10 +35,10 @@ import java.io.File
 import java.lang.System
 
 import ammonite.ops.Path
-import gov.nasa.jpl.imce.oml.filesystem.lsRecOMLJsonZipFiles
+import gov.nasa.jpl.imce.oml.resolver.FileSystemUtilities
 import gov.nasa.jpl.imce.oml.frameless.OMLSpecificationTypedDatasets
 import gov.nasa.jpl.imce.oml.tables.OMLSpecificationTables
-import gov.nasa.jpl.imce.oml.tables.reader.readOMLZipFiles
+import gov.nasa.jpl.imce.oml.resolver.TableUtilities
 import org.apache.spark.SparkConf
 import org.apache.spark.sql.SparkSession
 
@@ -65,7 +65,7 @@ object Tables2Parquet {
 
     val dir: Path = Path.expandUser(args(1))
 
-    val omlZips: Seq[Path] = lsRecOMLJsonZipFiles(Path(catalogFile))
+    val omlZips: Seq[Path] = FileSystemUtilities.lsRecOMLJsonZipFiles(Path(catalogFile))
 
     val conf = new SparkConf()
       .setMaster("local")
@@ -77,7 +77,7 @@ object Tables2Parquet {
       .getOrCreate()
     implicit val sqlContext = spark.sqlContext
 
-    val omlTables: OMLSpecificationTables = readOMLZipFiles(omlZips)
+    val omlTables: OMLSpecificationTables = TableUtilities.readOMLZipFiles(omlZips)
     OMLSpecificationTypedDatasets.parquetWriteOMLSpecificationTables(omlTables, dir) match {
       case Success(_) =>
         ()
