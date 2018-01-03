@@ -12,11 +12,6 @@ import scala.util.control.Exception._
 
 import ProjectRefHelper._
 
-def tablesRule: PartialFunction[ModuleID, URL] = {
-  case ModuleID("gov.nasa.jpl.imce", "gov-nasa-jpl-imce-oml-tables_2.11", _, _, _, _, _, _, _, _, _) =>
-    url("https://jpl-imce.github.io/gov.nasa.jpl.imce.oml.tables/latest/api/index.html")
-}
-
 lazy val core = Project("omlFrameless", file("."))
   .enablePlugins(JavaAppPackaging)
   .enablePlugins(UniversalDeployPlugin)
@@ -79,8 +74,8 @@ lazy val core = Project("omlFrameless", file("."))
       "-doc-title", name.value,
       "-doc-root-content", baseDirectory.value + "/rootdoc.txt"),
 
-    autoAPIMappings in (Compile,doc) := true,
-    apiURL := Some(url("https://jpl-imce.github.io/gov.nasa.jpl.imce.oml.frameless/latest/api/index.html")),
+    autoAPIMappings := true,
+    apiURL := Some(url("https://jpl-imce.github.io/gov.nasa.jpl.imce.oml.frameless/latest/api/")),
 
     resolvers += Resolver.bintrayRepo("jpl-imce", "gov.nasa.jpl.imce"),
 
