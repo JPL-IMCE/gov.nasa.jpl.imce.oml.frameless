@@ -19,14 +19,15 @@
 
 package gov.nasa.jpl.imce.oml.frameless
 
+import java.util.Properties
+
 import ammonite.ops.Path
 
 import frameless.{Injection, TypedDataset}
 import gov.nasa.jpl.imce.oml.covariantTag
 import gov.nasa.jpl.imce.oml.covariantTag.@@
 import gov.nasa.jpl.imce.oml.tables
-import org.apache.spark.sql.SQLContext
-import org.apache.spark.sql.SparkSession
+import org.apache.spark.sql.{SQLContext, SaveMode, SparkSession}
 
 import scala.collection.immutable.Seq
 import scala.util.control.Exception._
@@ -1593,17 +1594,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "AnnotationProperty.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.AnnotationPropertyRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 moduleUUID,
-                 iri,
-                 abbrevIRI ) =>
-            OMLReaders.AnnotationPropertyTuple2Type(
-              uuid,
-              moduleUUID,
-              iri,
-              abbrevIRI )
-        }
+        .map(OMLReaders.AnnotationPropertyTuple2Type)
         .to[Seq]
       
       val annotationPropertyValues
@@ -1613,17 +1604,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "AnnotationPropertyValue.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.AnnotationPropertyValueRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 subjectUUID,
-                 propertyUUID,
-                 value ) =>
-            OMLReaders.AnnotationPropertyValueTuple2Type(
-              uuid,
-              subjectUUID,
-              propertyUUID,
-              value )
-        }
+        .map(OMLReaders.AnnotationPropertyValueTuple2Type)
         .to[Seq]
       
       val anonymousConceptUnionAxioms
@@ -1633,15 +1614,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "AnonymousConceptUnionAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.AnonymousConceptUnionAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 disjointTaxonomyParentUUID,
-                 name ) =>
-            OMLReaders.AnonymousConceptUnionAxiomTuple2Type(
-              uuid,
-              disjointTaxonomyParentUUID,
-              name )
-        }
+        .map(OMLReaders.AnonymousConceptUnionAxiomTuple2Type)
         .to[Seq]
       
       val aspects
@@ -1651,15 +1624,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "Aspect.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.AspectRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 name ) =>
-            OMLReaders.AspectTuple2Type(
-              uuid,
-              tboxUUID,
-              name )
-        }
+        .map(OMLReaders.AspectTuple2Type)
         .to[Seq]
       
       val aspectPredicates
@@ -1669,15 +1634,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "AspectPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.AspectPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 aspectUUID,
-                 bodySegmentUUID ) =>
-            OMLReaders.AspectPredicateTuple2Type(
-              uuid,
-              aspectUUID,
-              bodySegmentUUID )
-        }
+        .map(OMLReaders.AspectPredicateTuple2Type)
         .to[Seq]
       
       val aspectSpecializationAxioms
@@ -1687,17 +1644,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "AspectSpecializationAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.AspectSpecializationAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 superAspectUUID,
-                 subEntityUUID ) =>
-            OMLReaders.AspectSpecializationAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              superAspectUUID,
-              subEntityUUID )
-        }
+        .map(OMLReaders.AspectSpecializationAxiomTuple2Type)
         .to[Seq]
       
       val binaryScalarRestrictions
@@ -1707,23 +1654,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "BinaryScalarRestriction.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.BinaryScalarRestrictionRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRangeUUID,
-                 length,
-                 minLength,
-                 maxLength,
-                 name ) =>
-            OMLReaders.BinaryScalarRestrictionTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRangeUUID,
-              length,
-              minLength,
-              maxLength,
-              name )
-        }
+        .map(OMLReaders.BinaryScalarRestrictionTuple2Type)
         .to[Seq]
       
       val bundles
@@ -1733,15 +1664,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "Bundle.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.BundleRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 kind,
-                 iri ) =>
-            OMLReaders.BundleTuple2Type(
-              uuid,
-              kind,
-              iri )
-        }
+        .map(OMLReaders.BundleTuple2Type)
         .to[Seq]
       
       val bundledTerminologyAxioms
@@ -1751,15 +1674,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "BundledTerminologyAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.BundledTerminologyAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bundleUUID,
-                 bundledTerminologyIRI ) =>
-            OMLReaders.BundledTerminologyAxiomTuple2Type(
-              uuid,
-              bundleUUID,
-              bundledTerminologyIRI )
-        }
+        .map(OMLReaders.BundledTerminologyAxiomTuple2Type)
         .to[Seq]
       
       val chainRules
@@ -1769,17 +1684,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ChainRule.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ChainRuleRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 name,
-                 headUUID ) =>
-            OMLReaders.ChainRuleTuple2Type(
-              uuid,
-              tboxUUID,
-              name,
-              headUUID )
-        }
+        .map(OMLReaders.ChainRuleTuple2Type)
         .to[Seq]
       
       val concepts
@@ -1789,15 +1694,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "Concept.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ConceptRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 name ) =>
-            OMLReaders.ConceptTuple2Type(
-              uuid,
-              tboxUUID,
-              name )
-        }
+        .map(OMLReaders.ConceptTuple2Type)
         .to[Seq]
       
       val conceptDesignationTerminologyAxioms
@@ -1807,17 +1704,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ConceptDesignationTerminologyAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ConceptDesignationTerminologyAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 designatedConceptUUID,
-                 designatedTerminologyIRI ) =>
-            OMLReaders.ConceptDesignationTerminologyAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              designatedConceptUUID,
-              designatedTerminologyIRI )
-        }
+        .map(OMLReaders.ConceptDesignationTerminologyAxiomTuple2Type)
         .to[Seq]
       
       val conceptInstances
@@ -1827,17 +1714,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ConceptInstance.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ConceptInstanceRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 descriptionBoxUUID,
-                 singletonConceptClassifierUUID,
-                 name ) =>
-            OMLReaders.ConceptInstanceTuple2Type(
-              uuid,
-              descriptionBoxUUID,
-              singletonConceptClassifierUUID,
-              name )
-        }
+        .map(OMLReaders.ConceptInstanceTuple2Type)
         .to[Seq]
       
       val conceptPredicates
@@ -1847,15 +1724,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ConceptPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ConceptPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bodySegmentUUID,
-                 conceptUUID ) =>
-            OMLReaders.ConceptPredicateTuple2Type(
-              uuid,
-              bodySegmentUUID,
-              conceptUUID )
-        }
+        .map(OMLReaders.ConceptPredicateTuple2Type)
         .to[Seq]
       
       val conceptSpecializationAxioms
@@ -1865,17 +1734,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ConceptSpecializationAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ConceptSpecializationAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 superConceptUUID,
-                 subConceptUUID ) =>
-            OMLReaders.ConceptSpecializationAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              superConceptUUID,
-              subConceptUUID )
-        }
+        .map(OMLReaders.ConceptSpecializationAxiomTuple2Type)
         .to[Seq]
       
       val descriptionBoxes
@@ -1885,15 +1744,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "DescriptionBox.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.DescriptionBoxRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 kind,
-                 iri ) =>
-            OMLReaders.DescriptionBoxTuple2Type(
-              uuid,
-              kind,
-              iri )
-        }
+        .map(OMLReaders.DescriptionBoxTuple2Type)
         .to[Seq]
       
       val descriptionBoxExtendsClosedWorldDefinitions
@@ -1903,15 +1754,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "DescriptionBoxExtendsClosedWorldDefinitions.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.DescriptionBoxExtendsClosedWorldDefinitionsRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 descriptionBoxUUID,
-                 closedWorldDefinitionsIRI ) =>
-            OMLReaders.DescriptionBoxExtendsClosedWorldDefinitionsTuple2Type(
-              uuid,
-              descriptionBoxUUID,
-              closedWorldDefinitionsIRI )
-        }
+        .map(OMLReaders.DescriptionBoxExtendsClosedWorldDefinitionsTuple2Type)
         .to[Seq]
       
       val descriptionBoxRefinements
@@ -1921,15 +1764,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "DescriptionBoxRefinement.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.DescriptionBoxRefinementRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 refiningDescriptionBoxUUID,
-                 refinedDescriptionBoxIRI ) =>
-            OMLReaders.DescriptionBoxRefinementTuple2Type(
-              uuid,
-              refiningDescriptionBoxUUID,
-              refinedDescriptionBoxIRI )
-        }
+        .map(OMLReaders.DescriptionBoxRefinementTuple2Type)
         .to[Seq]
       
       val entityExistentialRestrictionAxioms
@@ -1939,19 +1774,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "EntityExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.EntityExistentialRestrictionAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRelationUUID,
-                 restrictedDomainUUID,
-                 restrictedRangeUUID ) =>
-            OMLReaders.EntityExistentialRestrictionAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRelationUUID,
-              restrictedDomainUUID,
-              restrictedRangeUUID )
-        }
+        .map(OMLReaders.EntityExistentialRestrictionAxiomTuple2Type)
         .to[Seq]
       
       val entityScalarDataProperties
@@ -1961,21 +1784,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "EntityScalarDataProperty.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.EntityScalarDataPropertyRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 domainUUID,
-                 rangeUUID,
-                 isIdentityCriteria,
-                 name ) =>
-            OMLReaders.EntityScalarDataPropertyTuple2Type(
-              uuid,
-              tboxUUID,
-              domainUUID,
-              rangeUUID,
-              isIdentityCriteria,
-              name )
-        }
+        .map(OMLReaders.EntityScalarDataPropertyTuple2Type)
         .to[Seq]
       
       val entityScalarDataPropertyExistentialRestrictionAxioms
@@ -1985,19 +1794,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "EntityScalarDataPropertyExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.EntityScalarDataPropertyExistentialRestrictionAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedEntityUUID,
-                 scalarPropertyUUID,
-                 scalarRestrictionUUID ) =>
-            OMLReaders.EntityScalarDataPropertyExistentialRestrictionAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedEntityUUID,
-              scalarPropertyUUID,
-              scalarRestrictionUUID )
-        }
+        .map(OMLReaders.EntityScalarDataPropertyExistentialRestrictionAxiomTuple2Type)
         .to[Seq]
       
       val entityScalarDataPropertyParticularRestrictionAxioms
@@ -2007,21 +1804,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "EntityScalarDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.EntityScalarDataPropertyParticularRestrictionAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedEntityUUID,
-                 scalarPropertyUUID,
-                 literalValue_literalType, literalValue_value,
-                 valueTypeUUID ) =>
-            OMLReaders.EntityScalarDataPropertyParticularRestrictionAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedEntityUUID,
-              scalarPropertyUUID,
-              literalValue_literalType, literalValue_value,
-              valueTypeUUID )
-        }
+        .map(OMLReaders.EntityScalarDataPropertyParticularRestrictionAxiomTuple2Type)
         .to[Seq]
       
       val entityScalarDataPropertyUniversalRestrictionAxioms
@@ -2031,19 +1814,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "EntityScalarDataPropertyUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.EntityScalarDataPropertyUniversalRestrictionAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedEntityUUID,
-                 scalarPropertyUUID,
-                 scalarRestrictionUUID ) =>
-            OMLReaders.EntityScalarDataPropertyUniversalRestrictionAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedEntityUUID,
-              scalarPropertyUUID,
-              scalarRestrictionUUID )
-        }
+        .map(OMLReaders.EntityScalarDataPropertyUniversalRestrictionAxiomTuple2Type)
         .to[Seq]
       
       val entityStructuredDataProperties
@@ -2053,21 +1824,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "EntityStructuredDataProperty.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.EntityStructuredDataPropertyRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 domainUUID,
-                 rangeUUID,
-                 isIdentityCriteria,
-                 name ) =>
-            OMLReaders.EntityStructuredDataPropertyTuple2Type(
-              uuid,
-              tboxUUID,
-              domainUUID,
-              rangeUUID,
-              isIdentityCriteria,
-              name )
-        }
+        .map(OMLReaders.EntityStructuredDataPropertyTuple2Type)
         .to[Seq]
       
       val entityStructuredDataPropertyParticularRestrictionAxioms
@@ -2077,17 +1834,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "EntityStructuredDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.EntityStructuredDataPropertyParticularRestrictionAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 structuredDataPropertyUUID,
-                 restrictedEntityUUID ) =>
-            OMLReaders.EntityStructuredDataPropertyParticularRestrictionAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              structuredDataPropertyUUID,
-              restrictedEntityUUID )
-        }
+        .map(OMLReaders.EntityStructuredDataPropertyParticularRestrictionAxiomTuple2Type)
         .to[Seq]
       
       val entityUniversalRestrictionAxioms
@@ -2097,19 +1844,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "EntityUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.EntityUniversalRestrictionAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRelationUUID,
-                 restrictedDomainUUID,
-                 restrictedRangeUUID ) =>
-            OMLReaders.EntityUniversalRestrictionAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRelationUUID,
-              restrictedDomainUUID,
-              restrictedRangeUUID )
-        }
+        .map(OMLReaders.EntityUniversalRestrictionAxiomTuple2Type)
         .to[Seq]
       
       val iriScalarRestrictions
@@ -2119,25 +1854,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "IRIScalarRestriction.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.IRIScalarRestrictionRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRangeUUID,
-                 length,
-                 minLength,
-                 maxLength,
-                 name,
-                 pattern ) =>
-            OMLReaders.IRIScalarRestrictionTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRangeUUID,
-              length,
-              minLength,
-              maxLength,
-              name,
-              pattern )
-        }
+        .map(OMLReaders.IRIScalarRestrictionTuple2Type)
         .to[Seq]
       
       val numericScalarRestrictions
@@ -2147,25 +1864,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "NumericScalarRestriction.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.NumericScalarRestrictionRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRangeUUID,
-                 minExclusive_literalType, minExclusive_value,
-                 minInclusive_literalType, minInclusive_value,
-                 maxExclusive_literalType, maxExclusive_value,
-                 maxInclusive_literalType, maxInclusive_value,
-                 name ) =>
-            OMLReaders.NumericScalarRestrictionTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRangeUUID,
-              minExclusive_literalType, minExclusive_value,
-              minInclusive_literalType, minInclusive_value,
-              maxExclusive_literalType, maxExclusive_value,
-              maxInclusive_literalType, maxInclusive_value,
-              name )
-        }
+        .map(OMLReaders.NumericScalarRestrictionTuple2Type)
         .to[Seq]
       
       val plainLiteralScalarRestrictions
@@ -2175,27 +1874,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "PlainLiteralScalarRestriction.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.PlainLiteralScalarRestrictionRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRangeUUID,
-                 length,
-                 minLength,
-                 maxLength,
-                 name,
-                 langRange,
-                 pattern ) =>
-            OMLReaders.PlainLiteralScalarRestrictionTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRangeUUID,
-              length,
-              minLength,
-              maxLength,
-              name,
-              langRange,
-              pattern )
-        }
+        .map(OMLReaders.PlainLiteralScalarRestrictionTuple2Type)
         .to[Seq]
       
       val reifiedRelationships
@@ -2205,41 +1884,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationship.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 sourceUUID,
-                 targetUUID,
-                 isAsymmetric,
-                 isEssential,
-                 isFunctional,
-                 isInverseEssential,
-                 isInverseFunctional,
-                 isIrreflexive,
-                 isReflexive,
-                 isSymmetric,
-                 isTransitive,
-                 name,
-                 unreifiedPropertyName,
-                 unreifiedInversePropertyName ) =>
-            OMLReaders.ReifiedRelationshipTuple2Type(
-              uuid,
-              tboxUUID,
-              sourceUUID,
-              targetUUID,
-              isAsymmetric,
-              isEssential,
-              isFunctional,
-              isInverseEssential,
-              isInverseFunctional,
-              isIrreflexive,
-              isReflexive,
-              isSymmetric,
-              isTransitive,
-              name,
-              unreifiedPropertyName,
-              unreifiedInversePropertyName )
-        }
+        .map(OMLReaders.ReifiedRelationshipTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipInstances
@@ -2249,17 +1894,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipInstance.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipInstanceRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 descriptionBoxUUID,
-                 singletonReifiedRelationshipClassifierUUID,
-                 name ) =>
-            OMLReaders.ReifiedRelationshipInstanceTuple2Type(
-              uuid,
-              descriptionBoxUUID,
-              singletonReifiedRelationshipClassifierUUID,
-              name )
-        }
+        .map(OMLReaders.ReifiedRelationshipInstanceTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipInstanceDomains
@@ -2269,17 +1904,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipInstanceDomain.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipInstanceDomainRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 descriptionBoxUUID,
-                 reifiedRelationshipInstanceUUID,
-                 domainUUID ) =>
-            OMLReaders.ReifiedRelationshipInstanceDomainTuple2Type(
-              uuid,
-              descriptionBoxUUID,
-              reifiedRelationshipInstanceUUID,
-              domainUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipInstanceDomainTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipInstanceRanges
@@ -2289,17 +1914,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipInstanceRange.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipInstanceRangeRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 descriptionBoxUUID,
-                 reifiedRelationshipInstanceUUID,
-                 rangeUUID ) =>
-            OMLReaders.ReifiedRelationshipInstanceRangeTuple2Type(
-              uuid,
-              descriptionBoxUUID,
-              reifiedRelationshipInstanceUUID,
-              rangeUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipInstanceRangeTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipInversePropertyPredicates
@@ -2309,15 +1924,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bodySegmentUUID,
-                 reifiedRelationshipUUID ) =>
-            OMLReaders.ReifiedRelationshipInversePropertyPredicateTuple2Type(
-              uuid,
-              bodySegmentUUID,
-              reifiedRelationshipUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipPredicates
@@ -2327,15 +1934,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bodySegmentUUID,
-                 reifiedRelationshipUUID ) =>
-            OMLReaders.ReifiedRelationshipPredicateTuple2Type(
-              uuid,
-              bodySegmentUUID,
-              reifiedRelationshipUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipPredicateTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipPropertyPredicates
@@ -2345,15 +1944,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipPropertyPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bodySegmentUUID,
-                 reifiedRelationshipUUID ) =>
-            OMLReaders.ReifiedRelationshipPropertyPredicateTuple2Type(
-              uuid,
-              bodySegmentUUID,
-              reifiedRelationshipUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipPropertyPredicateTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipSourceInversePropertyPredicates
@@ -2363,15 +1954,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipSourceInversePropertyPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bodySegmentUUID,
-                 reifiedRelationshipUUID ) =>
-            OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateTuple2Type(
-              uuid,
-              bodySegmentUUID,
-              reifiedRelationshipUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipSourcePropertyPredicates
@@ -2381,15 +1964,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipSourcePropertyPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bodySegmentUUID,
-                 reifiedRelationshipUUID ) =>
-            OMLReaders.ReifiedRelationshipSourcePropertyPredicateTuple2Type(
-              uuid,
-              bodySegmentUUID,
-              reifiedRelationshipUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipSpecializationAxioms
@@ -2399,17 +1974,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipSpecializationAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipSpecializationAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 superRelationshipUUID,
-                 subRelationshipUUID ) =>
-            OMLReaders.ReifiedRelationshipSpecializationAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              superRelationshipUUID,
-              subRelationshipUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipSpecializationAxiomTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipTargetInversePropertyPredicates
@@ -2419,15 +1984,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipTargetInversePropertyPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bodySegmentUUID,
-                 reifiedRelationshipUUID ) =>
-            OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateTuple2Type(
-              uuid,
-              bodySegmentUUID,
-              reifiedRelationshipUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateTuple2Type)
         .to[Seq]
       
       val reifiedRelationshipTargetPropertyPredicates
@@ -2437,15 +1994,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipTargetPropertyPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bodySegmentUUID,
-                 reifiedRelationshipUUID ) =>
-            OMLReaders.ReifiedRelationshipTargetPropertyPredicateTuple2Type(
-              uuid,
-              bodySegmentUUID,
-              reifiedRelationshipUUID )
-        }
+        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateTuple2Type)
         .to[Seq]
       
       val restrictionScalarDataPropertyValues
@@ -2455,19 +2004,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "RestrictionScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.RestrictionScalarDataPropertyValueRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 scalarDataPropertyUUID,
-                 scalarPropertyValue_literalType, scalarPropertyValue_value,
-                 structuredDataPropertyContextUUID,
-                 valueTypeUUID ) =>
-            OMLReaders.RestrictionScalarDataPropertyValueTuple2Type(
-              uuid,
-              scalarDataPropertyUUID,
-              scalarPropertyValue_literalType, scalarPropertyValue_value,
-              structuredDataPropertyContextUUID,
-              valueTypeUUID )
-        }
+        .map(OMLReaders.RestrictionScalarDataPropertyValueTuple2Type)
         .to[Seq]
       
       val restrictionStructuredDataPropertyTuples
@@ -2477,15 +2014,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "RestrictionStructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.RestrictionStructuredDataPropertyTupleRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 structuredDataPropertyUUID,
-                 structuredDataPropertyContextUUID ) =>
-            OMLReaders.RestrictionStructuredDataPropertyTupleTuple2Type(
-              uuid,
-              structuredDataPropertyUUID,
-              structuredDataPropertyContextUUID )
-        }
+        .map(OMLReaders.RestrictionStructuredDataPropertyTupleTuple2Type)
         .to[Seq]
       
       val rootConceptTaxonomyAxioms
@@ -2495,15 +2024,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "RootConceptTaxonomyAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.RootConceptTaxonomyAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 bundleUUID,
-                 rootUUID ) =>
-            OMLReaders.RootConceptTaxonomyAxiomTuple2Type(
-              uuid,
-              bundleUUID,
-              rootUUID )
-        }
+        .map(OMLReaders.RootConceptTaxonomyAxiomTuple2Type)
         .to[Seq]
       
       val ruleBodySegments
@@ -2513,15 +2034,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "RuleBodySegment.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.RuleBodySegmentRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 previousSegmentUUID,
-                 ruleUUID ) =>
-            OMLReaders.RuleBodySegmentTuple2Type(
-              uuid,
-              previousSegmentUUID,
-              ruleUUID )
-        }
+        .map(OMLReaders.RuleBodySegmentTuple2Type)
         .to[Seq]
       
       val scalars
@@ -2531,15 +2044,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "Scalar.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ScalarRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 name ) =>
-            OMLReaders.ScalarTuple2Type(
-              uuid,
-              tboxUUID,
-              name )
-        }
+        .map(OMLReaders.ScalarTuple2Type)
         .to[Seq]
       
       val scalarDataProperties
@@ -2549,19 +2054,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ScalarDataProperty.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ScalarDataPropertyRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 domainUUID,
-                 rangeUUID,
-                 name ) =>
-            OMLReaders.ScalarDataPropertyTuple2Type(
-              uuid,
-              tboxUUID,
-              domainUUID,
-              rangeUUID,
-              name )
-        }
+        .map(OMLReaders.ScalarDataPropertyTuple2Type)
         .to[Seq]
       
       val scalarDataPropertyValues
@@ -2571,19 +2064,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ScalarDataPropertyValueRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 scalarDataPropertyUUID,
-                 scalarPropertyValue_literalType, scalarPropertyValue_value,
-                 structuredDataPropertyContextUUID,
-                 valueTypeUUID ) =>
-            OMLReaders.ScalarDataPropertyValueTuple2Type(
-              uuid,
-              scalarDataPropertyUUID,
-              scalarPropertyValue_literalType, scalarPropertyValue_value,
-              structuredDataPropertyContextUUID,
-              valueTypeUUID )
-        }
+        .map(OMLReaders.ScalarDataPropertyValueTuple2Type)
         .to[Seq]
       
       val scalarOneOfLiteralAxioms
@@ -2593,19 +2074,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ScalarOneOfLiteralAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ScalarOneOfLiteralAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 axiomUUID,
-                 value_literalType, value_value,
-                 valueTypeUUID ) =>
-            OMLReaders.ScalarOneOfLiteralAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              axiomUUID,
-              value_literalType, value_value,
-              valueTypeUUID )
-        }
+        .map(OMLReaders.ScalarOneOfLiteralAxiomTuple2Type)
         .to[Seq]
       
       val scalarOneOfRestrictions
@@ -2615,17 +2084,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ScalarOneOfRestriction.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.ScalarOneOfRestrictionRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRangeUUID,
-                 name ) =>
-            OMLReaders.ScalarOneOfRestrictionTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRangeUUID,
-              name )
-        }
+        .map(OMLReaders.ScalarOneOfRestrictionTuple2Type)
         .to[Seq]
       
       val singletonInstanceScalarDataPropertyValues
@@ -2635,21 +2094,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "SingletonInstanceScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.SingletonInstanceScalarDataPropertyValueRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 descriptionBoxUUID,
-                 singletonInstanceUUID,
-                 scalarDataPropertyUUID,
-                 scalarPropertyValue_literalType, scalarPropertyValue_value,
-                 valueTypeUUID ) =>
-            OMLReaders.SingletonInstanceScalarDataPropertyValueTuple2Type(
-              uuid,
-              descriptionBoxUUID,
-              singletonInstanceUUID,
-              scalarDataPropertyUUID,
-              scalarPropertyValue_literalType, scalarPropertyValue_value,
-              valueTypeUUID )
-        }
+        .map(OMLReaders.SingletonInstanceScalarDataPropertyValueTuple2Type)
         .to[Seq]
       
       val singletonInstanceStructuredDataPropertyValues
@@ -2659,17 +2104,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "SingletonInstanceStructuredDataPropertyValue.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.SingletonInstanceStructuredDataPropertyValueRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 descriptionBoxUUID,
-                 singletonInstanceUUID,
-                 structuredDataPropertyUUID ) =>
-            OMLReaders.SingletonInstanceStructuredDataPropertyValueTuple2Type(
-              uuid,
-              descriptionBoxUUID,
-              singletonInstanceUUID,
-              structuredDataPropertyUUID )
-        }
+        .map(OMLReaders.SingletonInstanceStructuredDataPropertyValueTuple2Type)
         .to[Seq]
       
       val specificDisjointConceptAxioms
@@ -2679,15 +2114,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "SpecificDisjointConceptAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.SpecificDisjointConceptAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 disjointTaxonomyParentUUID,
-                 disjointLeafUUID ) =>
-            OMLReaders.SpecificDisjointConceptAxiomTuple2Type(
-              uuid,
-              disjointTaxonomyParentUUID,
-              disjointLeafUUID )
-        }
+        .map(OMLReaders.SpecificDisjointConceptAxiomTuple2Type)
         .to[Seq]
       
       val stringScalarRestrictions
@@ -2697,25 +2124,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "StringScalarRestriction.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.StringScalarRestrictionRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRangeUUID,
-                 length,
-                 minLength,
-                 maxLength,
-                 name,
-                 pattern ) =>
-            OMLReaders.StringScalarRestrictionTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRangeUUID,
-              length,
-              minLength,
-              maxLength,
-              name,
-              pattern )
-        }
+        .map(OMLReaders.StringScalarRestrictionTuple2Type)
         .to[Seq]
       
       val structures
@@ -2725,15 +2134,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "Structure.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.StructureRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 name ) =>
-            OMLReaders.StructureTuple2Type(
-              uuid,
-              tboxUUID,
-              name )
-        }
+        .map(OMLReaders.StructureTuple2Type)
         .to[Seq]
       
       val structuredDataProperties
@@ -2743,19 +2144,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "StructuredDataProperty.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.StructuredDataPropertyRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 domainUUID,
-                 rangeUUID,
-                 name ) =>
-            OMLReaders.StructuredDataPropertyTuple2Type(
-              uuid,
-              tboxUUID,
-              domainUUID,
-              rangeUUID,
-              name )
-        }
+        .map(OMLReaders.StructuredDataPropertyTuple2Type)
         .to[Seq]
       
       val structuredDataPropertyTuples
@@ -2765,15 +2154,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "StructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.StructuredDataPropertyTupleRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 structuredDataPropertyUUID,
-                 structuredDataPropertyContextUUID ) =>
-            OMLReaders.StructuredDataPropertyTupleTuple2Type(
-              uuid,
-              structuredDataPropertyUUID,
-              structuredDataPropertyContextUUID )
-        }
+        .map(OMLReaders.StructuredDataPropertyTupleTuple2Type)
         .to[Seq]
       
       val subDataPropertyOfAxioms
@@ -2783,17 +2164,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "SubDataPropertyOfAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.SubDataPropertyOfAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 subPropertyUUID,
-                 superPropertyUUID ) =>
-            OMLReaders.SubDataPropertyOfAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              subPropertyUUID,
-              superPropertyUUID )
-        }
+        .map(OMLReaders.SubDataPropertyOfAxiomTuple2Type)
         .to[Seq]
       
       val subObjectPropertyOfAxioms
@@ -2803,17 +2174,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "SubObjectPropertyOfAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.SubObjectPropertyOfAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 subPropertyUUID,
-                 superPropertyUUID ) =>
-            OMLReaders.SubObjectPropertyOfAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              subPropertyUUID,
-              superPropertyUUID )
-        }
+        .map(OMLReaders.SubObjectPropertyOfAxiomTuple2Type)
         .to[Seq]
       
       val synonymScalarRestrictions
@@ -2823,17 +2184,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "SynonymScalarRestriction.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.SynonymScalarRestrictionRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRangeUUID,
-                 name ) =>
-            OMLReaders.SynonymScalarRestrictionTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRangeUUID,
-              name )
-        }
+        .map(OMLReaders.SynonymScalarRestrictionTuple2Type)
         .to[Seq]
       
       val terminologyExtensionAxioms
@@ -2843,15 +2194,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "TerminologyExtensionAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.TerminologyExtensionAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 extendedTerminologyIRI ) =>
-            OMLReaders.TerminologyExtensionAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              extendedTerminologyIRI )
-        }
+        .map(OMLReaders.TerminologyExtensionAxiomTuple2Type)
         .to[Seq]
       
       val terminologyGraphs
@@ -2861,15 +2204,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "TerminologyGraph.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.TerminologyGraphRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 kind,
-                 iri ) =>
-            OMLReaders.TerminologyGraphTuple2Type(
-              uuid,
-              kind,
-              iri )
-        }
+        .map(OMLReaders.TerminologyGraphTuple2Type)
         .to[Seq]
       
       val terminologyNestingAxioms
@@ -2879,17 +2214,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "TerminologyNestingAxiom.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.TerminologyNestingAxiomRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 nestingContextUUID,
-                 nestingTerminologyIRI ) =>
-            OMLReaders.TerminologyNestingAxiomTuple2Type(
-              uuid,
-              tboxUUID,
-              nestingContextUUID,
-              nestingTerminologyIRI )
-        }
+        .map(OMLReaders.TerminologyNestingAxiomTuple2Type)
         .to[Seq]
       
       val timeScalarRestrictions
@@ -2899,25 +2224,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "TimeScalarRestriction.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.TimeScalarRestrictionRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 restrictedRangeUUID,
-                 minExclusive,
-                 minInclusive,
-                 maxExclusive,
-                 maxInclusive,
-                 name ) =>
-            OMLReaders.TimeScalarRestrictionTuple2Type(
-              uuid,
-              tboxUUID,
-              restrictedRangeUUID,
-              minExclusive,
-              minInclusive,
-              maxExclusive,
-              maxInclusive,
-              name )
-        }
+        .map(OMLReaders.TimeScalarRestrictionTuple2Type)
         .to[Seq]
       
       val unreifiedRelationships
@@ -2927,37 +2234,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "UnreifiedRelationship.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.UnreifiedRelationshipRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 tboxUUID,
-                 sourceUUID,
-                 targetUUID,
-                 isAsymmetric,
-                 isEssential,
-                 isFunctional,
-                 isInverseEssential,
-                 isInverseFunctional,
-                 isIrreflexive,
-                 isReflexive,
-                 isSymmetric,
-                 isTransitive,
-                 name ) =>
-            OMLReaders.UnreifiedRelationshipTuple2Type(
-              uuid,
-              tboxUUID,
-              sourceUUID,
-              targetUUID,
-              isAsymmetric,
-              isEssential,
-              isFunctional,
-              isInverseEssential,
-              isInverseFunctional,
-              isIrreflexive,
-              isReflexive,
-              isSymmetric,
-              isTransitive,
-              name )
-        }
+        .map(OMLReaders.UnreifiedRelationshipTuple2Type)
         .to[Seq]
       
       val unreifiedRelationshipInstanceTuples
@@ -2967,19 +2244,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "UnreifiedRelationshipInstanceTuple.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.UnreifiedRelationshipInstanceTupleRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 descriptionBoxUUID,
-                 unreifiedRelationshipUUID,
-                 domainUUID,
-                 rangeUUID ) =>
-            OMLReaders.UnreifiedRelationshipInstanceTupleTuple2Type(
-              uuid,
-              descriptionBoxUUID,
-              unreifiedRelationshipUUID,
-              domainUUID,
-              rangeUUID )
-        }
+        .map(OMLReaders.UnreifiedRelationshipInstanceTupleTuple2Type)
         .to[Seq]
       
       val unreifiedRelationshipInversePropertyPredicates
@@ -2989,15 +2254,7 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "UnreifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 unreifiedRelationshipUUID,
-                 bodySegmentUUID ) =>
-            OMLReaders.UnreifiedRelationshipInversePropertyPredicateTuple2Type(
-              uuid,
-              unreifiedRelationshipUUID,
-              bodySegmentUUID )
-        }
+        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateTuple2Type)
         .to[Seq]
       
       val unreifiedRelationshipPropertyPredicates
@@ -3007,87 +2264,79 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "UnreifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
         .map(OMLReaders.UnreifiedRelationshipPropertyPredicateRow2Tuple)
         .collect()
-        .map {
-          case ( uuid,
-                 unreifiedRelationshipUUID,
-                 bodySegmentUUID ) =>
-            OMLReaders.UnreifiedRelationshipPropertyPredicateTuple2Type(
-              uuid,
-              unreifiedRelationshipUUID,
-              bodySegmentUUID )
-        }
+        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateTuple2Type)
         .to[Seq]
 
   	  Success(
   	    tables.OMLSpecificationTables(
-  	      annotationProperties,
-  	      terminologyGraphs,
-  	      bundles,
-  	      conceptDesignationTerminologyAxioms,
-  	      terminologyExtensionAxioms,
-  	      terminologyNestingAxioms,
-  	      aspects,
-  	      concepts,
-  	      reifiedRelationships,
-  	      unreifiedRelationships,
-  	      scalars,
-  	      structures,
-  	      binaryScalarRestrictions,
-  	      iriScalarRestrictions,
-  	      numericScalarRestrictions,
-  	      plainLiteralScalarRestrictions,
-  	      scalarOneOfRestrictions,
-  	      stringScalarRestrictions,
-  	      synonymScalarRestrictions,
-  	      timeScalarRestrictions,
-  	      entityScalarDataProperties,
-  	      entityStructuredDataProperties,
-  	      scalarDataProperties,
-  	      structuredDataProperties,
-  	      aspectSpecializationAxioms,
-  	      conceptSpecializationAxioms,
-  	      reifiedRelationshipSpecializationAxioms,
-  	      entityExistentialRestrictionAxioms,
-  	      entityUniversalRestrictionAxioms,
-  	      entityScalarDataPropertyExistentialRestrictionAxioms,
-  	      entityScalarDataPropertyParticularRestrictionAxioms,
-  	      entityScalarDataPropertyUniversalRestrictionAxioms,
-  	      scalarOneOfLiteralAxioms,
-  	      bundledTerminologyAxioms,
-  	      rootConceptTaxonomyAxioms,
-  	      specificDisjointConceptAxioms,
-  	      annotationPropertyValues,
-  	      anonymousConceptUnionAxioms,
-  	      aspectPredicates,
-  	      chainRules,
-  	      conceptInstances,
-  	      conceptPredicates,
-  	      descriptionBoxes,
-  	      descriptionBoxExtendsClosedWorldDefinitions,
-  	      descriptionBoxRefinements,
-  	      entityStructuredDataPropertyParticularRestrictionAxioms,
-  	      reifiedRelationshipInstances,
-  	      reifiedRelationshipInstanceDomains,
-  	      reifiedRelationshipInstanceRanges,
-  	      reifiedRelationshipInversePropertyPredicates,
-  	      reifiedRelationshipPredicates,
-  	      reifiedRelationshipPropertyPredicates,
-  	      reifiedRelationshipSourceInversePropertyPredicates,
-  	      reifiedRelationshipSourcePropertyPredicates,
-  	      reifiedRelationshipTargetInversePropertyPredicates,
-  	      reifiedRelationshipTargetPropertyPredicates,
-  	      restrictionScalarDataPropertyValues,
-  	      restrictionStructuredDataPropertyTuples,
-  	      ruleBodySegments,
-  	      scalarDataPropertyValues,
-  	      singletonInstanceScalarDataPropertyValues,
-  	      singletonInstanceStructuredDataPropertyValues,
-  	      structuredDataPropertyTuples,
-  	      subDataPropertyOfAxioms,
-  	      subObjectPropertyOfAxioms,
-  	      unreifiedRelationshipInstanceTuples,
-  	      unreifiedRelationshipInversePropertyPredicates,
-  	      unreifiedRelationshipPropertyPredicates
+  	      terminologyGraphs = terminologyGraphs,
+  	      bundles = bundles,
+  	      descriptionBoxes = descriptionBoxes,
+  	      annotationProperties = annotationProperties,
+  	      aspects = aspects,
+  	      concepts = concepts,
+  	      scalars = scalars,
+  	      structures = structures,
+  	      conceptDesignationTerminologyAxioms = conceptDesignationTerminologyAxioms,
+  	      terminologyExtensionAxioms = terminologyExtensionAxioms,
+  	      terminologyNestingAxioms = terminologyNestingAxioms,
+  	      bundledTerminologyAxioms = bundledTerminologyAxioms,
+  	      descriptionBoxExtendsClosedWorldDefinitions = descriptionBoxExtendsClosedWorldDefinitions,
+  	      descriptionBoxRefinements = descriptionBoxRefinements,
+  	      binaryScalarRestrictions = binaryScalarRestrictions,
+  	      iriScalarRestrictions = iriScalarRestrictions,
+  	      numericScalarRestrictions = numericScalarRestrictions,
+  	      plainLiteralScalarRestrictions = plainLiteralScalarRestrictions,
+  	      scalarOneOfRestrictions = scalarOneOfRestrictions,
+  	      scalarOneOfLiteralAxioms = scalarOneOfLiteralAxioms,
+  	      stringScalarRestrictions = stringScalarRestrictions,
+  	      synonymScalarRestrictions = synonymScalarRestrictions,
+  	      timeScalarRestrictions = timeScalarRestrictions,
+  	      entityScalarDataProperties = entityScalarDataProperties,
+  	      entityStructuredDataProperties = entityStructuredDataProperties,
+  	      scalarDataProperties = scalarDataProperties,
+  	      structuredDataProperties = structuredDataProperties,
+  	      reifiedRelationships = reifiedRelationships,
+  	      unreifiedRelationships = unreifiedRelationships,
+  	      chainRules = chainRules,
+  	      ruleBodySegments = ruleBodySegments,
+  	      aspectPredicates = aspectPredicates,
+  	      conceptPredicates = conceptPredicates,
+  	      reifiedRelationshipPredicates = reifiedRelationshipPredicates,
+  	      reifiedRelationshipPropertyPredicates = reifiedRelationshipPropertyPredicates,
+  	      reifiedRelationshipSourcePropertyPredicates = reifiedRelationshipSourcePropertyPredicates,
+  	      reifiedRelationshipTargetPropertyPredicates = reifiedRelationshipTargetPropertyPredicates,
+  	      unreifiedRelationshipPropertyPredicates = unreifiedRelationshipPropertyPredicates,
+  	      reifiedRelationshipInversePropertyPredicates = reifiedRelationshipInversePropertyPredicates,
+  	      reifiedRelationshipSourceInversePropertyPredicates = reifiedRelationshipSourceInversePropertyPredicates,
+  	      reifiedRelationshipTargetInversePropertyPredicates = reifiedRelationshipTargetInversePropertyPredicates,
+  	      unreifiedRelationshipInversePropertyPredicates = unreifiedRelationshipInversePropertyPredicates,
+  	      entityExistentialRestrictionAxioms = entityExistentialRestrictionAxioms,
+  	      entityUniversalRestrictionAxioms = entityUniversalRestrictionAxioms,
+  	      entityScalarDataPropertyExistentialRestrictionAxioms = entityScalarDataPropertyExistentialRestrictionAxioms,
+  	      entityScalarDataPropertyParticularRestrictionAxioms = entityScalarDataPropertyParticularRestrictionAxioms,
+  	      entityScalarDataPropertyUniversalRestrictionAxioms = entityScalarDataPropertyUniversalRestrictionAxioms,
+  	      entityStructuredDataPropertyParticularRestrictionAxioms = entityStructuredDataPropertyParticularRestrictionAxioms,
+  	      restrictionStructuredDataPropertyTuples = restrictionStructuredDataPropertyTuples,
+  	      restrictionScalarDataPropertyValues = restrictionScalarDataPropertyValues,
+  	      aspectSpecializationAxioms = aspectSpecializationAxioms,
+  	      conceptSpecializationAxioms = conceptSpecializationAxioms,
+  	      reifiedRelationshipSpecializationAxioms = reifiedRelationshipSpecializationAxioms,
+  	      subDataPropertyOfAxioms = subDataPropertyOfAxioms,
+  	      subObjectPropertyOfAxioms = subObjectPropertyOfAxioms,
+  	      rootConceptTaxonomyAxioms = rootConceptTaxonomyAxioms,
+  	      anonymousConceptUnionAxioms = anonymousConceptUnionAxioms,
+  	      specificDisjointConceptAxioms = specificDisjointConceptAxioms,
+  	      conceptInstances = conceptInstances,
+  	      reifiedRelationshipInstances = reifiedRelationshipInstances,
+  	      reifiedRelationshipInstanceDomains = reifiedRelationshipInstanceDomains,
+  	      reifiedRelationshipInstanceRanges = reifiedRelationshipInstanceRanges,
+  	      unreifiedRelationshipInstanceTuples = unreifiedRelationshipInstanceTuples,
+  	      singletonInstanceStructuredDataPropertyValues = singletonInstanceStructuredDataPropertyValues,
+  	      singletonInstanceScalarDataPropertyValues = singletonInstanceScalarDataPropertyValues,
+  	      structuredDataPropertyTuples = structuredDataPropertyTuples,
+  	      scalarDataPropertyValues = scalarDataPropertyValues,
+  	      annotationPropertyValues = annotationPropertyValues
   	    ))
   	}
 
@@ -3513,6 +2762,1293 @@ object OMLSpecificationTypedDatasets {
         .write
         .parquet((dir / "UnreifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
       
+  	  Success(())
+  	}
+
+  def sqlReadOMLSpecificationTables
+  (url: String,
+   props: Properties)
+  (implicit spark: SparkSession, sqlContext: SQLContext)
+  : Try[tables.OMLSpecificationTables]
+  = nonFatalCatch[Try[tables.OMLSpecificationTables]]
+    .withApply {
+      (cause: java.lang.Throwable) =>
+        Failure(cause)
+    }
+    .apply {
+    	
+      import spark.implicits._
+      import scala.Predef.refArrayOps
+	  
+      val annotationProperties
+      : Seq[tables.AnnotationProperty]
+      = spark
+        .read
+        .jdbc(url, "OML.AnnotProps", props)
+        .map(OMLReaders.AnnotationPropertySQL2Tuple)
+        .collect()
+        .map(OMLReaders.AnnotationPropertyTuple2Type)
+        .to[Seq]
+      
+      val annotationPropertyValues
+      : Seq[tables.AnnotationPropertyValue]
+      = spark
+        .read
+        .jdbc(url, "OML.AnnotPropVals", props)
+        .map(OMLReaders.AnnotationPropertyValueSQL2Tuple)
+        .collect()
+        .map(OMLReaders.AnnotationPropertyValueTuple2Type)
+        .to[Seq]
+      
+      val anonymousConceptUnionAxioms
+      : Seq[tables.AnonymousConceptUnionAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.AnonymousCUnionAx", props)
+        .map(OMLReaders.AnonymousConceptUnionAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.AnonymousConceptUnionAxiomTuple2Type)
+        .to[Seq]
+      
+      val aspects
+      : Seq[tables.Aspect]
+      = spark
+        .read
+        .jdbc(url, "OML.Aspects", props)
+        .map(OMLReaders.AspectSQL2Tuple)
+        .collect()
+        .map(OMLReaders.AspectTuple2Type)
+        .to[Seq]
+      
+      val aspectPredicates
+      : Seq[tables.AspectPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.AspectP", props)
+        .map(OMLReaders.AspectPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.AspectPredicateTuple2Type)
+        .to[Seq]
+      
+      val aspectSpecializationAxioms
+      : Seq[tables.AspectSpecializationAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.AspectSpeAx", props)
+        .map(OMLReaders.AspectSpecializationAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.AspectSpecializationAxiomTuple2Type)
+        .to[Seq]
+      
+      val binaryScalarRestrictions
+      : Seq[tables.BinaryScalarRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.BinScRs", props)
+        .map(OMLReaders.BinaryScalarRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.BinaryScalarRestrictionTuple2Type)
+        .to[Seq]
+      
+      val bundles
+      : Seq[tables.Bundle]
+      = spark
+        .read
+        .jdbc(url, "OML.Bdls", props)
+        .map(OMLReaders.BundleSQL2Tuple)
+        .collect()
+        .map(OMLReaders.BundleTuple2Type)
+        .to[Seq]
+      
+      val bundledTerminologyAxioms
+      : Seq[tables.BundledTerminologyAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.BdldTlgyAx", props)
+        .map(OMLReaders.BundledTerminologyAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.BundledTerminologyAxiomTuple2Type)
+        .to[Seq]
+      
+      val chainRules
+      : Seq[tables.ChainRule]
+      = spark
+        .read
+        .jdbc(url, "OML.ChainRules", props)
+        .map(OMLReaders.ChainRuleSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ChainRuleTuple2Type)
+        .to[Seq]
+      
+      val concepts
+      : Seq[tables.Concept]
+      = spark
+        .read
+        .jdbc(url, "OML.Cs", props)
+        .map(OMLReaders.ConceptSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ConceptTuple2Type)
+        .to[Seq]
+      
+      val conceptDesignationTerminologyAxioms
+      : Seq[tables.ConceptDesignationTerminologyAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.CDesTlgyAx", props)
+        .map(OMLReaders.ConceptDesignationTerminologyAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ConceptDesignationTerminologyAxiomTuple2Type)
+        .to[Seq]
+      
+      val conceptInstances
+      : Seq[tables.ConceptInstance]
+      = spark
+        .read
+        .jdbc(url, "OML.CIs", props)
+        .map(OMLReaders.ConceptInstanceSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ConceptInstanceTuple2Type)
+        .to[Seq]
+      
+      val conceptPredicates
+      : Seq[tables.ConceptPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.CP", props)
+        .map(OMLReaders.ConceptPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ConceptPredicateTuple2Type)
+        .to[Seq]
+      
+      val conceptSpecializationAxioms
+      : Seq[tables.ConceptSpecializationAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.CSpeAx", props)
+        .map(OMLReaders.ConceptSpecializationAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ConceptSpecializationAxiomTuple2Type)
+        .to[Seq]
+      
+      val descriptionBoxes
+      : Seq[tables.DescriptionBox]
+      = spark
+        .read
+        .jdbc(url, "OML.DBoxes", props)
+        .map(OMLReaders.DescriptionBoxSQL2Tuple)
+        .collect()
+        .map(OMLReaders.DescriptionBoxTuple2Type)
+        .to[Seq]
+      
+      val descriptionBoxExtendsClosedWorldDefinitions
+      : Seq[tables.DescriptionBoxExtendsClosedWorldDefinitions]
+      = spark
+        .read
+        .jdbc(url, "OML.DBoxExtCWDef", props)
+        .map(OMLReaders.DescriptionBoxExtendsClosedWorldDefinitionsSQL2Tuple)
+        .collect()
+        .map(OMLReaders.DescriptionBoxExtendsClosedWorldDefinitionsTuple2Type)
+        .to[Seq]
+      
+      val descriptionBoxRefinements
+      : Seq[tables.DescriptionBoxRefinement]
+      = spark
+        .read
+        .jdbc(url, "OML.DBoxRfns", props)
+        .map(OMLReaders.DescriptionBoxRefinementSQL2Tuple)
+        .collect()
+        .map(OMLReaders.DescriptionBoxRefinementTuple2Type)
+        .to[Seq]
+      
+      val entityExistentialRestrictionAxioms
+      : Seq[tables.EntityExistentialRestrictionAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.EExRAx", props)
+        .map(OMLReaders.EntityExistentialRestrictionAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.EntityExistentialRestrictionAxiomTuple2Type)
+        .to[Seq]
+      
+      val entityScalarDataProperties
+      : Seq[tables.EntityScalarDataProperty]
+      = spark
+        .read
+        .jdbc(url, "OML.EScPs", props)
+        .map(OMLReaders.EntityScalarDataPropertySQL2Tuple)
+        .collect()
+        .map(OMLReaders.EntityScalarDataPropertyTuple2Type)
+        .to[Seq]
+      
+      val entityScalarDataPropertyExistentialRestrictionAxioms
+      : Seq[tables.EntityScalarDataPropertyExistentialRestrictionAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.EScPExRAx", props)
+        .map(OMLReaders.EntityScalarDataPropertyExistentialRestrictionAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.EntityScalarDataPropertyExistentialRestrictionAxiomTuple2Type)
+        .to[Seq]
+      
+      val entityScalarDataPropertyParticularRestrictionAxioms
+      : Seq[tables.EntityScalarDataPropertyParticularRestrictionAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.EScPPtrRAx", props)
+        .map(OMLReaders.EntityScalarDataPropertyParticularRestrictionAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.EntityScalarDataPropertyParticularRestrictionAxiomTuple2Type)
+        .to[Seq]
+      
+      val entityScalarDataPropertyUniversalRestrictionAxioms
+      : Seq[tables.EntityScalarDataPropertyUniversalRestrictionAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.EScPUxRAx", props)
+        .map(OMLReaders.EntityScalarDataPropertyUniversalRestrictionAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.EntityScalarDataPropertyUniversalRestrictionAxiomTuple2Type)
+        .to[Seq]
+      
+      val entityStructuredDataProperties
+      : Seq[tables.EntityStructuredDataProperty]
+      = spark
+        .read
+        .jdbc(url, "OML.EStPs", props)
+        .map(OMLReaders.EntityStructuredDataPropertySQL2Tuple)
+        .collect()
+        .map(OMLReaders.EntityStructuredDataPropertyTuple2Type)
+        .to[Seq]
+      
+      val entityStructuredDataPropertyParticularRestrictionAxioms
+      : Seq[tables.EntityStructuredDataPropertyParticularRestrictionAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.EStPPtrRAx", props)
+        .map(OMLReaders.EntityStructuredDataPropertyParticularRestrictionAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.EntityStructuredDataPropertyParticularRestrictionAxiomTuple2Type)
+        .to[Seq]
+      
+      val entityUniversalRestrictionAxioms
+      : Seq[tables.EntityUniversalRestrictionAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.EUxRAx", props)
+        .map(OMLReaders.EntityUniversalRestrictionAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.EntityUniversalRestrictionAxiomTuple2Type)
+        .to[Seq]
+      
+      val iriScalarRestrictions
+      : Seq[tables.IRIScalarRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.IRIScRs", props)
+        .map(OMLReaders.IRIScalarRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.IRIScalarRestrictionTuple2Type)
+        .to[Seq]
+      
+      val numericScalarRestrictions
+      : Seq[tables.NumericScalarRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.NumericScRs", props)
+        .map(OMLReaders.NumericScalarRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.NumericScalarRestrictionTuple2Type)
+        .to[Seq]
+      
+      val plainLiteralScalarRestrictions
+      : Seq[tables.PlainLiteralScalarRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.PlainLitScRs", props)
+        .map(OMLReaders.PlainLiteralScalarRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.PlainLiteralScalarRestrictionTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationships
+      : Seq[tables.ReifiedRelationship]
+      = spark
+        .read
+        .jdbc(url, "OML.RRs", props)
+        .map(OMLReaders.ReifiedRelationshipSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipInstances
+      : Seq[tables.ReifiedRelationshipInstance]
+      = spark
+        .read
+        .jdbc(url, "OML.RRIs", props)
+        .map(OMLReaders.ReifiedRelationshipInstanceSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipInstanceTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipInstanceDomains
+      : Seq[tables.ReifiedRelationshipInstanceDomain]
+      = spark
+        .read
+        .jdbc(url, "OML.RRIDomains", props)
+        .map(OMLReaders.ReifiedRelationshipInstanceDomainSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipInstanceDomainTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipInstanceRanges
+      : Seq[tables.ReifiedRelationshipInstanceRange]
+      = spark
+        .read
+        .jdbc(url, "OML.RRIRanges", props)
+        .map(OMLReaders.ReifiedRelationshipInstanceRangeSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipInstanceRangeTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipInversePropertyPredicates
+      : Seq[tables.ReifiedRelationshipInversePropertyPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.RRInvPropP", props)
+        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipPredicates
+      : Seq[tables.ReifiedRelationshipPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.RRP", props)
+        .map(OMLReaders.ReifiedRelationshipPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipPredicateTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipPropertyPredicates
+      : Seq[tables.ReifiedRelationshipPropertyPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.RRPropP", props)
+        .map(OMLReaders.ReifiedRelationshipPropertyPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipPropertyPredicateTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipSourceInversePropertyPredicates
+      : Seq[tables.ReifiedRelationshipSourceInversePropertyPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.RRSrcInvPropP", props)
+        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipSourcePropertyPredicates
+      : Seq[tables.ReifiedRelationshipSourcePropertyPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.RRSrcPropP", props)
+        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipSpecializationAxioms
+      : Seq[tables.ReifiedRelationshipSpecializationAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.RRSpeAx", props)
+        .map(OMLReaders.ReifiedRelationshipSpecializationAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipSpecializationAxiomTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipTargetInversePropertyPredicates
+      : Seq[tables.ReifiedRelationshipTargetInversePropertyPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.RRTgtInvPropP", props)
+        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateTuple2Type)
+        .to[Seq]
+      
+      val reifiedRelationshipTargetPropertyPredicates
+      : Seq[tables.ReifiedRelationshipTargetPropertyPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.RRTgtPropP", props)
+        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateTuple2Type)
+        .to[Seq]
+      
+      val restrictionScalarDataPropertyValues
+      : Seq[tables.RestrictionScalarDataPropertyValue]
+      = spark
+        .read
+        .jdbc(url, "OML.RScPVals", props)
+        .map(OMLReaders.RestrictionScalarDataPropertyValueSQL2Tuple)
+        .collect()
+        .map(OMLReaders.RestrictionScalarDataPropertyValueTuple2Type)
+        .to[Seq]
+      
+      val restrictionStructuredDataPropertyTuples
+      : Seq[tables.RestrictionStructuredDataPropertyTuple]
+      = spark
+        .read
+        .jdbc(url, "OML.RStPTs", props)
+        .map(OMLReaders.RestrictionStructuredDataPropertyTupleSQL2Tuple)
+        .collect()
+        .map(OMLReaders.RestrictionStructuredDataPropertyTupleTuple2Type)
+        .to[Seq]
+      
+      val rootConceptTaxonomyAxioms
+      : Seq[tables.RootConceptTaxonomyAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.RootCTaxonomyAx", props)
+        .map(OMLReaders.RootConceptTaxonomyAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.RootConceptTaxonomyAxiomTuple2Type)
+        .to[Seq]
+      
+      val ruleBodySegments
+      : Seq[tables.RuleBodySegment]
+      = spark
+        .read
+        .jdbc(url, "OML.RuleBodySegs", props)
+        .map(OMLReaders.RuleBodySegmentSQL2Tuple)
+        .collect()
+        .map(OMLReaders.RuleBodySegmentTuple2Type)
+        .to[Seq]
+      
+      val scalars
+      : Seq[tables.Scalar]
+      = spark
+        .read
+        .jdbc(url, "OML.Scs", props)
+        .map(OMLReaders.ScalarSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ScalarTuple2Type)
+        .to[Seq]
+      
+      val scalarDataProperties
+      : Seq[tables.ScalarDataProperty]
+      = spark
+        .read
+        .jdbc(url, "OML.ScPs", props)
+        .map(OMLReaders.ScalarDataPropertySQL2Tuple)
+        .collect()
+        .map(OMLReaders.ScalarDataPropertyTuple2Type)
+        .to[Seq]
+      
+      val scalarDataPropertyValues
+      : Seq[tables.ScalarDataPropertyValue]
+      = spark
+        .read
+        .jdbc(url, "OML.ScPVals", props)
+        .map(OMLReaders.ScalarDataPropertyValueSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ScalarDataPropertyValueTuple2Type)
+        .to[Seq]
+      
+      val scalarOneOfLiteralAxioms
+      : Seq[tables.ScalarOneOfLiteralAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.ScOneOfLitAx", props)
+        .map(OMLReaders.ScalarOneOfLiteralAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ScalarOneOfLiteralAxiomTuple2Type)
+        .to[Seq]
+      
+      val scalarOneOfRestrictions
+      : Seq[tables.ScalarOneOfRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.ScOneOfRs", props)
+        .map(OMLReaders.ScalarOneOfRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ScalarOneOfRestrictionTuple2Type)
+        .to[Seq]
+      
+      val singletonInstanceScalarDataPropertyValues
+      : Seq[tables.SingletonInstanceScalarDataPropertyValue]
+      = spark
+        .read
+        .jdbc(url, "OML.S1IScPVals", props)
+        .map(OMLReaders.SingletonInstanceScalarDataPropertyValueSQL2Tuple)
+        .collect()
+        .map(OMLReaders.SingletonInstanceScalarDataPropertyValueTuple2Type)
+        .to[Seq]
+      
+      val singletonInstanceStructuredDataPropertyValues
+      : Seq[tables.SingletonInstanceStructuredDataPropertyValue]
+      = spark
+        .read
+        .jdbc(url, "OML.S1IStPVals", props)
+        .map(OMLReaders.SingletonInstanceStructuredDataPropertyValueSQL2Tuple)
+        .collect()
+        .map(OMLReaders.SingletonInstanceStructuredDataPropertyValueTuple2Type)
+        .to[Seq]
+      
+      val specificDisjointConceptAxioms
+      : Seq[tables.SpecificDisjointConceptAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.SpeDsjtCAx", props)
+        .map(OMLReaders.SpecificDisjointConceptAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.SpecificDisjointConceptAxiomTuple2Type)
+        .to[Seq]
+      
+      val stringScalarRestrictions
+      : Seq[tables.StringScalarRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.StringScRs", props)
+        .map(OMLReaders.StringScalarRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.StringScalarRestrictionTuple2Type)
+        .to[Seq]
+      
+      val structures
+      : Seq[tables.Structure]
+      = spark
+        .read
+        .jdbc(url, "OML.Sts", props)
+        .map(OMLReaders.StructureSQL2Tuple)
+        .collect()
+        .map(OMLReaders.StructureTuple2Type)
+        .to[Seq]
+      
+      val structuredDataProperties
+      : Seq[tables.StructuredDataProperty]
+      = spark
+        .read
+        .jdbc(url, "OML.StPs", props)
+        .map(OMLReaders.StructuredDataPropertySQL2Tuple)
+        .collect()
+        .map(OMLReaders.StructuredDataPropertyTuple2Type)
+        .to[Seq]
+      
+      val structuredDataPropertyTuples
+      : Seq[tables.StructuredDataPropertyTuple]
+      = spark
+        .read
+        .jdbc(url, "OML.StPTs", props)
+        .map(OMLReaders.StructuredDataPropertyTupleSQL2Tuple)
+        .collect()
+        .map(OMLReaders.StructuredDataPropertyTupleTuple2Type)
+        .to[Seq]
+      
+      val subDataPropertyOfAxioms
+      : Seq[tables.SubDataPropertyOfAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.SubDataPropOfAx", props)
+        .map(OMLReaders.SubDataPropertyOfAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.SubDataPropertyOfAxiomTuple2Type)
+        .to[Seq]
+      
+      val subObjectPropertyOfAxioms
+      : Seq[tables.SubObjectPropertyOfAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.SubObjectPropOfAx", props)
+        .map(OMLReaders.SubObjectPropertyOfAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.SubObjectPropertyOfAxiomTuple2Type)
+        .to[Seq]
+      
+      val synonymScalarRestrictions
+      : Seq[tables.SynonymScalarRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.SynonymScRs", props)
+        .map(OMLReaders.SynonymScalarRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.SynonymScalarRestrictionTuple2Type)
+        .to[Seq]
+      
+      val terminologyExtensionAxioms
+      : Seq[tables.TerminologyExtensionAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.TlgyExtensionAx", props)
+        .map(OMLReaders.TerminologyExtensionAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.TerminologyExtensionAxiomTuple2Type)
+        .to[Seq]
+      
+      val terminologyGraphs
+      : Seq[tables.TerminologyGraph]
+      = spark
+        .read
+        .jdbc(url, "OML.TlgyGraphs", props)
+        .map(OMLReaders.TerminologyGraphSQL2Tuple)
+        .collect()
+        .map(OMLReaders.TerminologyGraphTuple2Type)
+        .to[Seq]
+      
+      val terminologyNestingAxioms
+      : Seq[tables.TerminologyNestingAxiom]
+      = spark
+        .read
+        .jdbc(url, "OML.TlgyNestingAx", props)
+        .map(OMLReaders.TerminologyNestingAxiomSQL2Tuple)
+        .collect()
+        .map(OMLReaders.TerminologyNestingAxiomTuple2Type)
+        .to[Seq]
+      
+      val timeScalarRestrictions
+      : Seq[tables.TimeScalarRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.TimeScRs", props)
+        .map(OMLReaders.TimeScalarRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.TimeScalarRestrictionTuple2Type)
+        .to[Seq]
+      
+      val unreifiedRelationships
+      : Seq[tables.UnreifiedRelationship]
+      = spark
+        .read
+        .jdbc(url, "OML.URs", props)
+        .map(OMLReaders.UnreifiedRelationshipSQL2Tuple)
+        .collect()
+        .map(OMLReaders.UnreifiedRelationshipTuple2Type)
+        .to[Seq]
+      
+      val unreifiedRelationshipInstanceTuples
+      : Seq[tables.UnreifiedRelationshipInstanceTuple]
+      = spark
+        .read
+        .jdbc(url, "OML.URITs", props)
+        .map(OMLReaders.UnreifiedRelationshipInstanceTupleSQL2Tuple)
+        .collect()
+        .map(OMLReaders.UnreifiedRelationshipInstanceTupleTuple2Type)
+        .to[Seq]
+      
+      val unreifiedRelationshipInversePropertyPredicates
+      : Seq[tables.UnreifiedRelationshipInversePropertyPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.URInvPropP", props)
+        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateTuple2Type)
+        .to[Seq]
+      
+      val unreifiedRelationshipPropertyPredicates
+      : Seq[tables.UnreifiedRelationshipPropertyPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.URPropP", props)
+        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateTuple2Type)
+        .to[Seq]
+
+  	  Success(
+  	    tables.OMLSpecificationTables(
+  	      terminologyGraphs = terminologyGraphs,
+  	      bundles = bundles,
+  	      descriptionBoxes = descriptionBoxes,
+  	      annotationProperties = annotationProperties,
+  	      aspects = aspects,
+  	      concepts = concepts,
+  	      scalars = scalars,
+  	      structures = structures,
+  	      conceptDesignationTerminologyAxioms = conceptDesignationTerminologyAxioms,
+  	      terminologyExtensionAxioms = terminologyExtensionAxioms,
+  	      terminologyNestingAxioms = terminologyNestingAxioms,
+  	      bundledTerminologyAxioms = bundledTerminologyAxioms,
+  	      descriptionBoxExtendsClosedWorldDefinitions = descriptionBoxExtendsClosedWorldDefinitions,
+  	      descriptionBoxRefinements = descriptionBoxRefinements,
+  	      binaryScalarRestrictions = binaryScalarRestrictions,
+  	      iriScalarRestrictions = iriScalarRestrictions,
+  	      numericScalarRestrictions = numericScalarRestrictions,
+  	      plainLiteralScalarRestrictions = plainLiteralScalarRestrictions,
+  	      scalarOneOfRestrictions = scalarOneOfRestrictions,
+  	      scalarOneOfLiteralAxioms = scalarOneOfLiteralAxioms,
+  	      stringScalarRestrictions = stringScalarRestrictions,
+  	      synonymScalarRestrictions = synonymScalarRestrictions,
+  	      timeScalarRestrictions = timeScalarRestrictions,
+  	      entityScalarDataProperties = entityScalarDataProperties,
+  	      entityStructuredDataProperties = entityStructuredDataProperties,
+  	      scalarDataProperties = scalarDataProperties,
+  	      structuredDataProperties = structuredDataProperties,
+  	      reifiedRelationships = reifiedRelationships,
+  	      unreifiedRelationships = unreifiedRelationships,
+  	      chainRules = chainRules,
+  	      ruleBodySegments = ruleBodySegments,
+  	      aspectPredicates = aspectPredicates,
+  	      conceptPredicates = conceptPredicates,
+  	      reifiedRelationshipPredicates = reifiedRelationshipPredicates,
+  	      reifiedRelationshipPropertyPredicates = reifiedRelationshipPropertyPredicates,
+  	      reifiedRelationshipSourcePropertyPredicates = reifiedRelationshipSourcePropertyPredicates,
+  	      reifiedRelationshipTargetPropertyPredicates = reifiedRelationshipTargetPropertyPredicates,
+  	      unreifiedRelationshipPropertyPredicates = unreifiedRelationshipPropertyPredicates,
+  	      reifiedRelationshipInversePropertyPredicates = reifiedRelationshipInversePropertyPredicates,
+  	      reifiedRelationshipSourceInversePropertyPredicates = reifiedRelationshipSourceInversePropertyPredicates,
+  	      reifiedRelationshipTargetInversePropertyPredicates = reifiedRelationshipTargetInversePropertyPredicates,
+  	      unreifiedRelationshipInversePropertyPredicates = unreifiedRelationshipInversePropertyPredicates,
+  	      entityExistentialRestrictionAxioms = entityExistentialRestrictionAxioms,
+  	      entityUniversalRestrictionAxioms = entityUniversalRestrictionAxioms,
+  	      entityScalarDataPropertyExistentialRestrictionAxioms = entityScalarDataPropertyExistentialRestrictionAxioms,
+  	      entityScalarDataPropertyParticularRestrictionAxioms = entityScalarDataPropertyParticularRestrictionAxioms,
+  	      entityScalarDataPropertyUniversalRestrictionAxioms = entityScalarDataPropertyUniversalRestrictionAxioms,
+  	      entityStructuredDataPropertyParticularRestrictionAxioms = entityStructuredDataPropertyParticularRestrictionAxioms,
+  	      restrictionStructuredDataPropertyTuples = restrictionStructuredDataPropertyTuples,
+  	      restrictionScalarDataPropertyValues = restrictionScalarDataPropertyValues,
+  	      aspectSpecializationAxioms = aspectSpecializationAxioms,
+  	      conceptSpecializationAxioms = conceptSpecializationAxioms,
+  	      reifiedRelationshipSpecializationAxioms = reifiedRelationshipSpecializationAxioms,
+  	      subDataPropertyOfAxioms = subDataPropertyOfAxioms,
+  	      subObjectPropertyOfAxioms = subObjectPropertyOfAxioms,
+  	      rootConceptTaxonomyAxioms = rootConceptTaxonomyAxioms,
+  	      anonymousConceptUnionAxioms = anonymousConceptUnionAxioms,
+  	      specificDisjointConceptAxioms = specificDisjointConceptAxioms,
+  	      conceptInstances = conceptInstances,
+  	      reifiedRelationshipInstances = reifiedRelationshipInstances,
+  	      reifiedRelationshipInstanceDomains = reifiedRelationshipInstanceDomains,
+  	      reifiedRelationshipInstanceRanges = reifiedRelationshipInstanceRanges,
+  	      unreifiedRelationshipInstanceTuples = unreifiedRelationshipInstanceTuples,
+  	      singletonInstanceStructuredDataPropertyValues = singletonInstanceStructuredDataPropertyValues,
+  	      singletonInstanceScalarDataPropertyValues = singletonInstanceScalarDataPropertyValues,
+  	      structuredDataPropertyTuples = structuredDataPropertyTuples,
+  	      scalarDataPropertyValues = scalarDataPropertyValues,
+  	      annotationPropertyValues = annotationPropertyValues
+  	    ))
+  	}
+
+  def sqlWriteOMLSpecificationTables
+  (t: tables.OMLSpecificationTables,
+   url: String,
+   props: Properties)
+  (implicit spark: SparkSession, sqlContext: SQLContext)
+  : Try[Unit]
+  = nonFatalCatch[Try[Unit]]
+    .withApply {
+      (cause: java.lang.Throwable) =>
+        Failure(cause)
+    }
+    .apply {
+      import spark.implicits._
+      
+      TypedDataset
+        .create(t.terminologyGraphs)
+        .dataset
+        .map(OMLReaders.TerminologyGraphType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.TlgyGraphs", props)
+      
+      TypedDataset
+        .create(t.bundles)
+        .dataset
+        .map(OMLReaders.BundleType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.Bdls", props)
+      
+      TypedDataset
+        .create(t.descriptionBoxes)
+        .dataset
+        .map(OMLReaders.DescriptionBoxType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.DBoxes", props)
+      
+      TypedDataset
+        .create(t.annotationProperties)
+        .dataset
+        .map(OMLReaders.AnnotationPropertyType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.AnnotProps", props)
+      
+      TypedDataset
+        .create(t.aspects)
+        .dataset
+        .map(OMLReaders.AspectType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.Aspects", props)
+      
+      TypedDataset
+        .create(t.concepts)
+        .dataset
+        .map(OMLReaders.ConceptType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.Cs", props)
+      
+      TypedDataset
+        .create(t.scalars)
+        .dataset
+        .map(OMLReaders.ScalarType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.Scs", props)
+      
+      TypedDataset
+        .create(t.structures)
+        .dataset
+        .map(OMLReaders.StructureType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.Sts", props)
+      
+      TypedDataset
+        .create(t.conceptDesignationTerminologyAxioms)
+        .dataset
+        .map(OMLReaders.ConceptDesignationTerminologyAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.CDesTlgyAx", props)
+      
+      TypedDataset
+        .create(t.terminologyExtensionAxioms)
+        .dataset
+        .map(OMLReaders.TerminologyExtensionAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.TlgyExtensionAx", props)
+      
+      TypedDataset
+        .create(t.terminologyNestingAxioms)
+        .dataset
+        .map(OMLReaders.TerminologyNestingAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.TlgyNestingAx", props)
+      
+      TypedDataset
+        .create(t.bundledTerminologyAxioms)
+        .dataset
+        .map(OMLReaders.BundledTerminologyAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.BdldTlgyAx", props)
+      
+      TypedDataset
+        .create(t.descriptionBoxExtendsClosedWorldDefinitions)
+        .dataset
+        .map(OMLReaders.DescriptionBoxExtendsClosedWorldDefinitionsType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.DBoxExtCWDef", props)
+      
+      TypedDataset
+        .create(t.descriptionBoxRefinements)
+        .dataset
+        .map(OMLReaders.DescriptionBoxRefinementType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.DBoxRfns", props)
+      
+	    OMLWriters
+	      .writeRestrictions(
+	        url, 
+	        props,
+	        t.scalars.map(_.uuid),
+	        t.binaryScalarRestrictions, "OML.BinScRs", OMLReaders.BinaryScalarRestrictionType2Tuple,
+	        t.iriScalarRestrictions, "OML.IRIScRs", OMLReaders.IRIScalarRestrictionType2Tuple,
+	        t.numericScalarRestrictions, "OML.NumericScRs", OMLReaders.NumericScalarRestrictionType2Tuple,
+	        t.plainLiteralScalarRestrictions, "OML.PlainLitScRs", OMLReaders.PlainLiteralScalarRestrictionType2Tuple,
+	        t.scalarOneOfRestrictions, "OML.ScOneOfRs", OMLReaders.ScalarOneOfRestrictionType2Tuple,
+	        t.stringScalarRestrictions, "OML.StringScRs", OMLReaders.StringScalarRestrictionType2Tuple,
+	        t.synonymScalarRestrictions, "OML.SynonymScRs", OMLReaders.SynonymScalarRestrictionType2Tuple,
+	        t.timeScalarRestrictions, "OML.TimeScRs", OMLReaders.TimeScalarRestrictionType2Tuple)
+
+      TypedDataset
+        .create(t.scalarOneOfLiteralAxioms)
+        .dataset
+        .map(OMLReaders.ScalarOneOfLiteralAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.ScOneOfLitAx", props)
+
+      TypedDataset
+        .create(t.entityScalarDataProperties)
+        .dataset
+        .map(OMLReaders.EntityScalarDataPropertyType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.EScPs", props)
+
+      TypedDataset
+        .create(t.entityStructuredDataProperties)
+        .dataset
+        .map(OMLReaders.EntityStructuredDataPropertyType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.EStPs", props)
+
+      TypedDataset
+        .create(t.scalarDataProperties)
+        .dataset
+        .map(OMLReaders.ScalarDataPropertyType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.ScPs", props)
+
+      TypedDataset
+        .create(t.structuredDataProperties)
+        .dataset
+        .map(OMLReaders.StructuredDataPropertyType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.StPs", props)
+
+      TypedDataset
+        .create(t.reifiedRelationships)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRs", props)
+
+      TypedDataset
+        .create(t.unreifiedRelationships)
+        .dataset
+        .map(OMLReaders.UnreifiedRelationshipType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.URs", props)
+
+      TypedDataset
+        .create(t.chainRules)
+        .dataset
+        .map(OMLReaders.ChainRuleType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.ChainRules", props)
+
+      OMLWriters
+        .serializeAndWriteRuleBodySegments(
+          url,
+          props,
+          t.ruleBodySegments,
+          "OML.RuleBodySegs",
+          OMLReaders.RuleBodySegmentType2Tuple,
+          Seq.empty[tables.taggedTypes.RuleBodySegmentUUID],
+          OMLWriters.ruleBodySegmentPartitioner)
+
+      TypedDataset
+        .create(t.aspectPredicates)
+        .dataset
+        .map(OMLReaders.AspectPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.AspectP", props)
+
+      TypedDataset
+        .create(t.conceptPredicates)
+        .dataset
+        .map(OMLReaders.ConceptPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.CP", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipPredicates)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRP", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipPropertyPredicates)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipPropertyPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRPropP", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipSourcePropertyPredicates)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRSrcPropP", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipTargetPropertyPredicates)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRTgtPropP", props)
+
+      TypedDataset
+        .create(t.unreifiedRelationshipPropertyPredicates)
+        .dataset
+        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.URPropP", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipInversePropertyPredicates)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRInvPropP", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipSourceInversePropertyPredicates)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRSrcInvPropP", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipTargetInversePropertyPredicates)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRTgtInvPropP", props)
+
+      TypedDataset
+        .create(t.unreifiedRelationshipInversePropertyPredicates)
+        .dataset
+        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.URInvPropP", props)
+
+      TypedDataset
+        .create(t.entityExistentialRestrictionAxioms)
+        .dataset
+        .map(OMLReaders.EntityExistentialRestrictionAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.EExRAx", props)
+
+      TypedDataset
+        .create(t.entityUniversalRestrictionAxioms)
+        .dataset
+        .map(OMLReaders.EntityUniversalRestrictionAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.EUxRAx", props)
+
+      TypedDataset
+        .create(t.entityScalarDataPropertyExistentialRestrictionAxioms)
+        .dataset
+        .map(OMLReaders.EntityScalarDataPropertyExistentialRestrictionAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.EScPExRAx", props)
+
+      TypedDataset
+        .create(t.entityScalarDataPropertyParticularRestrictionAxioms)
+        .dataset
+        .map(OMLReaders.EntityScalarDataPropertyParticularRestrictionAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.EScPPtrRAx", props)
+
+      TypedDataset
+        .create(t.entityScalarDataPropertyUniversalRestrictionAxioms)
+        .dataset
+        .map(OMLReaders.EntityScalarDataPropertyUniversalRestrictionAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.EScPUxRAx", props)
+
+      TypedDataset
+        .create(t.entityStructuredDataPropertyParticularRestrictionAxioms)
+        .dataset
+        .map(OMLReaders.EntityStructuredDataPropertyParticularRestrictionAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.EStPPtrRAx", props)
+
+      OMLWriters
+        .serializeAndWriteRestrictionStructuredDataPropertyTuples(
+          url,
+          props,
+          t.restrictionStructuredDataPropertyTuples,
+          "OML.RStPTs",
+          OMLReaders.RestrictionStructuredDataPropertyTupleType2Tuple,
+          t.entityStructuredDataPropertyParticularRestrictionAxioms.map(_.uuid),
+          OMLWriters.restrictionStructuredDataPropertyTuplePartitioner)
+
+      TypedDataset
+        .create(t.restrictionScalarDataPropertyValues)
+        .dataset
+        .map(OMLReaders.RestrictionScalarDataPropertyValueType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RScPVals", props)
+
+      TypedDataset
+        .create(t.aspectSpecializationAxioms)
+        .dataset
+        .map(OMLReaders.AspectSpecializationAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.AspectSpeAx", props)
+
+      TypedDataset
+        .create(t.conceptSpecializationAxioms)
+        .dataset
+        .map(OMLReaders.ConceptSpecializationAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.CSpeAx", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipSpecializationAxioms)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipSpecializationAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRSpeAx", props)
+
+      TypedDataset
+        .create(t.subDataPropertyOfAxioms)
+        .dataset
+        .map(OMLReaders.SubDataPropertyOfAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.SubDataPropOfAx", props)
+
+      TypedDataset
+        .create(t.subObjectPropertyOfAxioms)
+        .dataset
+        .map(OMLReaders.SubObjectPropertyOfAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.SubObjectPropOfAx", props)
+
+      TypedDataset
+        .create(t.rootConceptTaxonomyAxioms)
+        .dataset
+        .map(OMLReaders.RootConceptTaxonomyAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RootCTaxonomyAx", props)
+
+      OMLWriters
+        .serializeAndWriteAnonymousConceptUnionAxioms(
+          url,
+          props,
+          t.anonymousConceptUnionAxioms,
+          "OML.AnonymousCUnionAx",
+          OMLReaders.AnonymousConceptUnionAxiomType2Tuple,
+          t.rootConceptTaxonomyAxioms.map(_.uuid),
+          OMLWriters.anonymousConceptUnionAxiomPartitioner)
+
+      TypedDataset
+        .create(t.specificDisjointConceptAxioms)
+        .dataset
+        .map(OMLReaders.SpecificDisjointConceptAxiomType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.SpeDsjtCAx", props)
+
+      TypedDataset
+        .create(t.conceptInstances)
+        .dataset
+        .map(OMLReaders.ConceptInstanceType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.CIs", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipInstances)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipInstanceType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRIs", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipInstanceDomains)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipInstanceDomainType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRIDomains", props)
+
+      TypedDataset
+        .create(t.reifiedRelationshipInstanceRanges)
+        .dataset
+        .map(OMLReaders.ReifiedRelationshipInstanceRangeType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.RRIRanges", props)
+
+      TypedDataset
+        .create(t.unreifiedRelationshipInstanceTuples)
+        .dataset
+        .map(OMLReaders.UnreifiedRelationshipInstanceTupleType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.URITs", props)
+
+      TypedDataset
+        .create(t.singletonInstanceStructuredDataPropertyValues)
+        .dataset
+        .map(OMLReaders.SingletonInstanceStructuredDataPropertyValueType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.S1IStPVals", props)
+
+      TypedDataset
+        .create(t.singletonInstanceScalarDataPropertyValues)
+        .dataset
+        .map(OMLReaders.SingletonInstanceScalarDataPropertyValueType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.S1IScPVals", props)
+
+      OMLWriters
+        .serializeAndWriteStructuredDataPropertyTuples(
+          url,
+          props,
+          t.structuredDataPropertyTuples,
+          "OML.StPTs",
+          OMLReaders.StructuredDataPropertyTupleType2Tuple,
+          t.singletonInstanceStructuredDataPropertyValues.map(_.uuid),
+          OMLWriters.structuredDataPropertyTuplePartitioner)
+
+      TypedDataset
+        .create(t.scalarDataPropertyValues)
+        .dataset
+        .map(OMLReaders.ScalarDataPropertyValueType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.ScPVals", props)
+
+      TypedDataset
+        .create(t.annotationPropertyValues)
+        .dataset
+        .map(OMLReaders.AnnotationPropertyValueType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.AnnotPropVals", props)
+
   	  Success(())
   	}
 

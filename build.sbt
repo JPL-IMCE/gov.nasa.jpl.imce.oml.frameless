@@ -13,8 +13,6 @@ import scala.util.control.Exception._
 import ProjectRefHelper._
 
 lazy val core = Project("omlFrameless", file("."))
-  .enablePlugins(JavaAppPackaging)
-  .enablePlugins(UniversalDeployPlugin)
   .enablePlugins(IMCEGitPlugin)
   .settings(IMCEPlugin.strictScalacFatalWarningsSettings)
   .settings(
@@ -37,37 +35,6 @@ lazy val core = Project("omlFrameless", file("."))
     publishArtifact in Test := true,
 
     scalaVersion := Settings.versions.scala,
-
-    topLevelDirectory := Some("OMLFrameless"),
-
-    // Generate scripts for each main application discovered.
-    mainClass in Compile := None,
-
-    // Needed to transitively get dependencies from the gov.nasa.jpl.imce:imce.third_party.* zip aggregates
-    classpathTypes += "zip",
-    classpathTypes += "linux.gtk.x86_64.tar.gz",
-
-    SettingsHelper.makeDeploymentSettings(Universal, packageZipTarball in Universal, "tgz"),
-
-    mappings in Universal := {
-      val s = streams.value
-      val prev = (mappings in Universal).value
-      s.log.warn(s"universal:mappings => ${prev.size} entries...")
-      var oks: Int = 0
-      var exs: Int = 0
-      val result = prev.filterNot { case (f, n) =>
-        val ok = f.name.endsWith(".tar.gz") ||
-          f.name.endsWith("-resource.zip") ||
-          n.contains("test") ||
-          (f.name.endsWith("log4j-1.2.17.zip") && n == "lib/log4j.log4j-1.2.17.jar") ||
-          n == "lib/ch.qos.logback.logback-classic-1.0.7.jar" ||
-          n == "lib/ch.qos.logback.logback-core-1.0.7.jar"
-        if (ok) exs += 1 else oks += 1
-        ok
-      }
-      s.log.warn(s"universal:mappings => ${prev.size} entries (kept $oks; removed $exs) => ${result.size} filtered")
-      result
-    },
 
     scalacOptions in (Compile,doc) ++= Seq(
       "-diagrams",

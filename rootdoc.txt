@@ -16,19 +16,3 @@ one for each of OML's concrete metaclasses in the [[gov.nasa.jpl.imce.oml.framel
 
 [[gov.nasa.jpl.imce.oml.frameless.OMLSpecificationTypedDatasets oml.frameless.OMLSpecificationTypedDatasets]]
 
-== 3. Apache Parquet file conversions for OML ==
-
-[[gov.nasa.jpl.imce.oml.frameless.conversions.Parquet2Tables oml.frameless.conversions.Parquet2Tables]]
-
-This command-line tool takes two arguments:
-- A path to a directory with ``*.parquet` files that will be read
-- A path to a ``*.omlzip` file which will be written with the OML contents read from the parquet files.
-
-[[gov.nasa.jpl.imce.oml.frameless.conversions.Tables2Parquet oml.frameless.conversions.Tables2Parquet]]
-
-This command-line tool takes two arguments:
-- A path to an OASIS XML Catalog file named `oml.catalog.xml` from which all `*.omlzip` files will be read
-- A path to directory which will be written with parquet files for OML
-
-
-
