@@ -21,10 +21,6 @@ package gov.nasa.jpl.imce.oml.frameless.api
 
 import gov.nasa.jpl.imce.oml.tables._
 
-case class AspectPredicate(
-  uuid: taggedTypes.AspectPredicateUUID,
-    
-  aspectUUID: taggedTypes.AspectUUID,
-    
-  bodySegmentUUID: taggedTypes.RuleBodySegmentUUID
+case class RestrictableRelationship(
+  uuid: taggedTypes.RestrictableRelationshipUUID
 )

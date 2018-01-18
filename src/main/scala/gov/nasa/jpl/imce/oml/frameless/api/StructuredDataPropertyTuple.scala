@@ -24,7 +24,7 @@ import gov.nasa.jpl.imce.oml.tables._
 case class StructuredDataPropertyTuple(
   uuid: taggedTypes.StructuredDataPropertyTupleUUID,
     
-  structuredDataPropertyUUID: taggedTypes.DataRelationshipToStructureUUID,
+  structuredDataPropertyContextUUID: taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID,
     
-  structuredDataPropertyContextUUID: taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID
+  structuredDataPropertyUUID: taggedTypes.DataRelationshipToStructureUUID
 )

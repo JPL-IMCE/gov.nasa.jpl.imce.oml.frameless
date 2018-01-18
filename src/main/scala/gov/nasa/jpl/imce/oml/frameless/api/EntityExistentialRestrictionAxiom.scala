@@ -26,9 +26,9 @@ case class EntityExistentialRestrictionAxiom(
     
   tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  restrictedRelationUUID: taggedTypes.EntityRelationshipUUID,
-    
   restrictedDomainUUID: taggedTypes.EntityUUID,
     
-  restrictedRangeUUID: taggedTypes.EntityUUID
+  restrictedRangeUUID: taggedTypes.EntityUUID,
+    
+  restrictedRelationshipUUID: taggedTypes.RestrictableRelationshipUUID
 )

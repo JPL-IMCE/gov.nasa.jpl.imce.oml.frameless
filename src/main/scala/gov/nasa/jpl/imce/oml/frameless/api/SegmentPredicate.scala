@@ -24,5 +24,17 @@ import gov.nasa.jpl.imce.oml.tables._
 case class SegmentPredicate(
   uuid: taggedTypes.SegmentPredicateUUID,
     
-  bodySegmentUUID: taggedTypes.RuleBodySegmentUUID
+  bodySegmentUUID: taggedTypes.RuleBodySegmentUUID,
+    
+  predicateUUID: scala.Option[taggedTypes.PredicateUUID],
+    
+  reifiedRelationshipSourceUUID: scala.Option[taggedTypes.ReifiedRelationshipUUID],
+    
+  reifiedRelationshipInverseSourceUUID: scala.Option[taggedTypes.ReifiedRelationshipUUID],
+    
+  reifiedRelationshipTargetUUID: scala.Option[taggedTypes.ReifiedRelationshipUUID],
+    
+  reifiedRelationshipInverseTargetUUID: scala.Option[taggedTypes.ReifiedRelationshipUUID],
+    
+  unreifiedRelationshipInverseUUID: scala.Option[taggedTypes.UnreifiedRelationshipUUID]
 )

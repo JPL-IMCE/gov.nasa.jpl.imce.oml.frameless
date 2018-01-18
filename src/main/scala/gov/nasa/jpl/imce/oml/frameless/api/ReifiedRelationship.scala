@@ -48,9 +48,5 @@ case class ReifiedRelationship(
     
   isTransitive: scala.Boolean,
     
-  name: taggedTypes.LocalName,
-    
-  unreifiedPropertyName: taggedTypes.LocalName,
-    
-  unreifiedInversePropertyName: scala.Option[taggedTypes.LocalName]
+  name: taggedTypes.LocalName
 )

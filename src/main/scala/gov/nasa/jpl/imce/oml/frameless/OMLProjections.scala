@@ -124,34 +124,6 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.AspectPredicate
-	
-	implicit val AspectPredicate2UnarySegmentPredicateProjection
-	: SmartProject
-	  [ api.AspectPredicate,
-	    api.UnarySegmentPredicate]
-	= SmartProject
-	  [ api.AspectPredicate,
-	    api.UnarySegmentPredicate](
-	      (x: TypedDataset[api.AspectPredicate]) => {
-	        val x_uuid: TypedColumn[api.AspectPredicate, taggedTypes.UnarySegmentPredicateUUID]
-	        = x.col[taggedTypes.AspectPredicateUUID]('uuid).cast[taggedTypes.UnarySegmentPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.AspectPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.UnarySegmentPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.UnarySegmentPredicate]
-	        result
-	      })
-
 	// 1 smart projects for api.AspectSpecializationAxiom
 	
 	implicit val AspectSpecializationAxiom2SpecializationAxiomProjection
@@ -213,90 +185,6 @@ object OMLProjections {
 	            x_name ::
 	            HNil)
 	          .as[api.RestrictedDataRange]
-	        result
-	      })
-
-	// 1 smart projects for api.BinarySegmentForwardPropertyPredicate
-	
-	implicit val BinarySegmentForwardPropertyPredicate2BinarySegmentPropertyPredicateProjection
-	: SmartProject
-	  [ api.BinarySegmentForwardPropertyPredicate,
-	    api.BinarySegmentPropertyPredicate]
-	= SmartProject
-	  [ api.BinarySegmentForwardPropertyPredicate,
-	    api.BinarySegmentPropertyPredicate](
-	      (x: TypedDataset[api.BinarySegmentForwardPropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.BinarySegmentForwardPropertyPredicate, taggedTypes.BinarySegmentPropertyPredicateUUID]
-	        = x.col[taggedTypes.BinarySegmentForwardPropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentPropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.BinarySegmentForwardPropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentPropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentPropertyPredicate]
-	        result
-	      })
-
-	// 1 smart projects for api.BinarySegmentPropertyPredicate
-	
-	implicit val BinarySegmentPropertyPredicate2SegmentPredicateProjection
-	: SmartProject
-	  [ api.BinarySegmentPropertyPredicate,
-	    api.SegmentPredicate]
-	= SmartProject
-	  [ api.BinarySegmentPropertyPredicate,
-	    api.SegmentPredicate](
-	      (x: TypedDataset[api.BinarySegmentPropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.BinarySegmentPropertyPredicate, taggedTypes.SegmentPredicateUUID]
-	        = x.col[taggedTypes.BinarySegmentPropertyPredicateUUID]('uuid).cast[taggedTypes.SegmentPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.BinarySegmentPropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.SegmentPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.SegmentPredicate]
-	        result
-	      })
-
-	// 1 smart projects for api.BinarySegmentReversePropertyPredicate
-	
-	implicit val BinarySegmentReversePropertyPredicate2BinarySegmentPropertyPredicateProjection
-	: SmartProject
-	  [ api.BinarySegmentReversePropertyPredicate,
-	    api.BinarySegmentPropertyPredicate]
-	= SmartProject
-	  [ api.BinarySegmentReversePropertyPredicate,
-	    api.BinarySegmentPropertyPredicate](
-	      (x: TypedDataset[api.BinarySegmentReversePropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.BinarySegmentReversePropertyPredicate, taggedTypes.BinarySegmentPropertyPredicateUUID]
-	        = x.col[taggedTypes.BinarySegmentReversePropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentPropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.BinarySegmentReversePropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentPropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentPropertyPredicate]
 	        result
 	      })
 
@@ -507,34 +395,6 @@ object OMLProjections {
 	            x_name ::
 	            HNil)
 	          .as[api.ConceptualEntitySingletonInstance]
-	        result
-	      })
-
-	// 1 smart projects for api.ConceptPredicate
-	
-	implicit val ConceptPredicate2UnarySegmentPredicateProjection
-	: SmartProject
-	  [ api.ConceptPredicate,
-	    api.UnarySegmentPredicate]
-	= SmartProject
-	  [ api.ConceptPredicate,
-	    api.UnarySegmentPredicate](
-	      (x: TypedDataset[api.ConceptPredicate]) => {
-	        val x_uuid: TypedColumn[api.ConceptPredicate, taggedTypes.UnarySegmentPredicateUUID]
-	        = x.col[taggedTypes.ConceptPredicateUUID]('uuid).cast[taggedTypes.UnarySegmentPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.ConceptPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.UnarySegmentPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.UnarySegmentPredicate]
 	        result
 	      })
 
@@ -992,7 +852,7 @@ object OMLProjections {
 	
 	// 3 smart projects for api.ElementCrossReferenceTuple
 	
-	// 1 smart projects for api.Entity
+	// 2 smart projects for api.Entity
 	
 	implicit val Entity2TermProjection
 	: SmartProject
@@ -1040,14 +900,14 @@ object OMLProjections {
 	        val x_tboxUUID: TypedColumn[api.EntityExistentialRestrictionAxiom, taggedTypes.TerminologyBoxUUID]
 	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
 	    
-	        val x_restrictedRelationUUID: TypedColumn[api.EntityExistentialRestrictionAxiom, taggedTypes.EntityRelationshipUUID]
-	        = x.col[taggedTypes.EntityRelationshipUUID]('restrictedRelationUUID)
-	    
 	        val x_restrictedDomainUUID: TypedColumn[api.EntityExistentialRestrictionAxiom, taggedTypes.EntityUUID]
 	        = x.col[taggedTypes.EntityUUID]('restrictedDomainUUID)
 	    
 	        val x_restrictedRangeUUID: TypedColumn[api.EntityExistentialRestrictionAxiom, taggedTypes.EntityUUID]
 	        = x.col[taggedTypes.EntityUUID]('restrictedRangeUUID)
+	    
+	        val x_restrictedRelationshipUUID: TypedColumn[api.EntityExistentialRestrictionAxiom, taggedTypes.RestrictableRelationshipUUID]
+	        = x.col[taggedTypes.RestrictableRelationshipUUID]('restrictedRelationshipUUID)
 	    
 	        val result
 	        : TypedDataset[api.EntityRestrictionAxiom]
@@ -1056,9 +916,9 @@ object OMLProjections {
 	          .applyProduct(
 	            x_uuid :: 
 	            x_tboxUUID :: 
-	            x_restrictedRelationUUID :: 
 	            x_restrictedDomainUUID :: 
-	            x_restrictedRangeUUID ::
+	            x_restrictedRangeUUID :: 
+	            x_restrictedRelationshipUUID ::
 	            HNil)
 	          .as[api.EntityRestrictionAxiom]
 	        result
@@ -1600,14 +1460,14 @@ object OMLProjections {
 	        val x_tboxUUID: TypedColumn[api.EntityUniversalRestrictionAxiom, taggedTypes.TerminologyBoxUUID]
 	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
 	    
-	        val x_restrictedRelationUUID: TypedColumn[api.EntityUniversalRestrictionAxiom, taggedTypes.EntityRelationshipUUID]
-	        = x.col[taggedTypes.EntityRelationshipUUID]('restrictedRelationUUID)
-	    
 	        val x_restrictedDomainUUID: TypedColumn[api.EntityUniversalRestrictionAxiom, taggedTypes.EntityUUID]
 	        = x.col[taggedTypes.EntityUUID]('restrictedDomainUUID)
 	    
 	        val x_restrictedRangeUUID: TypedColumn[api.EntityUniversalRestrictionAxiom, taggedTypes.EntityUUID]
 	        = x.col[taggedTypes.EntityUUID]('restrictedRangeUUID)
+	    
+	        val x_restrictedRelationshipUUID: TypedColumn[api.EntityUniversalRestrictionAxiom, taggedTypes.RestrictableRelationshipUUID]
+	        = x.col[taggedTypes.RestrictableRelationshipUUID]('restrictedRelationshipUUID)
 	    
 	        val result
 	        : TypedDataset[api.EntityRestrictionAxiom]
@@ -1616,15 +1476,17 @@ object OMLProjections {
 	          .applyProduct(
 	            x_uuid :: 
 	            x_tboxUUID :: 
-	            x_restrictedRelationUUID :: 
 	            x_restrictedDomainUUID :: 
-	            x_restrictedRangeUUID ::
+	            x_restrictedRangeUUID :: 
+	            x_restrictedRelationshipUUID ::
 	            HNil)
 	          .as[api.EntityRestrictionAxiom]
 	        result
 	      })
 
 	// 1 smart projects for api.ExtrinsicIdentityKind
+	
+	// 1 smart projects for api.ForwardProperty
 	
 	// 1 smart projects for api.IRIScalarRestriction
 	
@@ -1665,6 +1527,8 @@ object OMLProjections {
 	// 1 smart projects for api.IdentityKind
 	
 	// 2 smart projects for api.IntrinsicIdentityKind
+	
+	// 1 smart projects for api.InverseProperty
 	
 	// 1 smart projects for api.LogicalElement
 	
@@ -1750,6 +1614,8 @@ object OMLProjections {
 	        result
 	      })
 
+	// 1 smart projects for api.Predicate
+	
 	// 2 smart projects for api.ReifiedRelationship
 	
 	implicit val ReifiedRelationship2ConceptualEntityProjection
@@ -1888,146 +1754,6 @@ object OMLProjections {
 	
 	// 2 smart projects for api.ReifiedRelationshipInstanceRange
 	
-	// 1 smart projects for api.ReifiedRelationshipInversePropertyPredicate
-	
-	implicit val ReifiedRelationshipInversePropertyPredicate2BinarySegmentReversePropertyPredicateProjection
-	: SmartProject
-	  [ api.ReifiedRelationshipInversePropertyPredicate,
-	    api.BinarySegmentReversePropertyPredicate]
-	= SmartProject
-	  [ api.ReifiedRelationshipInversePropertyPredicate,
-	    api.BinarySegmentReversePropertyPredicate](
-	      (x: TypedDataset[api.ReifiedRelationshipInversePropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.ReifiedRelationshipInversePropertyPredicate, taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	        = x.col[taggedTypes.ReifiedRelationshipInversePropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.ReifiedRelationshipInversePropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentReversePropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentReversePropertyPredicate]
-	        result
-	      })
-
-	// 1 smart projects for api.ReifiedRelationshipPredicate
-	
-	implicit val ReifiedRelationshipPredicate2UnarySegmentPredicateProjection
-	: SmartProject
-	  [ api.ReifiedRelationshipPredicate,
-	    api.UnarySegmentPredicate]
-	= SmartProject
-	  [ api.ReifiedRelationshipPredicate,
-	    api.UnarySegmentPredicate](
-	      (x: TypedDataset[api.ReifiedRelationshipPredicate]) => {
-	        val x_uuid: TypedColumn[api.ReifiedRelationshipPredicate, taggedTypes.UnarySegmentPredicateUUID]
-	        = x.col[taggedTypes.ReifiedRelationshipPredicateUUID]('uuid).cast[taggedTypes.UnarySegmentPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.ReifiedRelationshipPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.UnarySegmentPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.UnarySegmentPredicate]
-	        result
-	      })
-
-	// 1 smart projects for api.ReifiedRelationshipPropertyPredicate
-	
-	implicit val ReifiedRelationshipPropertyPredicate2BinarySegmentForwardPropertyPredicateProjection
-	: SmartProject
-	  [ api.ReifiedRelationshipPropertyPredicate,
-	    api.BinarySegmentForwardPropertyPredicate]
-	= SmartProject
-	  [ api.ReifiedRelationshipPropertyPredicate,
-	    api.BinarySegmentForwardPropertyPredicate](
-	      (x: TypedDataset[api.ReifiedRelationshipPropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.ReifiedRelationshipPropertyPredicate, taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	        = x.col[taggedTypes.ReifiedRelationshipPropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.ReifiedRelationshipPropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentForwardPropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentForwardPropertyPredicate]
-	        result
-	      })
-
-	// 1 smart projects for api.ReifiedRelationshipSourceInversePropertyPredicate
-	
-	implicit val ReifiedRelationshipSourceInversePropertyPredicate2BinarySegmentReversePropertyPredicateProjection
-	: SmartProject
-	  [ api.ReifiedRelationshipSourceInversePropertyPredicate,
-	    api.BinarySegmentReversePropertyPredicate]
-	= SmartProject
-	  [ api.ReifiedRelationshipSourceInversePropertyPredicate,
-	    api.BinarySegmentReversePropertyPredicate](
-	      (x: TypedDataset[api.ReifiedRelationshipSourceInversePropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.ReifiedRelationshipSourceInversePropertyPredicate, taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	        = x.col[taggedTypes.ReifiedRelationshipSourceInversePropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.ReifiedRelationshipSourceInversePropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentReversePropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentReversePropertyPredicate]
-	        result
-	      })
-
-	// 1 smart projects for api.ReifiedRelationshipSourcePropertyPredicate
-	
-	implicit val ReifiedRelationshipSourcePropertyPredicate2BinarySegmentForwardPropertyPredicateProjection
-	: SmartProject
-	  [ api.ReifiedRelationshipSourcePropertyPredicate,
-	    api.BinarySegmentForwardPropertyPredicate]
-	= SmartProject
-	  [ api.ReifiedRelationshipSourcePropertyPredicate,
-	    api.BinarySegmentForwardPropertyPredicate](
-	      (x: TypedDataset[api.ReifiedRelationshipSourcePropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.ReifiedRelationshipSourcePropertyPredicate, taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	        = x.col[taggedTypes.ReifiedRelationshipSourcePropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.ReifiedRelationshipSourcePropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentForwardPropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentForwardPropertyPredicate]
-	        result
-	      })
-
 	// 1 smart projects for api.ReifiedRelationshipSpecializationAxiom
 	
 	implicit val ReifiedRelationshipSpecializationAxiom2SpecializationAxiomProjection
@@ -2056,63 +1782,9 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.ReifiedRelationshipTargetInversePropertyPredicate
-	
-	implicit val ReifiedRelationshipTargetInversePropertyPredicate2BinarySegmentReversePropertyPredicateProjection
-	: SmartProject
-	  [ api.ReifiedRelationshipTargetInversePropertyPredicate,
-	    api.BinarySegmentReversePropertyPredicate]
-	= SmartProject
-	  [ api.ReifiedRelationshipTargetInversePropertyPredicate,
-	    api.BinarySegmentReversePropertyPredicate](
-	      (x: TypedDataset[api.ReifiedRelationshipTargetInversePropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.ReifiedRelationshipTargetInversePropertyPredicate, taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	        = x.col[taggedTypes.ReifiedRelationshipTargetInversePropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.ReifiedRelationshipTargetInversePropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentReversePropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentReversePropertyPredicate]
-	        result
-	      })
-
-	// 1 smart projects for api.ReifiedRelationshipTargetPropertyPredicate
-	
-	implicit val ReifiedRelationshipTargetPropertyPredicate2BinarySegmentForwardPropertyPredicateProjection
-	: SmartProject
-	  [ api.ReifiedRelationshipTargetPropertyPredicate,
-	    api.BinarySegmentForwardPropertyPredicate]
-	= SmartProject
-	  [ api.ReifiedRelationshipTargetPropertyPredicate,
-	    api.BinarySegmentForwardPropertyPredicate](
-	      (x: TypedDataset[api.ReifiedRelationshipTargetPropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.ReifiedRelationshipTargetPropertyPredicate, taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	        = x.col[taggedTypes.ReifiedRelationshipTargetPropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.ReifiedRelationshipTargetPropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentForwardPropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentForwardPropertyPredicate]
-	        result
-	      })
-
 	// 2 smart projects for api.Resource
+	
+	// 1 smart projects for api.RestrictableRelationship
 	
 	// 1 smart projects for api.RestrictedDataRange
 	
@@ -3096,34 +2768,6 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.UnarySegmentPredicate
-	
-	implicit val UnarySegmentPredicate2SegmentPredicateProjection
-	: SmartProject
-	  [ api.UnarySegmentPredicate,
-	    api.SegmentPredicate]
-	= SmartProject
-	  [ api.UnarySegmentPredicate,
-	    api.SegmentPredicate](
-	      (x: TypedDataset[api.UnarySegmentPredicate]) => {
-	        val x_uuid: TypedColumn[api.UnarySegmentPredicate, taggedTypes.SegmentPredicateUUID]
-	        = x.col[taggedTypes.UnarySegmentPredicateUUID]('uuid).cast[taggedTypes.SegmentPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.UnarySegmentPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.SegmentPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.SegmentPredicate]
-	        result
-	      })
-
 	// 1 smart projects for api.UnaryTermKind
 	
 	implicit val UnaryTermKind2TermProjection
@@ -3156,7 +2800,7 @@ object OMLProjections {
 	        result
 	      })
 
-	// 1 smart projects for api.UnreifiedRelationship
+	// 2 smart projects for api.UnreifiedRelationship
 	
 	implicit val UnreifiedRelationship2EntityRelationshipProjection
 	: SmartProject
@@ -3234,62 +2878,6 @@ object OMLProjections {
 
 	// 2 smart projects for api.UnreifiedRelationshipInstanceTuple
 	
-	// 1 smart projects for api.UnreifiedRelationshipInversePropertyPredicate
-	
-	implicit val UnreifiedRelationshipInversePropertyPredicate2BinarySegmentReversePropertyPredicateProjection
-	: SmartProject
-	  [ api.UnreifiedRelationshipInversePropertyPredicate,
-	    api.BinarySegmentReversePropertyPredicate]
-	= SmartProject
-	  [ api.UnreifiedRelationshipInversePropertyPredicate,
-	    api.BinarySegmentReversePropertyPredicate](
-	      (x: TypedDataset[api.UnreifiedRelationshipInversePropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.UnreifiedRelationshipInversePropertyPredicate, taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	        = x.col[taggedTypes.UnreifiedRelationshipInversePropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.UnreifiedRelationshipInversePropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentReversePropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentReversePropertyPredicate]
-	        result
-	      })
-
-	// 1 smart projects for api.UnreifiedRelationshipPropertyPredicate
-	
-	implicit val UnreifiedRelationshipPropertyPredicate2BinarySegmentForwardPropertyPredicateProjection
-	: SmartProject
-	  [ api.UnreifiedRelationshipPropertyPredicate,
-	    api.BinarySegmentForwardPropertyPredicate]
-	= SmartProject
-	  [ api.UnreifiedRelationshipPropertyPredicate,
-	    api.BinarySegmentForwardPropertyPredicate](
-	      (x: TypedDataset[api.UnreifiedRelationshipPropertyPredicate]) => {
-	        val x_uuid: TypedColumn[api.UnreifiedRelationshipPropertyPredicate, taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	        = x.col[taggedTypes.UnreifiedRelationshipPropertyPredicateUUID]('uuid).cast[taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	    
-	        val x_bodySegmentUUID: TypedColumn[api.UnreifiedRelationshipPropertyPredicate, taggedTypes.RuleBodySegmentUUID]
-	        = x.col[taggedTypes.RuleBodySegmentUUID]('bodySegmentUUID)
-	    
-	        val result
-	        : TypedDataset[api.BinarySegmentForwardPropertyPredicate]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_bodySegmentUUID ::
-	            HNil)
-	          .as[api.BinarySegmentForwardPropertyPredicate]
-	        result
-	      })
-
 	// 2 smart projects for api.ValueCrossReferenceTuple
 	
 }

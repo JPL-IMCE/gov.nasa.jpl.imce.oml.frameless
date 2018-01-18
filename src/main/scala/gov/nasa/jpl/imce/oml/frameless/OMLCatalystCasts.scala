@@ -98,16 +98,6 @@ object OMLCatalystCasts {
 	  [ taggedTypes.AspectUUID,
 	    taggedTypes.UnaryTermKindUUID]]
 	
-	// 1 casts for AspectPredicate
-	
-	implicit val AspectPredicate2UnarySegmentPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.AspectPredicateUUID,
-	    taggedTypes.UnarySegmentPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.AspectPredicateUUID,
-	    taggedTypes.UnarySegmentPredicateUUID]]
-	
 	// 1 casts for AspectSpecializationAxiom
 	
 	implicit val AspectSpecializationAxiom2SpecializationAxiomUUIDCast
@@ -127,36 +117,6 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.BinaryScalarRestrictionUUID,
 	    taggedTypes.RestrictedDataRangeUUID]]
-	
-	// 1 casts for BinarySegmentForwardPropertyPredicate
-	
-	implicit val BinarySegmentForwardPropertyPredicate2BinarySegmentPropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.BinarySegmentForwardPropertyPredicateUUID,
-	    taggedTypes.BinarySegmentPropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.BinarySegmentForwardPropertyPredicateUUID,
-	    taggedTypes.BinarySegmentPropertyPredicateUUID]]
-	
-	// 1 casts for BinarySegmentPropertyPredicate
-	
-	implicit val BinarySegmentPropertyPredicate2SegmentPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.BinarySegmentPropertyPredicateUUID,
-	    taggedTypes.SegmentPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.BinarySegmentPropertyPredicateUUID,
-	    taggedTypes.SegmentPredicateUUID]]
-	
-	// 1 casts for BinarySegmentReversePropertyPredicate
-	
-	implicit val BinarySegmentReversePropertyPredicate2BinarySegmentPropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.BinarySegmentReversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentPropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.BinarySegmentReversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentPropertyPredicateUUID]]
 	
 	// 1 casts for Bundle
 	
@@ -225,16 +185,6 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ConceptInstanceUUID,
 	    taggedTypes.ConceptualEntitySingletonInstanceUUID]]
-	
-	// 1 casts for ConceptPredicate
-	
-	implicit val ConceptPredicate2UnarySegmentPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.ConceptPredicateUUID,
-	    taggedTypes.UnarySegmentPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.ConceptPredicateUUID,
-	    taggedTypes.UnarySegmentPredicateUUID]]
 	
 	// 1 casts for ConceptSpecializationAxiom
 	
@@ -478,7 +428,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.ElementCrossReferenceTupleUUID,
 	    taggedTypes.LogicalElementUUID]]
 	
-	// 1 casts for Entity
+	// 2 casts for Entity
+	
+	implicit val Entity2PredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.EntityUUID,
+	    taggedTypes.PredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.EntityUUID,
+	    taggedTypes.PredicateUUID]]
 	
 	implicit val Entity2TermUUIDCast
 	: CatalystCast
@@ -714,6 +672,16 @@ object OMLCatalystCasts {
 	  [ taggedTypes.ExtrinsicIdentityKindUUID,
 	    taggedTypes.IdentityKindUUID]]
 	
+	// 1 casts for ForwardProperty
+	
+	implicit val ForwardProperty2RestrictableRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ForwardPropertyUUID,
+	    taggedTypes.RestrictableRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ForwardPropertyUUID,
+	    taggedTypes.RestrictableRelationshipUUID]]
+	
 	// 1 casts for IRIScalarRestriction
 	
 	implicit val IRIScalarRestriction2RestrictedDataRangeUUIDCast
@@ -751,6 +719,16 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.IntrinsicIdentityKindUUID,
 	    taggedTypes.IdentityKindUUID]]
+	
+	// 1 casts for InverseProperty
+	
+	implicit val InverseProperty2RestrictableRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InversePropertyUUID,
+	    taggedTypes.RestrictableRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InversePropertyUUID,
+	    taggedTypes.RestrictableRelationshipUUID]]
 	
 	// 1 casts for LogicalElement
 	
@@ -832,6 +810,16 @@ object OMLCatalystCasts {
 	  [ taggedTypes.PlainLiteralScalarRestrictionUUID,
 	    taggedTypes.RestrictedDataRangeUUID]]
 	
+	// 1 casts for Predicate
+	
+	implicit val Predicate2ResourceUUIDCast
+	: CatalystCast
+	  [ taggedTypes.PredicateUUID,
+	    taggedTypes.ResourceUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.PredicateUUID,
+	    taggedTypes.ResourceUUID]]
+	
 	// 2 casts for ReifiedRelationship
 	
 	implicit val ReifiedRelationship2ConceptualEntityUUIDCast
@@ -896,56 +884,6 @@ object OMLCatalystCasts {
 	  [ taggedTypes.ReifiedRelationshipInstanceRangeUUID,
 	    taggedTypes.TerminologyInstanceAssertionUUID]]
 	
-	// 1 casts for ReifiedRelationshipInversePropertyPredicate
-	
-	implicit val ReifiedRelationshipInversePropertyPredicate2BinarySegmentReversePropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.ReifiedRelationshipInversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.ReifiedRelationshipInversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]]
-	
-	// 1 casts for ReifiedRelationshipPredicate
-	
-	implicit val ReifiedRelationshipPredicate2UnarySegmentPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.ReifiedRelationshipPredicateUUID,
-	    taggedTypes.UnarySegmentPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.ReifiedRelationshipPredicateUUID,
-	    taggedTypes.UnarySegmentPredicateUUID]]
-	
-	// 1 casts for ReifiedRelationshipPropertyPredicate
-	
-	implicit val ReifiedRelationshipPropertyPredicate2BinarySegmentForwardPropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.ReifiedRelationshipPropertyPredicateUUID,
-	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.ReifiedRelationshipPropertyPredicateUUID,
-	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
-	
-	// 1 casts for ReifiedRelationshipSourceInversePropertyPredicate
-	
-	implicit val ReifiedRelationshipSourceInversePropertyPredicate2BinarySegmentReversePropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.ReifiedRelationshipSourceInversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.ReifiedRelationshipSourceInversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]]
-	
-	// 1 casts for ReifiedRelationshipSourcePropertyPredicate
-	
-	implicit val ReifiedRelationshipSourcePropertyPredicate2BinarySegmentForwardPropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.ReifiedRelationshipSourcePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.ReifiedRelationshipSourcePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
-	
 	// 1 casts for ReifiedRelationshipSpecializationAxiom
 	
 	implicit val ReifiedRelationshipSpecializationAxiom2SpecializationAxiomUUIDCast
@@ -955,26 +893,6 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ReifiedRelationshipSpecializationAxiomUUID,
 	    taggedTypes.SpecializationAxiomUUID]]
-	
-	// 1 casts for ReifiedRelationshipTargetInversePropertyPredicate
-	
-	implicit val ReifiedRelationshipTargetInversePropertyPredicate2BinarySegmentReversePropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.ReifiedRelationshipTargetInversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.ReifiedRelationshipTargetInversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]]
-	
-	// 1 casts for ReifiedRelationshipTargetPropertyPredicate
-	
-	implicit val ReifiedRelationshipTargetPropertyPredicate2BinarySegmentForwardPropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.ReifiedRelationshipTargetPropertyPredicateUUID,
-	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.ReifiedRelationshipTargetPropertyPredicateUUID,
-	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
 	
 	// 2 casts for Resource
 	
@@ -993,6 +911,16 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ResourceUUID,
 	    taggedTypes.LogicalElementUUID]]
+	
+	// 1 casts for RestrictableRelationship
+	
+	implicit val RestrictableRelationship2PredicateUUIDCast
+	: CatalystCast
+	  [ taggedTypes.RestrictableRelationshipUUID,
+	    taggedTypes.PredicateUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.RestrictableRelationshipUUID,
+	    taggedTypes.PredicateUUID]]
 	
 	// 1 casts for RestrictedDataRange
 	
@@ -1510,16 +1438,6 @@ object OMLCatalystCasts {
 	  [ taggedTypes.TimeScalarRestrictionUUID,
 	    taggedTypes.RestrictedDataRangeUUID]]
 	
-	// 1 casts for UnarySegmentPredicate
-	
-	implicit val UnarySegmentPredicate2SegmentPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.UnarySegmentPredicateUUID,
-	    taggedTypes.SegmentPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.UnarySegmentPredicateUUID,
-	    taggedTypes.SegmentPredicateUUID]]
-	
 	// 1 casts for UnaryTermKind
 	
 	implicit val UnaryTermKind2TermUUIDCast
@@ -1530,7 +1448,7 @@ object OMLCatalystCasts {
 	  [ taggedTypes.UnaryTermKindUUID,
 	    taggedTypes.TermUUID]]
 	
-	// 1 casts for UnreifiedRelationship
+	// 2 casts for UnreifiedRelationship
 	
 	implicit val UnreifiedRelationship2EntityRelationshipUUIDCast
 	: CatalystCast
@@ -1539,6 +1457,14 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.UnreifiedRelationshipUUID,
 	    taggedTypes.EntityRelationshipUUID]]
+	
+	implicit val UnreifiedRelationship2RestrictableRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipUUID,
+	    taggedTypes.RestrictableRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.UnreifiedRelationshipUUID,
+	    taggedTypes.RestrictableRelationshipUUID]]
 	
 	// 2 casts for UnreifiedRelationshipInstanceTuple
 	
@@ -1557,26 +1483,6 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.UnreifiedRelationshipInstanceTupleUUID,
 	    taggedTypes.TerminologyInstanceAssertionUUID]]
-	
-	// 1 casts for UnreifiedRelationshipInversePropertyPredicate
-	
-	implicit val UnreifiedRelationshipInversePropertyPredicate2BinarySegmentReversePropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.UnreifiedRelationshipInversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.UnreifiedRelationshipInversePropertyPredicateUUID,
-	    taggedTypes.BinarySegmentReversePropertyPredicateUUID]]
-	
-	// 1 casts for UnreifiedRelationshipPropertyPredicate
-	
-	implicit val UnreifiedRelationshipPropertyPredicate2BinarySegmentForwardPropertyPredicateUUIDCast
-	: CatalystCast
-	  [ taggedTypes.UnreifiedRelationshipPropertyPredicateUUID,
-	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.UnreifiedRelationshipPropertyPredicateUUID,
-	    taggedTypes.BinarySegmentForwardPropertyPredicateUUID]]
 	
 	// 2 casts for ValueCrossReferenceTuple
 	

@@ -233,46 +233,6 @@ object OMLReaders {
 	  e.tboxUUID,
 	  e.name
 	)
-	case class AspectPredicateTuple
-	(uuid: String,
-	 aspectUUID: String,
-	 bodySegmentUUID: String)
-
-	def AspectPredicateRow2Tuple
-	(row: Row)
-	: AspectPredicateTuple
-	= AspectPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("aspectUUID"),
-	  row.getAs[String]("bodySegmentUUID")
-	)
-
-	def AspectPredicateSQL2Tuple
-	(row: Row)
-	: AspectPredicateTuple
-	= AspectPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("aspectUUID"),
-	  row.getAs[String]("bodySegmentUUID")
-	)
-				
-	def AspectPredicateTuple2Type
-	(tuple: AspectPredicateTuple)
-	: tables.AspectPredicate
-	= tables.AspectPredicate(
-	  tables.taggedTypes.aspectPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.aspectUUID(tuple.aspectUUID),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID)
-	)
-
-	def AspectPredicateType2Tuple
-	(e: tables.AspectPredicate)
-	: AspectPredicateTuple
-	= AspectPredicateTuple(
-	  e.uuid,
-	  e.aspectUUID,
-	  e.bodySegmentUUID
-	)
 	case class AspectSpecializationAxiomTuple
 	(uuid: String,
 	 tboxUUID: String,
@@ -633,46 +593,6 @@ object OMLReaders {
 	  e.singletonConceptClassifierUUID,
 	  e.name
 	)
-	case class ConceptPredicateTuple
-	(uuid: String,
-	 bodySegmentUUID: String,
-	 conceptUUID: String)
-
-	def ConceptPredicateRow2Tuple
-	(row: Row)
-	: ConceptPredicateTuple
-	= ConceptPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("conceptUUID")
-	)
-
-	def ConceptPredicateSQL2Tuple
-	(row: Row)
-	: ConceptPredicateTuple
-	= ConceptPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("conceptUUID")
-	)
-				
-	def ConceptPredicateTuple2Type
-	(tuple: ConceptPredicateTuple)
-	: tables.ConceptPredicate
-	= tables.ConceptPredicate(
-	  tables.taggedTypes.conceptPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID),
-	  tables.taggedTypes.conceptUUID(tuple.conceptUUID)
-	)
-
-	def ConceptPredicateType2Tuple
-	(e: tables.ConceptPredicate)
-	: ConceptPredicateTuple
-	= ConceptPredicateTuple(
-	  e.uuid,
-	  e.bodySegmentUUID,
-	  e.conceptUUID
-	)
 	case class ConceptSpecializationAxiomTuple
 	(uuid: String,
 	 tboxUUID: String,
@@ -841,9 +761,9 @@ object OMLReaders {
 	case class EntityExistentialRestrictionAxiomTuple
 	(uuid: String,
 	 tboxUUID: String,
-	 restrictedRelationUUID: String,
 	 restrictedDomainUUID: String,
-	 restrictedRangeUUID: String)
+	 restrictedRangeUUID: String,
+	 restrictedRelationshipUUID: String)
 
 	def EntityExistentialRestrictionAxiomRow2Tuple
 	(row: Row)
@@ -851,9 +771,9 @@ object OMLReaders {
 	= EntityExistentialRestrictionAxiomTuple(
 	  row.getAs[String]("uuid"),
 	  row.getAs[String]("tboxUUID"),
-	  row.getAs[String]("restrictedRelationUUID"),
 	  row.getAs[String]("restrictedDomainUUID"),
-	  row.getAs[String]("restrictedRangeUUID")
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
 	)
 
 	def EntityExistentialRestrictionAxiomSQL2Tuple
@@ -862,9 +782,9 @@ object OMLReaders {
 	= EntityExistentialRestrictionAxiomTuple(
 	  row.getAs[String]("uuid"),
 	  row.getAs[String]("tboxUUID"),
-	  row.getAs[String]("restrictedRelationUUID"),
 	  row.getAs[String]("restrictedDomainUUID"),
-	  row.getAs[String]("restrictedRangeUUID")
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
 	)
 				
 	def EntityExistentialRestrictionAxiomTuple2Type
@@ -873,9 +793,9 @@ object OMLReaders {
 	= tables.EntityExistentialRestrictionAxiom(
 	  tables.taggedTypes.entityExistentialRestrictionAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
-	  tables.taggedTypes.entityRelationshipUUID(tuple.restrictedRelationUUID),
 	  tables.taggedTypes.entityUUID(tuple.restrictedDomainUUID),
-	  tables.taggedTypes.entityUUID(tuple.restrictedRangeUUID)
+	  tables.taggedTypes.entityUUID(tuple.restrictedRangeUUID),
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.restrictedRelationshipUUID)
 	)
 
 	def EntityExistentialRestrictionAxiomType2Tuple
@@ -884,9 +804,9 @@ object OMLReaders {
 	= EntityExistentialRestrictionAxiomTuple(
 	  e.uuid,
 	  e.tboxUUID,
-	  e.restrictedRelationUUID,
 	  e.restrictedDomainUUID,
-	  e.restrictedRangeUUID
+	  e.restrictedRangeUUID,
+	  e.restrictedRelationshipUUID
 	)
 	case class EntityScalarDataPropertyTuple
 	(uuid: String,
@@ -1201,9 +1121,9 @@ object OMLReaders {
 	case class EntityUniversalRestrictionAxiomTuple
 	(uuid: String,
 	 tboxUUID: String,
-	 restrictedRelationUUID: String,
 	 restrictedDomainUUID: String,
-	 restrictedRangeUUID: String)
+	 restrictedRangeUUID: String,
+	 restrictedRelationshipUUID: String)
 
 	def EntityUniversalRestrictionAxiomRow2Tuple
 	(row: Row)
@@ -1211,9 +1131,9 @@ object OMLReaders {
 	= EntityUniversalRestrictionAxiomTuple(
 	  row.getAs[String]("uuid"),
 	  row.getAs[String]("tboxUUID"),
-	  row.getAs[String]("restrictedRelationUUID"),
 	  row.getAs[String]("restrictedDomainUUID"),
-	  row.getAs[String]("restrictedRangeUUID")
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
 	)
 
 	def EntityUniversalRestrictionAxiomSQL2Tuple
@@ -1222,9 +1142,9 @@ object OMLReaders {
 	= EntityUniversalRestrictionAxiomTuple(
 	  row.getAs[String]("uuid"),
 	  row.getAs[String]("tboxUUID"),
-	  row.getAs[String]("restrictedRelationUUID"),
 	  row.getAs[String]("restrictedDomainUUID"),
-	  row.getAs[String]("restrictedRangeUUID")
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
 	)
 				
 	def EntityUniversalRestrictionAxiomTuple2Type
@@ -1233,9 +1153,9 @@ object OMLReaders {
 	= tables.EntityUniversalRestrictionAxiom(
 	  tables.taggedTypes.entityUniversalRestrictionAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
-	  tables.taggedTypes.entityRelationshipUUID(tuple.restrictedRelationUUID),
 	  tables.taggedTypes.entityUUID(tuple.restrictedDomainUUID),
-	  tables.taggedTypes.entityUUID(tuple.restrictedRangeUUID)
+	  tables.taggedTypes.entityUUID(tuple.restrictedRangeUUID),
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.restrictedRelationshipUUID)
 	)
 
 	def EntityUniversalRestrictionAxiomType2Tuple
@@ -1244,9 +1164,49 @@ object OMLReaders {
 	= EntityUniversalRestrictionAxiomTuple(
 	  e.uuid,
 	  e.tboxUUID,
-	  e.restrictedRelationUUID,
 	  e.restrictedDomainUUID,
-	  e.restrictedRangeUUID
+	  e.restrictedRangeUUID,
+	  e.restrictedRelationshipUUID
+	)
+	case class ForwardPropertyTuple
+	(uuid: String,
+	 name: String,
+	 reifiedRelationshipUUID: String)
+
+	def ForwardPropertyRow2Tuple
+	(row: Row)
+	: ForwardPropertyTuple
+	= ForwardPropertyTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("reifiedRelationshipUUID")
+	)
+
+	def ForwardPropertySQL2Tuple
+	(row: Row)
+	: ForwardPropertyTuple
+	= ForwardPropertyTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("reifiedRelationshipUUID")
+	)
+				
+	def ForwardPropertyTuple2Type
+	(tuple: ForwardPropertyTuple)
+	: tables.ForwardProperty
+	= tables.ForwardProperty(
+	  tables.taggedTypes.forwardPropertyUUID(tuple.uuid),
+	  tables.taggedTypes.localName(tuple.name),
+	  tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipUUID)
+	)
+
+	def ForwardPropertyType2Tuple
+	(e: tables.ForwardProperty)
+	: ForwardPropertyTuple
+	= ForwardPropertyTuple(
+	  e.uuid,
+	  e.name,
+	  e.reifiedRelationshipUUID
 	)
 	case class IRIScalarRestrictionTuple
 	(uuid: String,
@@ -1312,6 +1272,46 @@ object OMLReaders {
 	  e.maxLength.fold[String](null)(identity),
 	  e.name,
 	  e.pattern.fold[String](null)(identity)
+	)
+	case class InversePropertyTuple
+	(uuid: String,
+	 name: String,
+	 reifiedRelationshipUUID: String)
+
+	def InversePropertyRow2Tuple
+	(row: Row)
+	: InversePropertyTuple
+	= InversePropertyTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("reifiedRelationshipUUID")
+	)
+
+	def InversePropertySQL2Tuple
+	(row: Row)
+	: InversePropertyTuple
+	= InversePropertyTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("reifiedRelationshipUUID")
+	)
+				
+	def InversePropertyTuple2Type
+	(tuple: InversePropertyTuple)
+	: tables.InverseProperty
+	= tables.InverseProperty(
+	  tables.taggedTypes.inversePropertyUUID(tuple.uuid),
+	  tables.taggedTypes.localName(tuple.name),
+	  tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipUUID)
+	)
+
+	def InversePropertyType2Tuple
+	(e: tables.InverseProperty)
+	: InversePropertyTuple
+	= InversePropertyTuple(
+	  e.uuid,
+	  e.name,
+	  e.reifiedRelationshipUUID
 	)
 	case class NumericScalarRestrictionTuple
 	(uuid: String,
@@ -1462,9 +1462,7 @@ object OMLReaders {
 	 isReflexive: Boolean,
 	 isSymmetric: Boolean,
 	 isTransitive: Boolean,
-	 name: String,
-	 unreifiedPropertyName: String,
-	 unreifiedInversePropertyName: String)
+	 name: String)
 
 	def ReifiedRelationshipRow2Tuple
 	(row: Row)
@@ -1483,9 +1481,7 @@ object OMLReaders {
 	  row.getAs[Boolean]("isReflexive"),
 	  row.getAs[Boolean]("isSymmetric"),
 	  row.getAs[Boolean]("isTransitive"),
-	  row.getAs[String]("name"),
-	  row.getAs[String]("unreifiedPropertyName"),
-	  row.getAs[String]("unreifiedInversePropertyName")
+	  row.getAs[String]("name")
 	)
 
 	def ReifiedRelationshipSQL2Tuple
@@ -1505,9 +1501,7 @@ object OMLReaders {
 	  row.getAs[Boolean]("isReflexive"),
 	  row.getAs[Boolean]("isSymmetric"),
 	  row.getAs[Boolean]("isTransitive"),
-	  row.getAs[String]("name"),
-	  row.getAs[String]("unreifiedPropertyName"),
-	  row.getAs[String]("unreifiedInversePropertyName")
+	  row.getAs[String]("name")
 	)
 				
 	def ReifiedRelationshipTuple2Type
@@ -1527,9 +1521,7 @@ object OMLReaders {
 	  tuple.isReflexive,
 	  tuple.isSymmetric,
 	  tuple.isTransitive,
-	  tables.taggedTypes.localName(tuple.name),
-	  tables.taggedTypes.localName(tuple.unreifiedPropertyName),
-	  if (null == tuple.unreifiedInversePropertyName || tuple.unreifiedInversePropertyName.isEmpty) None else Some(tables.taggedTypes.localName(tuple.unreifiedInversePropertyName))
+	  tables.taggedTypes.localName(tuple.name)
 	)
 
 	def ReifiedRelationshipType2Tuple
@@ -1549,9 +1541,7 @@ object OMLReaders {
 	  e.isReflexive,
 	  e.isSymmetric,
 	  e.isTransitive,
-	  e.name,
-	  e.unreifiedPropertyName,
-	  e.unreifiedInversePropertyName.fold[String](null)(identity)
+	  e.name
 	)
 	case class ReifiedRelationshipInstanceTuple
 	(uuid: String,
@@ -1688,206 +1678,6 @@ object OMLReaders {
 	  e.reifiedRelationshipInstanceUUID,
 	  e.rangeUUID
 	)
-	case class ReifiedRelationshipInversePropertyPredicateTuple
-	(uuid: String,
-	 bodySegmentUUID: String,
-	 reifiedRelationshipUUID: String)
-
-	def ReifiedRelationshipInversePropertyPredicateRow2Tuple
-	(row: Row)
-	: ReifiedRelationshipInversePropertyPredicateTuple
-	= ReifiedRelationshipInversePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-
-	def ReifiedRelationshipInversePropertyPredicateSQL2Tuple
-	(row: Row)
-	: ReifiedRelationshipInversePropertyPredicateTuple
-	= ReifiedRelationshipInversePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-				
-	def ReifiedRelationshipInversePropertyPredicateTuple2Type
-	(tuple: ReifiedRelationshipInversePropertyPredicateTuple)
-	: tables.ReifiedRelationshipInversePropertyPredicate
-	= tables.ReifiedRelationshipInversePropertyPredicate(
-	  tables.taggedTypes.reifiedRelationshipInversePropertyPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipUUID)
-	)
-
-	def ReifiedRelationshipInversePropertyPredicateType2Tuple
-	(e: tables.ReifiedRelationshipInversePropertyPredicate)
-	: ReifiedRelationshipInversePropertyPredicateTuple
-	= ReifiedRelationshipInversePropertyPredicateTuple(
-	  e.uuid,
-	  e.bodySegmentUUID,
-	  e.reifiedRelationshipUUID
-	)
-	case class ReifiedRelationshipPredicateTuple
-	(uuid: String,
-	 bodySegmentUUID: String,
-	 reifiedRelationshipUUID: String)
-
-	def ReifiedRelationshipPredicateRow2Tuple
-	(row: Row)
-	: ReifiedRelationshipPredicateTuple
-	= ReifiedRelationshipPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-
-	def ReifiedRelationshipPredicateSQL2Tuple
-	(row: Row)
-	: ReifiedRelationshipPredicateTuple
-	= ReifiedRelationshipPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-				
-	def ReifiedRelationshipPredicateTuple2Type
-	(tuple: ReifiedRelationshipPredicateTuple)
-	: tables.ReifiedRelationshipPredicate
-	= tables.ReifiedRelationshipPredicate(
-	  tables.taggedTypes.reifiedRelationshipPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipUUID)
-	)
-
-	def ReifiedRelationshipPredicateType2Tuple
-	(e: tables.ReifiedRelationshipPredicate)
-	: ReifiedRelationshipPredicateTuple
-	= ReifiedRelationshipPredicateTuple(
-	  e.uuid,
-	  e.bodySegmentUUID,
-	  e.reifiedRelationshipUUID
-	)
-	case class ReifiedRelationshipPropertyPredicateTuple
-	(uuid: String,
-	 bodySegmentUUID: String,
-	 reifiedRelationshipUUID: String)
-
-	def ReifiedRelationshipPropertyPredicateRow2Tuple
-	(row: Row)
-	: ReifiedRelationshipPropertyPredicateTuple
-	= ReifiedRelationshipPropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-
-	def ReifiedRelationshipPropertyPredicateSQL2Tuple
-	(row: Row)
-	: ReifiedRelationshipPropertyPredicateTuple
-	= ReifiedRelationshipPropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-				
-	def ReifiedRelationshipPropertyPredicateTuple2Type
-	(tuple: ReifiedRelationshipPropertyPredicateTuple)
-	: tables.ReifiedRelationshipPropertyPredicate
-	= tables.ReifiedRelationshipPropertyPredicate(
-	  tables.taggedTypes.reifiedRelationshipPropertyPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipUUID)
-	)
-
-	def ReifiedRelationshipPropertyPredicateType2Tuple
-	(e: tables.ReifiedRelationshipPropertyPredicate)
-	: ReifiedRelationshipPropertyPredicateTuple
-	= ReifiedRelationshipPropertyPredicateTuple(
-	  e.uuid,
-	  e.bodySegmentUUID,
-	  e.reifiedRelationshipUUID
-	)
-	case class ReifiedRelationshipSourceInversePropertyPredicateTuple
-	(uuid: String,
-	 bodySegmentUUID: String,
-	 reifiedRelationshipUUID: String)
-
-	def ReifiedRelationshipSourceInversePropertyPredicateRow2Tuple
-	(row: Row)
-	: ReifiedRelationshipSourceInversePropertyPredicateTuple
-	= ReifiedRelationshipSourceInversePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-
-	def ReifiedRelationshipSourceInversePropertyPredicateSQL2Tuple
-	(row: Row)
-	: ReifiedRelationshipSourceInversePropertyPredicateTuple
-	= ReifiedRelationshipSourceInversePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-				
-	def ReifiedRelationshipSourceInversePropertyPredicateTuple2Type
-	(tuple: ReifiedRelationshipSourceInversePropertyPredicateTuple)
-	: tables.ReifiedRelationshipSourceInversePropertyPredicate
-	= tables.ReifiedRelationshipSourceInversePropertyPredicate(
-	  tables.taggedTypes.reifiedRelationshipSourceInversePropertyPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipUUID)
-	)
-
-	def ReifiedRelationshipSourceInversePropertyPredicateType2Tuple
-	(e: tables.ReifiedRelationshipSourceInversePropertyPredicate)
-	: ReifiedRelationshipSourceInversePropertyPredicateTuple
-	= ReifiedRelationshipSourceInversePropertyPredicateTuple(
-	  e.uuid,
-	  e.bodySegmentUUID,
-	  e.reifiedRelationshipUUID
-	)
-	case class ReifiedRelationshipSourcePropertyPredicateTuple
-	(uuid: String,
-	 bodySegmentUUID: String,
-	 reifiedRelationshipUUID: String)
-
-	def ReifiedRelationshipSourcePropertyPredicateRow2Tuple
-	(row: Row)
-	: ReifiedRelationshipSourcePropertyPredicateTuple
-	= ReifiedRelationshipSourcePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-
-	def ReifiedRelationshipSourcePropertyPredicateSQL2Tuple
-	(row: Row)
-	: ReifiedRelationshipSourcePropertyPredicateTuple
-	= ReifiedRelationshipSourcePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-				
-	def ReifiedRelationshipSourcePropertyPredicateTuple2Type
-	(tuple: ReifiedRelationshipSourcePropertyPredicateTuple)
-	: tables.ReifiedRelationshipSourcePropertyPredicate
-	= tables.ReifiedRelationshipSourcePropertyPredicate(
-	  tables.taggedTypes.reifiedRelationshipSourcePropertyPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipUUID)
-	)
-
-	def ReifiedRelationshipSourcePropertyPredicateType2Tuple
-	(e: tables.ReifiedRelationshipSourcePropertyPredicate)
-	: ReifiedRelationshipSourcePropertyPredicateTuple
-	= ReifiedRelationshipSourcePropertyPredicateTuple(
-	  e.uuid,
-	  e.bodySegmentUUID,
-	  e.reifiedRelationshipUUID
-	)
 	case class ReifiedRelationshipSpecializationAxiomTuple
 	(uuid: String,
 	 tboxUUID: String,
@@ -1933,91 +1723,11 @@ object OMLReaders {
 	  e.superRelationshipUUID,
 	  e.subRelationshipUUID
 	)
-	case class ReifiedRelationshipTargetInversePropertyPredicateTuple
-	(uuid: String,
-	 bodySegmentUUID: String,
-	 reifiedRelationshipUUID: String)
-
-	def ReifiedRelationshipTargetInversePropertyPredicateRow2Tuple
-	(row: Row)
-	: ReifiedRelationshipTargetInversePropertyPredicateTuple
-	= ReifiedRelationshipTargetInversePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-
-	def ReifiedRelationshipTargetInversePropertyPredicateSQL2Tuple
-	(row: Row)
-	: ReifiedRelationshipTargetInversePropertyPredicateTuple
-	= ReifiedRelationshipTargetInversePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-				
-	def ReifiedRelationshipTargetInversePropertyPredicateTuple2Type
-	(tuple: ReifiedRelationshipTargetInversePropertyPredicateTuple)
-	: tables.ReifiedRelationshipTargetInversePropertyPredicate
-	= tables.ReifiedRelationshipTargetInversePropertyPredicate(
-	  tables.taggedTypes.reifiedRelationshipTargetInversePropertyPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipUUID)
-	)
-
-	def ReifiedRelationshipTargetInversePropertyPredicateType2Tuple
-	(e: tables.ReifiedRelationshipTargetInversePropertyPredicate)
-	: ReifiedRelationshipTargetInversePropertyPredicateTuple
-	= ReifiedRelationshipTargetInversePropertyPredicateTuple(
-	  e.uuid,
-	  e.bodySegmentUUID,
-	  e.reifiedRelationshipUUID
-	)
-	case class ReifiedRelationshipTargetPropertyPredicateTuple
-	(uuid: String,
-	 bodySegmentUUID: String,
-	 reifiedRelationshipUUID: String)
-
-	def ReifiedRelationshipTargetPropertyPredicateRow2Tuple
-	(row: Row)
-	: ReifiedRelationshipTargetPropertyPredicateTuple
-	= ReifiedRelationshipTargetPropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-
-	def ReifiedRelationshipTargetPropertyPredicateSQL2Tuple
-	(row: Row)
-	: ReifiedRelationshipTargetPropertyPredicateTuple
-	= ReifiedRelationshipTargetPropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("bodySegmentUUID"),
-	  row.getAs[String]("reifiedRelationshipUUID")
-	)
-				
-	def ReifiedRelationshipTargetPropertyPredicateTuple2Type
-	(tuple: ReifiedRelationshipTargetPropertyPredicateTuple)
-	: tables.ReifiedRelationshipTargetPropertyPredicate
-	= tables.ReifiedRelationshipTargetPropertyPredicate(
-	  tables.taggedTypes.reifiedRelationshipTargetPropertyPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipUUID)
-	)
-
-	def ReifiedRelationshipTargetPropertyPredicateType2Tuple
-	(e: tables.ReifiedRelationshipTargetPropertyPredicate)
-	: ReifiedRelationshipTargetPropertyPredicateTuple
-	= ReifiedRelationshipTargetPropertyPredicateTuple(
-	  e.uuid,
-	  e.bodySegmentUUID,
-	  e.reifiedRelationshipUUID
-	)
 	case class RestrictionScalarDataPropertyValueTuple
 	(uuid: String,
+	 structuredDataPropertyContextUUID: String,
 	 scalarDataPropertyUUID: String,
 	 scalarPropertyValue: String, scalarPropertyValueLiteralType: String,
-	 structuredDataPropertyContextUUID: String,
 	 valueTypeUUID: String)
 
 	def RestrictionScalarDataPropertyValueRow2Tuple
@@ -2025,9 +1735,9 @@ object OMLReaders {
 	: RestrictionScalarDataPropertyValueTuple
 	= RestrictionScalarDataPropertyValueTuple(
 	  row.getAs[String]("uuid"),
+	  row.getAs[String]("structuredDataPropertyContextUUID"),
 	  row.getAs[String]("scalarDataPropertyUUID"),
 	  row.getAs[GenericRowWithSchema]("scalarPropertyValue").getAs[String]("value"),row.getAs[GenericRowWithSchema]("scalarPropertyValue").getAs[String]("literalType"),
-	  row.getAs[String]("structuredDataPropertyContextUUID"),
 	  row.getAs[String]("valueTypeUUID")
 	)
 
@@ -2036,9 +1746,9 @@ object OMLReaders {
 	: RestrictionScalarDataPropertyValueTuple
 	= RestrictionScalarDataPropertyValueTuple(
 	  row.getAs[String]("uuid"),
+	  row.getAs[String]("structuredDataPropertyContextUUID"),
 	  row.getAs[String]("scalarDataPropertyUUID"),
 	  row.getAs[String]("scalarPropertyValue"),row.getAs[String]("scalarPropertyValueLiteralType"),
-	  row.getAs[String]("structuredDataPropertyContextUUID"),
 	  row.getAs[String]("valueTypeUUID")
 	)
 				
@@ -2047,9 +1757,9 @@ object OMLReaders {
 	: tables.RestrictionScalarDataPropertyValue
 	= tables.RestrictionScalarDataPropertyValue(
 	  tables.taggedTypes.restrictionScalarDataPropertyValueUUID(tuple.uuid),
+	  tables.taggedTypes.restrictionStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID),
 	  tables.taggedTypes.dataRelationshipToScalarUUID(tuple.scalarDataPropertyUUID),
 	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.scalarPropertyValueLiteralType}","value":"${tuple.scalarPropertyValue}"}"""),
-	  tables.taggedTypes.restrictionStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID),
 	  if (null == tuple.valueTypeUUID || tuple.valueTypeUUID.isEmpty) None else Some(tables.taggedTypes.dataRangeUUID(tuple.valueTypeUUID))
 	)
 
@@ -2058,23 +1768,23 @@ object OMLReaders {
 	: RestrictionScalarDataPropertyValueTuple
 	= RestrictionScalarDataPropertyValueTuple(
 	  e.uuid,
+	  e.structuredDataPropertyContextUUID,
 	  e.scalarDataPropertyUUID,
 	  e.scalarPropertyValue.value, e.scalarPropertyValue.literalType.toString,
-	  e.structuredDataPropertyContextUUID,
 	  e.valueTypeUUID.fold[String](null)(identity)
 	)
 	case class RestrictionStructuredDataPropertyTupleTuple
 	(uuid: String,
-	 structuredDataPropertyUUID: String,
-	 structuredDataPropertyContextUUID: String)
+	 structuredDataPropertyContextUUID: String,
+	 structuredDataPropertyUUID: String)
 
 	def RestrictionStructuredDataPropertyTupleRow2Tuple
 	(row: Row)
 	: RestrictionStructuredDataPropertyTupleTuple
 	= RestrictionStructuredDataPropertyTupleTuple(
 	  row.getAs[String]("uuid"),
-	  row.getAs[String]("structuredDataPropertyUUID"),
-	  row.getAs[String]("structuredDataPropertyContextUUID")
+	  row.getAs[String]("structuredDataPropertyContextUUID"),
+	  row.getAs[String]("structuredDataPropertyUUID")
 	)
 
 	def RestrictionStructuredDataPropertyTupleSQL2Tuple
@@ -2082,8 +1792,8 @@ object OMLReaders {
 	: RestrictionStructuredDataPropertyTupleTuple
 	= RestrictionStructuredDataPropertyTupleTuple(
 	  row.getAs[String]("uuid"),
-	  row.getAs[String]("structuredDataPropertyUUID"),
-	  row.getAs[String]("structuredDataPropertyContextUUID")
+	  row.getAs[String]("structuredDataPropertyContextUUID"),
+	  row.getAs[String]("structuredDataPropertyUUID")
 	)
 				
 	def RestrictionStructuredDataPropertyTupleTuple2Type
@@ -2091,8 +1801,8 @@ object OMLReaders {
 	: tables.RestrictionStructuredDataPropertyTuple
 	= tables.RestrictionStructuredDataPropertyTuple(
 	  tables.taggedTypes.restrictionStructuredDataPropertyTupleUUID(tuple.uuid),
-	  tables.taggedTypes.dataRelationshipToStructureUUID(tuple.structuredDataPropertyUUID),
-	  tables.taggedTypes.restrictionStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID)
+	  tables.taggedTypes.restrictionStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID),
+	  tables.taggedTypes.dataRelationshipToStructureUUID(tuple.structuredDataPropertyUUID)
 	)
 
 	def RestrictionStructuredDataPropertyTupleType2Tuple
@@ -2100,8 +1810,8 @@ object OMLReaders {
 	: RestrictionStructuredDataPropertyTupleTuple
 	= RestrictionStructuredDataPropertyTupleTuple(
 	  e.uuid,
-	  e.structuredDataPropertyUUID,
-	  e.structuredDataPropertyContextUUID
+	  e.structuredDataPropertyContextUUID,
+	  e.structuredDataPropertyUUID
 	)
 	case class RootConceptTaxonomyAxiomTuple
 	(uuid: String,
@@ -2275,9 +1985,9 @@ object OMLReaders {
 	)
 	case class ScalarDataPropertyValueTuple
 	(uuid: String,
+	 structuredDataPropertyContextUUID: String,
 	 scalarDataPropertyUUID: String,
 	 scalarPropertyValue: String, scalarPropertyValueLiteralType: String,
-	 structuredDataPropertyContextUUID: String,
 	 valueTypeUUID: String)
 
 	def ScalarDataPropertyValueRow2Tuple
@@ -2285,9 +1995,9 @@ object OMLReaders {
 	: ScalarDataPropertyValueTuple
 	= ScalarDataPropertyValueTuple(
 	  row.getAs[String]("uuid"),
+	  row.getAs[String]("structuredDataPropertyContextUUID"),
 	  row.getAs[String]("scalarDataPropertyUUID"),
 	  row.getAs[GenericRowWithSchema]("scalarPropertyValue").getAs[String]("value"),row.getAs[GenericRowWithSchema]("scalarPropertyValue").getAs[String]("literalType"),
-	  row.getAs[String]("structuredDataPropertyContextUUID"),
 	  row.getAs[String]("valueTypeUUID")
 	)
 
@@ -2296,9 +2006,9 @@ object OMLReaders {
 	: ScalarDataPropertyValueTuple
 	= ScalarDataPropertyValueTuple(
 	  row.getAs[String]("uuid"),
+	  row.getAs[String]("structuredDataPropertyContextUUID"),
 	  row.getAs[String]("scalarDataPropertyUUID"),
 	  row.getAs[String]("scalarPropertyValue"),row.getAs[String]("scalarPropertyValueLiteralType"),
-	  row.getAs[String]("structuredDataPropertyContextUUID"),
 	  row.getAs[String]("valueTypeUUID")
 	)
 				
@@ -2307,9 +2017,9 @@ object OMLReaders {
 	: tables.ScalarDataPropertyValue
 	= tables.ScalarDataPropertyValue(
 	  tables.taggedTypes.scalarDataPropertyValueUUID(tuple.uuid),
+	  tables.taggedTypes.singletonInstanceStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID),
 	  tables.taggedTypes.dataRelationshipToScalarUUID(tuple.scalarDataPropertyUUID),
 	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.scalarPropertyValueLiteralType}","value":"${tuple.scalarPropertyValue}"}"""),
-	  tables.taggedTypes.singletonInstanceStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID),
 	  if (null == tuple.valueTypeUUID || tuple.valueTypeUUID.isEmpty) None else Some(tables.taggedTypes.dataRangeUUID(tuple.valueTypeUUID))
 	)
 
@@ -2318,9 +2028,9 @@ object OMLReaders {
 	: ScalarDataPropertyValueTuple
 	= ScalarDataPropertyValueTuple(
 	  e.uuid,
+	  e.structuredDataPropertyContextUUID,
 	  e.scalarDataPropertyUUID,
 	  e.scalarPropertyValue.value, e.scalarPropertyValue.literalType.toString,
-	  e.structuredDataPropertyContextUUID,
 	  e.valueTypeUUID.fold[String](null)(identity)
 	)
 	case class ScalarOneOfLiteralAxiomTuple
@@ -2417,6 +2127,71 @@ object OMLReaders {
 	  e.tboxUUID,
 	  e.restrictedRangeUUID,
 	  e.name
+	)
+	case class SegmentPredicateTuple
+	(uuid: String,
+	 bodySegmentUUID: String,
+	 predicateUUID: String,
+	 reifiedRelationshipSourceUUID: String,
+	 reifiedRelationshipInverseSourceUUID: String,
+	 reifiedRelationshipTargetUUID: String,
+	 reifiedRelationshipInverseTargetUUID: String,
+	 unreifiedRelationshipInverseUUID: String)
+
+	def SegmentPredicateRow2Tuple
+	(row: Row)
+	: SegmentPredicateTuple
+	= SegmentPredicateTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("bodySegmentUUID"),
+	  row.getAs[String]("predicateUUID"),
+	  row.getAs[String]("reifiedRelationshipSourceUUID"),
+	  row.getAs[String]("reifiedRelationshipInverseSourceUUID"),
+	  row.getAs[String]("reifiedRelationshipTargetUUID"),
+	  row.getAs[String]("reifiedRelationshipInverseTargetUUID"),
+	  row.getAs[String]("unreifiedRelationshipInverseUUID")
+	)
+
+	def SegmentPredicateSQL2Tuple
+	(row: Row)
+	: SegmentPredicateTuple
+	= SegmentPredicateTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("bodySegmentUUID"),
+	  row.getAs[String]("predicateUUID"),
+	  row.getAs[String]("reifiedRelationshipSourceUUID"),
+	  row.getAs[String]("reifiedRelationshipInverseSourceUUID"),
+	  row.getAs[String]("reifiedRelationshipTargetUUID"),
+	  row.getAs[String]("reifiedRelationshipInverseTargetUUID"),
+	  row.getAs[String]("unreifiedRelationshipInverseUUID")
+	)
+				
+	def SegmentPredicateTuple2Type
+	(tuple: SegmentPredicateTuple)
+	: tables.SegmentPredicate
+	= tables.SegmentPredicate(
+	  tables.taggedTypes.segmentPredicateUUID(tuple.uuid),
+	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID),
+	  if (null == tuple.predicateUUID || tuple.predicateUUID.isEmpty) None else Some(tables.taggedTypes.predicateUUID(tuple.predicateUUID)),
+	  if (null == tuple.reifiedRelationshipSourceUUID || tuple.reifiedRelationshipSourceUUID.isEmpty) None else Some(tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipSourceUUID)),
+	  if (null == tuple.reifiedRelationshipInverseSourceUUID || tuple.reifiedRelationshipInverseSourceUUID.isEmpty) None else Some(tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipInverseSourceUUID)),
+	  if (null == tuple.reifiedRelationshipTargetUUID || tuple.reifiedRelationshipTargetUUID.isEmpty) None else Some(tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipTargetUUID)),
+	  if (null == tuple.reifiedRelationshipInverseTargetUUID || tuple.reifiedRelationshipInverseTargetUUID.isEmpty) None else Some(tables.taggedTypes.reifiedRelationshipUUID(tuple.reifiedRelationshipInverseTargetUUID)),
+	  if (null == tuple.unreifiedRelationshipInverseUUID || tuple.unreifiedRelationshipInverseUUID.isEmpty) None else Some(tables.taggedTypes.unreifiedRelationshipUUID(tuple.unreifiedRelationshipInverseUUID))
+	)
+
+	def SegmentPredicateType2Tuple
+	(e: tables.SegmentPredicate)
+	: SegmentPredicateTuple
+	= SegmentPredicateTuple(
+	  e.uuid,
+	  e.bodySegmentUUID,
+	  e.predicateUUID.fold[String](null)(identity),
+	  e.reifiedRelationshipSourceUUID.fold[String](null)(identity),
+	  e.reifiedRelationshipInverseSourceUUID.fold[String](null)(identity),
+	  e.reifiedRelationshipTargetUUID.fold[String](null)(identity),
+	  e.reifiedRelationshipInverseTargetUUID.fold[String](null)(identity),
+	  e.unreifiedRelationshipInverseUUID.fold[String](null)(identity)
 	)
 	case class SingletonInstanceScalarDataPropertyValueTuple
 	(uuid: String,
@@ -2715,16 +2490,16 @@ object OMLReaders {
 	)
 	case class StructuredDataPropertyTupleTuple
 	(uuid: String,
-	 structuredDataPropertyUUID: String,
-	 structuredDataPropertyContextUUID: String)
+	 structuredDataPropertyContextUUID: String,
+	 structuredDataPropertyUUID: String)
 
 	def StructuredDataPropertyTupleRow2Tuple
 	(row: Row)
 	: StructuredDataPropertyTupleTuple
 	= StructuredDataPropertyTupleTuple(
 	  row.getAs[String]("uuid"),
-	  row.getAs[String]("structuredDataPropertyUUID"),
-	  row.getAs[String]("structuredDataPropertyContextUUID")
+	  row.getAs[String]("structuredDataPropertyContextUUID"),
+	  row.getAs[String]("structuredDataPropertyUUID")
 	)
 
 	def StructuredDataPropertyTupleSQL2Tuple
@@ -2732,8 +2507,8 @@ object OMLReaders {
 	: StructuredDataPropertyTupleTuple
 	= StructuredDataPropertyTupleTuple(
 	  row.getAs[String]("uuid"),
-	  row.getAs[String]("structuredDataPropertyUUID"),
-	  row.getAs[String]("structuredDataPropertyContextUUID")
+	  row.getAs[String]("structuredDataPropertyContextUUID"),
+	  row.getAs[String]("structuredDataPropertyUUID")
 	)
 				
 	def StructuredDataPropertyTupleTuple2Type
@@ -2741,8 +2516,8 @@ object OMLReaders {
 	: tables.StructuredDataPropertyTuple
 	= tables.StructuredDataPropertyTuple(
 	  tables.taggedTypes.structuredDataPropertyTupleUUID(tuple.uuid),
-	  tables.taggedTypes.dataRelationshipToStructureUUID(tuple.structuredDataPropertyUUID),
-	  tables.taggedTypes.singletonInstanceStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID)
+	  tables.taggedTypes.singletonInstanceStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID),
+	  tables.taggedTypes.dataRelationshipToStructureUUID(tuple.structuredDataPropertyUUID)
 	)
 
 	def StructuredDataPropertyTupleType2Tuple
@@ -2750,8 +2525,8 @@ object OMLReaders {
 	: StructuredDataPropertyTupleTuple
 	= StructuredDataPropertyTupleTuple(
 	  e.uuid,
-	  e.structuredDataPropertyUUID,
-	  e.structuredDataPropertyContextUUID
+	  e.structuredDataPropertyContextUUID,
+	  e.structuredDataPropertyUUID
 	)
 	case class SubDataPropertyOfAxiomTuple
 	(uuid: String,
@@ -3222,85 +2997,5 @@ object OMLReaders {
 	  e.unreifiedRelationshipUUID,
 	  e.domainUUID,
 	  e.rangeUUID
-	)
-	case class UnreifiedRelationshipInversePropertyPredicateTuple
-	(uuid: String,
-	 unreifiedRelationshipUUID: String,
-	 bodySegmentUUID: String)
-
-	def UnreifiedRelationshipInversePropertyPredicateRow2Tuple
-	(row: Row)
-	: UnreifiedRelationshipInversePropertyPredicateTuple
-	= UnreifiedRelationshipInversePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("unreifiedRelationshipUUID"),
-	  row.getAs[String]("bodySegmentUUID")
-	)
-
-	def UnreifiedRelationshipInversePropertyPredicateSQL2Tuple
-	(row: Row)
-	: UnreifiedRelationshipInversePropertyPredicateTuple
-	= UnreifiedRelationshipInversePropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("unreifiedRelationshipUUID"),
-	  row.getAs[String]("bodySegmentUUID")
-	)
-				
-	def UnreifiedRelationshipInversePropertyPredicateTuple2Type
-	(tuple: UnreifiedRelationshipInversePropertyPredicateTuple)
-	: tables.UnreifiedRelationshipInversePropertyPredicate
-	= tables.UnreifiedRelationshipInversePropertyPredicate(
-	  tables.taggedTypes.unreifiedRelationshipInversePropertyPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.unreifiedRelationshipUUID(tuple.unreifiedRelationshipUUID),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID)
-	)
-
-	def UnreifiedRelationshipInversePropertyPredicateType2Tuple
-	(e: tables.UnreifiedRelationshipInversePropertyPredicate)
-	: UnreifiedRelationshipInversePropertyPredicateTuple
-	= UnreifiedRelationshipInversePropertyPredicateTuple(
-	  e.uuid,
-	  e.unreifiedRelationshipUUID,
-	  e.bodySegmentUUID
-	)
-	case class UnreifiedRelationshipPropertyPredicateTuple
-	(uuid: String,
-	 unreifiedRelationshipUUID: String,
-	 bodySegmentUUID: String)
-
-	def UnreifiedRelationshipPropertyPredicateRow2Tuple
-	(row: Row)
-	: UnreifiedRelationshipPropertyPredicateTuple
-	= UnreifiedRelationshipPropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("unreifiedRelationshipUUID"),
-	  row.getAs[String]("bodySegmentUUID")
-	)
-
-	def UnreifiedRelationshipPropertyPredicateSQL2Tuple
-	(row: Row)
-	: UnreifiedRelationshipPropertyPredicateTuple
-	= UnreifiedRelationshipPropertyPredicateTuple(
-	  row.getAs[String]("uuid"),
-	  row.getAs[String]("unreifiedRelationshipUUID"),
-	  row.getAs[String]("bodySegmentUUID")
-	)
-				
-	def UnreifiedRelationshipPropertyPredicateTuple2Type
-	(tuple: UnreifiedRelationshipPropertyPredicateTuple)
-	: tables.UnreifiedRelationshipPropertyPredicate
-	= tables.UnreifiedRelationshipPropertyPredicate(
-	  tables.taggedTypes.unreifiedRelationshipPropertyPredicateUUID(tuple.uuid),
-	  tables.taggedTypes.unreifiedRelationshipUUID(tuple.unreifiedRelationshipUUID),
-	  tables.taggedTypes.ruleBodySegmentUUID(tuple.bodySegmentUUID)
-	)
-
-	def UnreifiedRelationshipPropertyPredicateType2Tuple
-	(e: tables.UnreifiedRelationshipPropertyPredicate)
-	: UnreifiedRelationshipPropertyPredicateTuple
-	= UnreifiedRelationshipPropertyPredicateTuple(
-	  e.uuid,
-	  e.unreifiedRelationshipUUID,
-	  e.bodySegmentUUID
 	)
 }

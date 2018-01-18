@@ -71,10 +71,6 @@ object OMLSpecificationTypedDatasets {
     TypedDataset.create[api.Aspect](
       Seq.empty[api.Aspect]),
   
-    aspectPredicates = 
-    TypedDataset.create[api.AspectPredicate](
-      Seq.empty[api.AspectPredicate]),
-  
     aspectSpecializationAxioms = 
     TypedDataset.create[api.AspectSpecializationAxiom](
       Seq.empty[api.AspectSpecializationAxiom]),
@@ -106,10 +102,6 @@ object OMLSpecificationTypedDatasets {
     conceptInstances = 
     TypedDataset.create[api.ConceptInstance](
       Seq.empty[api.ConceptInstance]),
-  
-    conceptPredicates = 
-    TypedDataset.create[api.ConceptPredicate](
-      Seq.empty[api.ConceptPredicate]),
   
     conceptSpecializationAxioms = 
     TypedDataset.create[api.ConceptSpecializationAxiom](
@@ -159,9 +151,17 @@ object OMLSpecificationTypedDatasets {
     TypedDataset.create[api.EntityUniversalRestrictionAxiom](
       Seq.empty[api.EntityUniversalRestrictionAxiom]),
   
+    forwardProperties = 
+    TypedDataset.create[api.ForwardProperty](
+      Seq.empty[api.ForwardProperty]),
+  
     iriScalarRestrictions = 
     TypedDataset.create[api.IRIScalarRestriction](
       Seq.empty[api.IRIScalarRestriction]),
+  
+    inverseProperties = 
+    TypedDataset.create[api.InverseProperty](
+      Seq.empty[api.InverseProperty]),
   
     numericScalarRestrictions = 
     TypedDataset.create[api.NumericScalarRestriction](
@@ -187,37 +187,9 @@ object OMLSpecificationTypedDatasets {
     TypedDataset.create[api.ReifiedRelationshipInstanceRange](
       Seq.empty[api.ReifiedRelationshipInstanceRange]),
   
-    reifiedRelationshipInversePropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipInversePropertyPredicate](
-      Seq.empty[api.ReifiedRelationshipInversePropertyPredicate]),
-  
-    reifiedRelationshipPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipPredicate](
-      Seq.empty[api.ReifiedRelationshipPredicate]),
-  
-    reifiedRelationshipPropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipPropertyPredicate](
-      Seq.empty[api.ReifiedRelationshipPropertyPredicate]),
-  
-    reifiedRelationshipSourceInversePropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipSourceInversePropertyPredicate](
-      Seq.empty[api.ReifiedRelationshipSourceInversePropertyPredicate]),
-  
-    reifiedRelationshipSourcePropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipSourcePropertyPredicate](
-      Seq.empty[api.ReifiedRelationshipSourcePropertyPredicate]),
-  
     reifiedRelationshipSpecializationAxioms = 
     TypedDataset.create[api.ReifiedRelationshipSpecializationAxiom](
       Seq.empty[api.ReifiedRelationshipSpecializationAxiom]),
-  
-    reifiedRelationshipTargetInversePropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipTargetInversePropertyPredicate](
-      Seq.empty[api.ReifiedRelationshipTargetInversePropertyPredicate]),
-  
-    reifiedRelationshipTargetPropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipTargetPropertyPredicate](
-      Seq.empty[api.ReifiedRelationshipTargetPropertyPredicate]),
   
     restrictionScalarDataPropertyValues = 
     TypedDataset.create[api.RestrictionScalarDataPropertyValue](
@@ -254,6 +226,10 @@ object OMLSpecificationTypedDatasets {
     scalarOneOfRestrictions = 
     TypedDataset.create[api.ScalarOneOfRestriction](
       Seq.empty[api.ScalarOneOfRestriction]),
+  
+    segmentPredicates = 
+    TypedDataset.create[api.SegmentPredicate](
+      Seq.empty[api.SegmentPredicate]),
   
     singletonInstanceScalarDataPropertyValues = 
     TypedDataset.create[api.SingletonInstanceScalarDataPropertyValue](
@@ -317,15 +293,7 @@ object OMLSpecificationTypedDatasets {
   
     unreifiedRelationshipInstanceTuples = 
     TypedDataset.create[api.UnreifiedRelationshipInstanceTuple](
-      Seq.empty[api.UnreifiedRelationshipInstanceTuple]),
-  
-    unreifiedRelationshipInversePropertyPredicates = 
-    TypedDataset.create[api.UnreifiedRelationshipInversePropertyPredicate](
-      Seq.empty[api.UnreifiedRelationshipInversePropertyPredicate]),
-  
-    unreifiedRelationshipPropertyPredicates = 
-    TypedDataset.create[api.UnreifiedRelationshipPropertyPredicate](
-      Seq.empty[api.UnreifiedRelationshipPropertyPredicate])
+      Seq.empty[api.UnreifiedRelationshipInstanceTuple])
   )
     
   def convertToOMLSpecificationTypedDatasets
@@ -366,14 +334,6 @@ object OMLSpecificationTypedDatasets {
          uuid = i.uuid,
          tboxUUID = i.tboxUUID,
          name = i.name))),
-  
-    aspectPredicates = 
-    TypedDataset.create[api.AspectPredicate](
-      t.aspectPredicates.map(i =>
-       api.AspectPredicate(
-         uuid = i.uuid,
-         aspectUUID = i.aspectUUID,
-         bodySegmentUUID = i.bodySegmentUUID))),
   
     aspectSpecializationAxioms = 
     TypedDataset.create[api.AspectSpecializationAxiom](
@@ -447,14 +407,6 @@ object OMLSpecificationTypedDatasets {
          singletonConceptClassifierUUID = i.singletonConceptClassifierUUID,
          name = i.name))),
   
-    conceptPredicates = 
-    TypedDataset.create[api.ConceptPredicate](
-      t.conceptPredicates.map(i =>
-       api.ConceptPredicate(
-         uuid = i.uuid,
-         bodySegmentUUID = i.bodySegmentUUID,
-         conceptUUID = i.conceptUUID))),
-  
     conceptSpecializationAxioms = 
     TypedDataset.create[api.ConceptSpecializationAxiom](
       t.conceptSpecializationAxioms.map(i =>
@@ -494,9 +446,9 @@ object OMLSpecificationTypedDatasets {
        api.EntityExistentialRestrictionAxiom(
          uuid = i.uuid,
          tboxUUID = i.tboxUUID,
-         restrictedRelationUUID = i.restrictedRelationUUID,
          restrictedDomainUUID = i.restrictedDomainUUID,
-         restrictedRangeUUID = i.restrictedRangeUUID))),
+         restrictedRangeUUID = i.restrictedRangeUUID,
+         restrictedRelationshipUUID = i.restrictedRelationshipUUID))),
   
     entityScalarDataProperties = 
     TypedDataset.create[api.EntityScalarDataProperty](
@@ -566,9 +518,17 @@ object OMLSpecificationTypedDatasets {
        api.EntityUniversalRestrictionAxiom(
          uuid = i.uuid,
          tboxUUID = i.tboxUUID,
-         restrictedRelationUUID = i.restrictedRelationUUID,
          restrictedDomainUUID = i.restrictedDomainUUID,
-         restrictedRangeUUID = i.restrictedRangeUUID))),
+         restrictedRangeUUID = i.restrictedRangeUUID,
+         restrictedRelationshipUUID = i.restrictedRelationshipUUID))),
+  
+    forwardProperties = 
+    TypedDataset.create[api.ForwardProperty](
+      t.forwardProperties.map(i =>
+       api.ForwardProperty(
+         uuid = i.uuid,
+         name = i.name,
+         reifiedRelationshipUUID = i.reifiedRelationshipUUID))),
   
     iriScalarRestrictions = 
     TypedDataset.create[api.IRIScalarRestriction](
@@ -582,6 +542,14 @@ object OMLSpecificationTypedDatasets {
          maxLength = i.maxLength,
          name = i.name,
          pattern = i.pattern))),
+  
+    inverseProperties = 
+    TypedDataset.create[api.InverseProperty](
+      t.inverseProperties.map(i =>
+       api.InverseProperty(
+         uuid = i.uuid,
+         name = i.name,
+         reifiedRelationshipUUID = i.reifiedRelationshipUUID))),
   
     numericScalarRestrictions = 
     TypedDataset.create[api.NumericScalarRestriction](
@@ -627,9 +595,7 @@ object OMLSpecificationTypedDatasets {
          isReflexive = i.isReflexive,
          isSymmetric = i.isSymmetric,
          isTransitive = i.isTransitive,
-         name = i.name,
-         unreifiedPropertyName = i.unreifiedPropertyName,
-         unreifiedInversePropertyName = i.unreifiedInversePropertyName))),
+         name = i.name))),
   
     reifiedRelationshipInstances = 
     TypedDataset.create[api.ReifiedRelationshipInstance](
@@ -658,46 +624,6 @@ object OMLSpecificationTypedDatasets {
          reifiedRelationshipInstanceUUID = i.reifiedRelationshipInstanceUUID,
          rangeUUID = i.rangeUUID))),
   
-    reifiedRelationshipInversePropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipInversePropertyPredicate](
-      t.reifiedRelationshipInversePropertyPredicates.map(i =>
-       api.ReifiedRelationshipInversePropertyPredicate(
-         uuid = i.uuid,
-         bodySegmentUUID = i.bodySegmentUUID,
-         reifiedRelationshipUUID = i.reifiedRelationshipUUID))),
-  
-    reifiedRelationshipPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipPredicate](
-      t.reifiedRelationshipPredicates.map(i =>
-       api.ReifiedRelationshipPredicate(
-         uuid = i.uuid,
-         bodySegmentUUID = i.bodySegmentUUID,
-         reifiedRelationshipUUID = i.reifiedRelationshipUUID))),
-  
-    reifiedRelationshipPropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipPropertyPredicate](
-      t.reifiedRelationshipPropertyPredicates.map(i =>
-       api.ReifiedRelationshipPropertyPredicate(
-         uuid = i.uuid,
-         bodySegmentUUID = i.bodySegmentUUID,
-         reifiedRelationshipUUID = i.reifiedRelationshipUUID))),
-  
-    reifiedRelationshipSourceInversePropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipSourceInversePropertyPredicate](
-      t.reifiedRelationshipSourceInversePropertyPredicates.map(i =>
-       api.ReifiedRelationshipSourceInversePropertyPredicate(
-         uuid = i.uuid,
-         bodySegmentUUID = i.bodySegmentUUID,
-         reifiedRelationshipUUID = i.reifiedRelationshipUUID))),
-  
-    reifiedRelationshipSourcePropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipSourcePropertyPredicate](
-      t.reifiedRelationshipSourcePropertyPredicates.map(i =>
-       api.ReifiedRelationshipSourcePropertyPredicate(
-         uuid = i.uuid,
-         bodySegmentUUID = i.bodySegmentUUID,
-         reifiedRelationshipUUID = i.reifiedRelationshipUUID))),
-  
     reifiedRelationshipSpecializationAxioms = 
     TypedDataset.create[api.ReifiedRelationshipSpecializationAxiom](
       t.reifiedRelationshipSpecializationAxioms.map(i =>
@@ -707,30 +633,14 @@ object OMLSpecificationTypedDatasets {
          superRelationshipUUID = i.superRelationshipUUID,
          subRelationshipUUID = i.subRelationshipUUID))),
   
-    reifiedRelationshipTargetInversePropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipTargetInversePropertyPredicate](
-      t.reifiedRelationshipTargetInversePropertyPredicates.map(i =>
-       api.ReifiedRelationshipTargetInversePropertyPredicate(
-         uuid = i.uuid,
-         bodySegmentUUID = i.bodySegmentUUID,
-         reifiedRelationshipUUID = i.reifiedRelationshipUUID))),
-  
-    reifiedRelationshipTargetPropertyPredicates = 
-    TypedDataset.create[api.ReifiedRelationshipTargetPropertyPredicate](
-      t.reifiedRelationshipTargetPropertyPredicates.map(i =>
-       api.ReifiedRelationshipTargetPropertyPredicate(
-         uuid = i.uuid,
-         bodySegmentUUID = i.bodySegmentUUID,
-         reifiedRelationshipUUID = i.reifiedRelationshipUUID))),
-  
     restrictionScalarDataPropertyValues = 
     TypedDataset.create[api.RestrictionScalarDataPropertyValue](
       t.restrictionScalarDataPropertyValues.map(i =>
        api.RestrictionScalarDataPropertyValue(
          uuid = i.uuid,
+         structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
          scalarDataPropertyUUID = i.scalarDataPropertyUUID,
          scalarPropertyValue = i.scalarPropertyValue,
-         structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
          valueTypeUUID = i.valueTypeUUID))),
   
     restrictionStructuredDataPropertyTuples = 
@@ -738,8 +648,8 @@ object OMLSpecificationTypedDatasets {
       t.restrictionStructuredDataPropertyTuples.map(i =>
        api.RestrictionStructuredDataPropertyTuple(
          uuid = i.uuid,
-         structuredDataPropertyUUID = i.structuredDataPropertyUUID,
-         structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID))),
+         structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
+         structuredDataPropertyUUID = i.structuredDataPropertyUUID))),
   
     rootConceptTaxonomyAxioms = 
     TypedDataset.create[api.RootConceptTaxonomyAxiom](
@@ -780,9 +690,9 @@ object OMLSpecificationTypedDatasets {
       t.scalarDataPropertyValues.map(i =>
        api.ScalarDataPropertyValue(
          uuid = i.uuid,
+         structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
          scalarDataPropertyUUID = i.scalarDataPropertyUUID,
          scalarPropertyValue = i.scalarPropertyValue,
-         structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
          valueTypeUUID = i.valueTypeUUID))),
   
     scalarOneOfLiteralAxioms = 
@@ -803,6 +713,19 @@ object OMLSpecificationTypedDatasets {
          tboxUUID = i.tboxUUID,
          restrictedRangeUUID = i.restrictedRangeUUID,
          name = i.name))),
+  
+    segmentPredicates = 
+    TypedDataset.create[api.SegmentPredicate](
+      t.segmentPredicates.map(i =>
+       api.SegmentPredicate(
+         uuid = i.uuid,
+         bodySegmentUUID = i.bodySegmentUUID,
+         predicateUUID = i.predicateUUID,
+         reifiedRelationshipSourceUUID = i.reifiedRelationshipSourceUUID,
+         reifiedRelationshipInverseSourceUUID = i.reifiedRelationshipInverseSourceUUID,
+         reifiedRelationshipTargetUUID = i.reifiedRelationshipTargetUUID,
+         reifiedRelationshipInverseTargetUUID = i.reifiedRelationshipInverseTargetUUID,
+         unreifiedRelationshipInverseUUID = i.unreifiedRelationshipInverseUUID))),
   
     singletonInstanceScalarDataPropertyValues = 
     TypedDataset.create[api.SingletonInstanceScalarDataPropertyValue](
@@ -868,8 +791,8 @@ object OMLSpecificationTypedDatasets {
       t.structuredDataPropertyTuples.map(i =>
        api.StructuredDataPropertyTuple(
          uuid = i.uuid,
-         structuredDataPropertyUUID = i.structuredDataPropertyUUID,
-         structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID))),
+         structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
+         structuredDataPropertyUUID = i.structuredDataPropertyUUID))),
   
     subDataPropertyOfAxioms = 
     TypedDataset.create[api.SubDataPropertyOfAxiom](
@@ -963,23 +886,7 @@ object OMLSpecificationTypedDatasets {
          descriptionBoxUUID = i.descriptionBoxUUID,
          unreifiedRelationshipUUID = i.unreifiedRelationshipUUID,
          domainUUID = i.domainUUID,
-         rangeUUID = i.rangeUUID))),
-  
-    unreifiedRelationshipInversePropertyPredicates = 
-    TypedDataset.create[api.UnreifiedRelationshipInversePropertyPredicate](
-      t.unreifiedRelationshipInversePropertyPredicates.map(i =>
-       api.UnreifiedRelationshipInversePropertyPredicate(
-         uuid = i.uuid,
-         unreifiedRelationshipUUID = i.unreifiedRelationshipUUID,
-         bodySegmentUUID = i.bodySegmentUUID))),
-  
-    unreifiedRelationshipPropertyPredicates = 
-    TypedDataset.create[api.UnreifiedRelationshipPropertyPredicate](
-      t.unreifiedRelationshipPropertyPredicates.map(i =>
-       api.UnreifiedRelationshipPropertyPredicate(
-         uuid = i.uuid,
-         unreifiedRelationshipUUID = i.unreifiedRelationshipUUID,
-         bodySegmentUUID = i.bodySegmentUUID)))
+         rangeUUID = i.rangeUUID)))
   )
 
   def extractFromOMLSpecificationTypedDatasets
@@ -1019,13 +926,6 @@ object OMLSpecificationTypedDatasets {
   	    uuid = i.uuid,
   	    tboxUUID = i.tboxUUID,
   	    name = i.name)),
-  	
-  	  aspectPredicates = 
-  	t.aspectPredicates.collect().run().to[Seq].map(i =>
-  	  tables.AspectPredicate(
-  	    uuid = i.uuid,
-  	    aspectUUID = i.aspectUUID,
-  	    bodySegmentUUID = i.bodySegmentUUID)),
   	
   	  aspectSpecializationAxioms = 
   	t.aspectSpecializationAxioms.collect().run().to[Seq].map(i =>
@@ -1091,13 +991,6 @@ object OMLSpecificationTypedDatasets {
   	    singletonConceptClassifierUUID = i.singletonConceptClassifierUUID,
   	    name = i.name)),
   	
-  	  conceptPredicates = 
-  	t.conceptPredicates.collect().run().to[Seq].map(i =>
-  	  tables.ConceptPredicate(
-  	    uuid = i.uuid,
-  	    bodySegmentUUID = i.bodySegmentUUID,
-  	    conceptUUID = i.conceptUUID)),
-  	
   	  conceptSpecializationAxioms = 
   	t.conceptSpecializationAxioms.collect().run().to[Seq].map(i =>
   	  tables.ConceptSpecializationAxiom(
@@ -1132,9 +1025,9 @@ object OMLSpecificationTypedDatasets {
   	  tables.EntityExistentialRestrictionAxiom(
   	    uuid = i.uuid,
   	    tboxUUID = i.tboxUUID,
-  	    restrictedRelationUUID = i.restrictedRelationUUID,
   	    restrictedDomainUUID = i.restrictedDomainUUID,
-  	    restrictedRangeUUID = i.restrictedRangeUUID)),
+  	    restrictedRangeUUID = i.restrictedRangeUUID,
+  	    restrictedRelationshipUUID = i.restrictedRelationshipUUID)),
   	
   	  entityScalarDataProperties = 
   	t.entityScalarDataProperties.collect().run().to[Seq].map(i =>
@@ -1197,9 +1090,16 @@ object OMLSpecificationTypedDatasets {
   	  tables.EntityUniversalRestrictionAxiom(
   	    uuid = i.uuid,
   	    tboxUUID = i.tboxUUID,
-  	    restrictedRelationUUID = i.restrictedRelationUUID,
   	    restrictedDomainUUID = i.restrictedDomainUUID,
-  	    restrictedRangeUUID = i.restrictedRangeUUID)),
+  	    restrictedRangeUUID = i.restrictedRangeUUID,
+  	    restrictedRelationshipUUID = i.restrictedRelationshipUUID)),
+  	
+  	  forwardProperties = 
+  	t.forwardProperties.collect().run().to[Seq].map(i =>
+  	  tables.ForwardProperty(
+  	    uuid = i.uuid,
+  	    name = i.name,
+  	    reifiedRelationshipUUID = i.reifiedRelationshipUUID)),
   	
   	  iriScalarRestrictions = 
   	t.iriScalarRestrictions.collect().run().to[Seq].map(i =>
@@ -1212,6 +1112,13 @@ object OMLSpecificationTypedDatasets {
   	    maxLength = i.maxLength,
   	    name = i.name,
   	    pattern = i.pattern)),
+  	
+  	  inverseProperties = 
+  	t.inverseProperties.collect().run().to[Seq].map(i =>
+  	  tables.InverseProperty(
+  	    uuid = i.uuid,
+  	    name = i.name,
+  	    reifiedRelationshipUUID = i.reifiedRelationshipUUID)),
   	
   	  numericScalarRestrictions = 
   	t.numericScalarRestrictions.collect().run().to[Seq].map(i =>
@@ -1254,9 +1161,7 @@ object OMLSpecificationTypedDatasets {
   	    isReflexive = i.isReflexive,
   	    isSymmetric = i.isSymmetric,
   	    isTransitive = i.isTransitive,
-  	    name = i.name,
-  	    unreifiedPropertyName = i.unreifiedPropertyName,
-  	    unreifiedInversePropertyName = i.unreifiedInversePropertyName)),
+  	    name = i.name)),
   	
   	  reifiedRelationshipInstances = 
   	t.reifiedRelationshipInstances.collect().run().to[Seq].map(i =>
@@ -1282,41 +1187,6 @@ object OMLSpecificationTypedDatasets {
   	    reifiedRelationshipInstanceUUID = i.reifiedRelationshipInstanceUUID,
   	    rangeUUID = i.rangeUUID)),
   	
-  	  reifiedRelationshipInversePropertyPredicates = 
-  	t.reifiedRelationshipInversePropertyPredicates.collect().run().to[Seq].map(i =>
-  	  tables.ReifiedRelationshipInversePropertyPredicate(
-  	    uuid = i.uuid,
-  	    bodySegmentUUID = i.bodySegmentUUID,
-  	    reifiedRelationshipUUID = i.reifiedRelationshipUUID)),
-  	
-  	  reifiedRelationshipPredicates = 
-  	t.reifiedRelationshipPredicates.collect().run().to[Seq].map(i =>
-  	  tables.ReifiedRelationshipPredicate(
-  	    uuid = i.uuid,
-  	    bodySegmentUUID = i.bodySegmentUUID,
-  	    reifiedRelationshipUUID = i.reifiedRelationshipUUID)),
-  	
-  	  reifiedRelationshipPropertyPredicates = 
-  	t.reifiedRelationshipPropertyPredicates.collect().run().to[Seq].map(i =>
-  	  tables.ReifiedRelationshipPropertyPredicate(
-  	    uuid = i.uuid,
-  	    bodySegmentUUID = i.bodySegmentUUID,
-  	    reifiedRelationshipUUID = i.reifiedRelationshipUUID)),
-  	
-  	  reifiedRelationshipSourceInversePropertyPredicates = 
-  	t.reifiedRelationshipSourceInversePropertyPredicates.collect().run().to[Seq].map(i =>
-  	  tables.ReifiedRelationshipSourceInversePropertyPredicate(
-  	    uuid = i.uuid,
-  	    bodySegmentUUID = i.bodySegmentUUID,
-  	    reifiedRelationshipUUID = i.reifiedRelationshipUUID)),
-  	
-  	  reifiedRelationshipSourcePropertyPredicates = 
-  	t.reifiedRelationshipSourcePropertyPredicates.collect().run().to[Seq].map(i =>
-  	  tables.ReifiedRelationshipSourcePropertyPredicate(
-  	    uuid = i.uuid,
-  	    bodySegmentUUID = i.bodySegmentUUID,
-  	    reifiedRelationshipUUID = i.reifiedRelationshipUUID)),
-  	
   	  reifiedRelationshipSpecializationAxioms = 
   	t.reifiedRelationshipSpecializationAxioms.collect().run().to[Seq].map(i =>
   	  tables.ReifiedRelationshipSpecializationAxiom(
@@ -1325,35 +1195,21 @@ object OMLSpecificationTypedDatasets {
   	    superRelationshipUUID = i.superRelationshipUUID,
   	    subRelationshipUUID = i.subRelationshipUUID)),
   	
-  	  reifiedRelationshipTargetInversePropertyPredicates = 
-  	t.reifiedRelationshipTargetInversePropertyPredicates.collect().run().to[Seq].map(i =>
-  	  tables.ReifiedRelationshipTargetInversePropertyPredicate(
-  	    uuid = i.uuid,
-  	    bodySegmentUUID = i.bodySegmentUUID,
-  	    reifiedRelationshipUUID = i.reifiedRelationshipUUID)),
-  	
-  	  reifiedRelationshipTargetPropertyPredicates = 
-  	t.reifiedRelationshipTargetPropertyPredicates.collect().run().to[Seq].map(i =>
-  	  tables.ReifiedRelationshipTargetPropertyPredicate(
-  	    uuid = i.uuid,
-  	    bodySegmentUUID = i.bodySegmentUUID,
-  	    reifiedRelationshipUUID = i.reifiedRelationshipUUID)),
-  	
   	  restrictionScalarDataPropertyValues = 
   	t.restrictionScalarDataPropertyValues.collect().run().to[Seq].map(i =>
   	  tables.RestrictionScalarDataPropertyValue(
   	    uuid = i.uuid,
+  	    structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
   	    scalarDataPropertyUUID = i.scalarDataPropertyUUID,
   	    scalarPropertyValue = i.scalarPropertyValue,
-  	    structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
   	    valueTypeUUID = i.valueTypeUUID)),
   	
   	  restrictionStructuredDataPropertyTuples = 
   	t.restrictionStructuredDataPropertyTuples.collect().run().to[Seq].map(i =>
   	  tables.RestrictionStructuredDataPropertyTuple(
   	    uuid = i.uuid,
-  	    structuredDataPropertyUUID = i.structuredDataPropertyUUID,
-  	    structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID)),
+  	    structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
+  	    structuredDataPropertyUUID = i.structuredDataPropertyUUID)),
   	
   	  rootConceptTaxonomyAxioms = 
   	t.rootConceptTaxonomyAxioms.collect().run().to[Seq].map(i =>
@@ -1389,9 +1245,9 @@ object OMLSpecificationTypedDatasets {
   	t.scalarDataPropertyValues.collect().run().to[Seq].map(i =>
   	  tables.ScalarDataPropertyValue(
   	    uuid = i.uuid,
+  	    structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
   	    scalarDataPropertyUUID = i.scalarDataPropertyUUID,
   	    scalarPropertyValue = i.scalarPropertyValue,
-  	    structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
   	    valueTypeUUID = i.valueTypeUUID)),
   	
   	  scalarOneOfLiteralAxioms = 
@@ -1410,6 +1266,18 @@ object OMLSpecificationTypedDatasets {
   	    tboxUUID = i.tboxUUID,
   	    restrictedRangeUUID = i.restrictedRangeUUID,
   	    name = i.name)),
+  	
+  	  segmentPredicates = 
+  	t.segmentPredicates.collect().run().to[Seq].map(i =>
+  	  tables.SegmentPredicate(
+  	    uuid = i.uuid,
+  	    bodySegmentUUID = i.bodySegmentUUID,
+  	    predicateUUID = i.predicateUUID,
+  	    reifiedRelationshipSourceUUID = i.reifiedRelationshipSourceUUID,
+  	    reifiedRelationshipInverseSourceUUID = i.reifiedRelationshipInverseSourceUUID,
+  	    reifiedRelationshipTargetUUID = i.reifiedRelationshipTargetUUID,
+  	    reifiedRelationshipInverseTargetUUID = i.reifiedRelationshipInverseTargetUUID,
+  	    unreifiedRelationshipInverseUUID = i.unreifiedRelationshipInverseUUID)),
   	
   	  singletonInstanceScalarDataPropertyValues = 
   	t.singletonInstanceScalarDataPropertyValues.collect().run().to[Seq].map(i =>
@@ -1468,8 +1336,8 @@ object OMLSpecificationTypedDatasets {
   	t.structuredDataPropertyTuples.collect().run().to[Seq].map(i =>
   	  tables.StructuredDataPropertyTuple(
   	    uuid = i.uuid,
-  	    structuredDataPropertyUUID = i.structuredDataPropertyUUID,
-  	    structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID)),
+  	    structuredDataPropertyContextUUID = i.structuredDataPropertyContextUUID,
+  	    structuredDataPropertyUUID = i.structuredDataPropertyUUID)),
   	
   	  subDataPropertyOfAxioms = 
   	t.subDataPropertyOfAxioms.collect().run().to[Seq].map(i =>
@@ -1554,21 +1422,7 @@ object OMLSpecificationTypedDatasets {
   	    descriptionBoxUUID = i.descriptionBoxUUID,
   	    unreifiedRelationshipUUID = i.unreifiedRelationshipUUID,
   	    domainUUID = i.domainUUID,
-  	    rangeUUID = i.rangeUUID)),
-  	
-  	  unreifiedRelationshipInversePropertyPredicates = 
-  	t.unreifiedRelationshipInversePropertyPredicates.collect().run().to[Seq].map(i =>
-  	  tables.UnreifiedRelationshipInversePropertyPredicate(
-  	    uuid = i.uuid,
-  	    unreifiedRelationshipUUID = i.unreifiedRelationshipUUID,
-  	    bodySegmentUUID = i.bodySegmentUUID)),
-  	
-  	  unreifiedRelationshipPropertyPredicates = 
-  	t.unreifiedRelationshipPropertyPredicates.collect().run().to[Seq].map(i =>
-  	  tables.UnreifiedRelationshipPropertyPredicate(
-  	    uuid = i.uuid,
-  	    unreifiedRelationshipUUID = i.unreifiedRelationshipUUID,
-  	    bodySegmentUUID = i.bodySegmentUUID))
+  	    rangeUUID = i.rangeUUID))
   	)
   }
 
@@ -1625,16 +1479,6 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.AspectRow2Tuple)
         .collect()
         .map(OMLReaders.AspectTuple2Type)
-        .to[Seq]
-      
-      val aspectPredicates
-      : Seq[tables.AspectPredicate]
-      = spark
-        .read
-        .parquet((dir / "AspectPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.AspectPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.AspectPredicateTuple2Type)
         .to[Seq]
       
       val aspectSpecializationAxioms
@@ -1715,16 +1559,6 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ConceptInstanceRow2Tuple)
         .collect()
         .map(OMLReaders.ConceptInstanceTuple2Type)
-        .to[Seq]
-      
-      val conceptPredicates
-      : Seq[tables.ConceptPredicate]
-      = spark
-        .read
-        .parquet((dir / "ConceptPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.ConceptPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.ConceptPredicateTuple2Type)
         .to[Seq]
       
       val conceptSpecializationAxioms
@@ -1847,6 +1681,16 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.EntityUniversalRestrictionAxiomTuple2Type)
         .to[Seq]
       
+      val forwardProperties
+      : Seq[tables.ForwardProperty]
+      = spark
+        .read
+        .parquet((dir / "ForwardProperty.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ForwardPropertyRow2Tuple)
+        .collect()
+        .map(OMLReaders.ForwardPropertyTuple2Type)
+        .to[Seq]
+      
       val iriScalarRestrictions
       : Seq[tables.IRIScalarRestriction]
       = spark
@@ -1855,6 +1699,16 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.IRIScalarRestrictionRow2Tuple)
         .collect()
         .map(OMLReaders.IRIScalarRestrictionTuple2Type)
+        .to[Seq]
+      
+      val inverseProperties
+      : Seq[tables.InverseProperty]
+      = spark
+        .read
+        .parquet((dir / "InverseProperty.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.InversePropertyRow2Tuple)
+        .collect()
+        .map(OMLReaders.InversePropertyTuple2Type)
         .to[Seq]
       
       val numericScalarRestrictions
@@ -1917,56 +1771,6 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ReifiedRelationshipInstanceRangeTuple2Type)
         .to[Seq]
       
-      val reifiedRelationshipInversePropertyPredicates
-      : Seq[tables.ReifiedRelationshipInversePropertyPredicate]
-      = spark
-        .read
-        .parquet((dir / "ReifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipPredicates
-      : Seq[tables.ReifiedRelationshipPredicate]
-      = spark
-        .read
-        .parquet((dir / "ReifiedRelationshipPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.ReifiedRelationshipPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipPropertyPredicates
-      : Seq[tables.ReifiedRelationshipPropertyPredicate]
-      = spark
-        .read
-        .parquet((dir / "ReifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.ReifiedRelationshipPropertyPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipPropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipSourceInversePropertyPredicates
-      : Seq[tables.ReifiedRelationshipSourceInversePropertyPredicate]
-      = spark
-        .read
-        .parquet((dir / "ReifiedRelationshipSourceInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipSourcePropertyPredicates
-      : Seq[tables.ReifiedRelationshipSourcePropertyPredicate]
-      = spark
-        .read
-        .parquet((dir / "ReifiedRelationshipSourcePropertyPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateTuple2Type)
-        .to[Seq]
-      
       val reifiedRelationshipSpecializationAxioms
       : Seq[tables.ReifiedRelationshipSpecializationAxiom]
       = spark
@@ -1975,26 +1779,6 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ReifiedRelationshipSpecializationAxiomRow2Tuple)
         .collect()
         .map(OMLReaders.ReifiedRelationshipSpecializationAxiomTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipTargetInversePropertyPredicates
-      : Seq[tables.ReifiedRelationshipTargetInversePropertyPredicate]
-      = spark
-        .read
-        .parquet((dir / "ReifiedRelationshipTargetInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipTargetPropertyPredicates
-      : Seq[tables.ReifiedRelationshipTargetPropertyPredicate]
-      = spark
-        .read
-        .parquet((dir / "ReifiedRelationshipTargetPropertyPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateTuple2Type)
         .to[Seq]
       
       val restrictionScalarDataPropertyValues
@@ -2085,6 +1869,16 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ScalarOneOfRestrictionRow2Tuple)
         .collect()
         .map(OMLReaders.ScalarOneOfRestrictionTuple2Type)
+        .to[Seq]
+      
+      val segmentPredicates
+      : Seq[tables.SegmentPredicate]
+      = spark
+        .read
+        .parquet((dir / "SegmentPredicate.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.SegmentPredicateRow2Tuple)
+        .collect()
+        .map(OMLReaders.SegmentPredicateTuple2Type)
         .to[Seq]
       
       val singletonInstanceScalarDataPropertyValues
@@ -2246,26 +2040,6 @@ object OMLSpecificationTypedDatasets {
         .collect()
         .map(OMLReaders.UnreifiedRelationshipInstanceTupleTuple2Type)
         .to[Seq]
-      
-      val unreifiedRelationshipInversePropertyPredicates
-      : Seq[tables.UnreifiedRelationshipInversePropertyPredicate]
-      = spark
-        .read
-        .parquet((dir / "UnreifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val unreifiedRelationshipPropertyPredicates
-      : Seq[tables.UnreifiedRelationshipPropertyPredicate]
-      = spark
-        .read
-        .parquet((dir / "UnreifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
-        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateRow2Tuple)
-        .collect()
-        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateTuple2Type)
-        .to[Seq]
 
   	  Success(
   	    tables.OMLSpecificationTables(
@@ -2297,20 +2071,12 @@ object OMLSpecificationTypedDatasets {
   	      scalarDataProperties = scalarDataProperties,
   	      structuredDataProperties = structuredDataProperties,
   	      reifiedRelationships = reifiedRelationships,
+  	      forwardProperties = forwardProperties,
+  	      inverseProperties = inverseProperties,
   	      unreifiedRelationships = unreifiedRelationships,
   	      chainRules = chainRules,
   	      ruleBodySegments = ruleBodySegments,
-  	      aspectPredicates = aspectPredicates,
-  	      conceptPredicates = conceptPredicates,
-  	      reifiedRelationshipPredicates = reifiedRelationshipPredicates,
-  	      reifiedRelationshipPropertyPredicates = reifiedRelationshipPropertyPredicates,
-  	      reifiedRelationshipSourcePropertyPredicates = reifiedRelationshipSourcePropertyPredicates,
-  	      reifiedRelationshipTargetPropertyPredicates = reifiedRelationshipTargetPropertyPredicates,
-  	      unreifiedRelationshipPropertyPredicates = unreifiedRelationshipPropertyPredicates,
-  	      reifiedRelationshipInversePropertyPredicates = reifiedRelationshipInversePropertyPredicates,
-  	      reifiedRelationshipSourceInversePropertyPredicates = reifiedRelationshipSourceInversePropertyPredicates,
-  	      reifiedRelationshipTargetInversePropertyPredicates = reifiedRelationshipTargetInversePropertyPredicates,
-  	      unreifiedRelationshipInversePropertyPredicates = unreifiedRelationshipInversePropertyPredicates,
+  	      segmentPredicates = segmentPredicates,
   	      entityExistentialRestrictionAxioms = entityExistentialRestrictionAxioms,
   	      entityUniversalRestrictionAxioms = entityUniversalRestrictionAxioms,
   	      entityScalarDataPropertyExistentialRestrictionAxioms = entityScalarDataPropertyExistentialRestrictionAxioms,
@@ -2379,12 +2145,6 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "Aspect.parquet").toIO.getAbsolutePath)
       
       TypedDataset
-        .create(t.aspectPredicates)
-        .dataset
-        .write
-        .parquet((dir / "AspectPredicate.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
         .create(t.aspectSpecializationAxioms)
         .dataset
         .write
@@ -2431,12 +2191,6 @@ object OMLSpecificationTypedDatasets {
         .dataset
         .write
         .parquet((dir / "ConceptInstance.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.conceptPredicates)
-        .dataset
-        .write
-        .parquet((dir / "ConceptPredicate.parquet").toIO.getAbsolutePath)
       
       TypedDataset
         .create(t.conceptSpecializationAxioms)
@@ -2511,10 +2265,22 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "EntityUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
       
       TypedDataset
+        .create(t.forwardProperties)
+        .dataset
+        .write
+        .parquet((dir / "ForwardProperty.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
         .create(t.iriScalarRestrictions)
         .dataset
         .write
         .parquet((dir / "IRIScalarRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.inverseProperties)
+        .dataset
+        .write
+        .parquet((dir / "InverseProperty.parquet").toIO.getAbsolutePath)
       
       TypedDataset
         .create(t.numericScalarRestrictions)
@@ -2553,52 +2319,10 @@ object OMLSpecificationTypedDatasets {
         .parquet((dir / "ReifiedRelationshipInstanceRange.parquet").toIO.getAbsolutePath)
       
       TypedDataset
-        .create(t.reifiedRelationshipInversePropertyPredicates)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipPredicates)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipPredicate.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipPropertyPredicates)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipSourceInversePropertyPredicates)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipSourceInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipSourcePropertyPredicates)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipSourcePropertyPredicate.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
         .create(t.reifiedRelationshipSpecializationAxioms)
         .dataset
         .write
         .parquet((dir / "ReifiedRelationshipSpecializationAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipTargetInversePropertyPredicates)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipTargetInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipTargetPropertyPredicates)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipTargetPropertyPredicate.parquet").toIO.getAbsolutePath)
       
       TypedDataset
         .create(t.restrictionScalarDataPropertyValues)
@@ -2653,6 +2377,12 @@ object OMLSpecificationTypedDatasets {
         .dataset
         .write
         .parquet((dir / "ScalarOneOfRestriction.parquet").toIO.getAbsolutePath)
+      
+      TypedDataset
+        .create(t.segmentPredicates)
+        .dataset
+        .write
+        .parquet((dir / "SegmentPredicate.parquet").toIO.getAbsolutePath)
       
       TypedDataset
         .create(t.singletonInstanceScalarDataPropertyValues)
@@ -2750,18 +2480,6 @@ object OMLSpecificationTypedDatasets {
         .write
         .parquet((dir / "UnreifiedRelationshipInstanceTuple.parquet").toIO.getAbsolutePath)
       
-      TypedDataset
-        .create(t.unreifiedRelationshipInversePropertyPredicates)
-        .dataset
-        .write
-        .parquet((dir / "UnreifiedRelationshipInversePropertyPredicate.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.unreifiedRelationshipPropertyPredicates)
-        .dataset
-        .write
-        .parquet((dir / "UnreifiedRelationshipPropertyPredicate.parquet").toIO.getAbsolutePath)
-      
   	  Success(())
   	}
 
@@ -2818,16 +2536,6 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.AspectSQL2Tuple)
         .collect()
         .map(OMLReaders.AspectTuple2Type)
-        .to[Seq]
-      
-      val aspectPredicates
-      : Seq[tables.AspectPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.AspectP", props)
-        .map(OMLReaders.AspectPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.AspectPredicateTuple2Type)
         .to[Seq]
       
       val aspectSpecializationAxioms
@@ -2908,16 +2616,6 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ConceptInstanceSQL2Tuple)
         .collect()
         .map(OMLReaders.ConceptInstanceTuple2Type)
-        .to[Seq]
-      
-      val conceptPredicates
-      : Seq[tables.ConceptPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.CP", props)
-        .map(OMLReaders.ConceptPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.ConceptPredicateTuple2Type)
         .to[Seq]
       
       val conceptSpecializationAxioms
@@ -3040,6 +2738,16 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.EntityUniversalRestrictionAxiomTuple2Type)
         .to[Seq]
       
+      val forwardProperties
+      : Seq[tables.ForwardProperty]
+      = spark
+        .read
+        .jdbc(url, "OML.FwdProps", props)
+        .map(OMLReaders.ForwardPropertySQL2Tuple)
+        .collect()
+        .map(OMLReaders.ForwardPropertyTuple2Type)
+        .to[Seq]
+      
       val iriScalarRestrictions
       : Seq[tables.IRIScalarRestriction]
       = spark
@@ -3048,6 +2756,16 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.IRIScalarRestrictionSQL2Tuple)
         .collect()
         .map(OMLReaders.IRIScalarRestrictionTuple2Type)
+        .to[Seq]
+      
+      val inverseProperties
+      : Seq[tables.InverseProperty]
+      = spark
+        .read
+        .jdbc(url, "OML.InvProps", props)
+        .map(OMLReaders.InversePropertySQL2Tuple)
+        .collect()
+        .map(OMLReaders.InversePropertyTuple2Type)
         .to[Seq]
       
       val numericScalarRestrictions
@@ -3110,56 +2828,6 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ReifiedRelationshipInstanceRangeTuple2Type)
         .to[Seq]
       
-      val reifiedRelationshipInversePropertyPredicates
-      : Seq[tables.ReifiedRelationshipInversePropertyPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.RRInvPropP", props)
-        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipPredicates
-      : Seq[tables.ReifiedRelationshipPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.RRP", props)
-        .map(OMLReaders.ReifiedRelationshipPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipPropertyPredicates
-      : Seq[tables.ReifiedRelationshipPropertyPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.RRPropP", props)
-        .map(OMLReaders.ReifiedRelationshipPropertyPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipPropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipSourceInversePropertyPredicates
-      : Seq[tables.ReifiedRelationshipSourceInversePropertyPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.RRSrcInvPropP", props)
-        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipSourcePropertyPredicates
-      : Seq[tables.ReifiedRelationshipSourcePropertyPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.RRSrcPropP", props)
-        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateTuple2Type)
-        .to[Seq]
-      
       val reifiedRelationshipSpecializationAxioms
       : Seq[tables.ReifiedRelationshipSpecializationAxiom]
       = spark
@@ -3168,26 +2836,6 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ReifiedRelationshipSpecializationAxiomSQL2Tuple)
         .collect()
         .map(OMLReaders.ReifiedRelationshipSpecializationAxiomTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipTargetInversePropertyPredicates
-      : Seq[tables.ReifiedRelationshipTargetInversePropertyPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.RRTgtInvPropP", props)
-        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val reifiedRelationshipTargetPropertyPredicates
-      : Seq[tables.ReifiedRelationshipTargetPropertyPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.RRTgtPropP", props)
-        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateTuple2Type)
         .to[Seq]
       
       val restrictionScalarDataPropertyValues
@@ -3278,6 +2926,16 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ScalarOneOfRestrictionSQL2Tuple)
         .collect()
         .map(OMLReaders.ScalarOneOfRestrictionTuple2Type)
+        .to[Seq]
+      
+      val segmentPredicates
+      : Seq[tables.SegmentPredicate]
+      = spark
+        .read
+        .jdbc(url, "OML.SegP", props)
+        .map(OMLReaders.SegmentPredicateSQL2Tuple)
+        .collect()
+        .map(OMLReaders.SegmentPredicateTuple2Type)
         .to[Seq]
       
       val singletonInstanceScalarDataPropertyValues
@@ -3439,26 +3097,6 @@ object OMLSpecificationTypedDatasets {
         .collect()
         .map(OMLReaders.UnreifiedRelationshipInstanceTupleTuple2Type)
         .to[Seq]
-      
-      val unreifiedRelationshipInversePropertyPredicates
-      : Seq[tables.UnreifiedRelationshipInversePropertyPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.URInvPropP", props)
-        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateTuple2Type)
-        .to[Seq]
-      
-      val unreifiedRelationshipPropertyPredicates
-      : Seq[tables.UnreifiedRelationshipPropertyPredicate]
-      = spark
-        .read
-        .jdbc(url, "OML.URPropP", props)
-        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateSQL2Tuple)
-        .collect()
-        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateTuple2Type)
-        .to[Seq]
 
   	  Success(
   	    tables.OMLSpecificationTables(
@@ -3490,20 +3128,12 @@ object OMLSpecificationTypedDatasets {
   	      scalarDataProperties = scalarDataProperties,
   	      structuredDataProperties = structuredDataProperties,
   	      reifiedRelationships = reifiedRelationships,
+  	      forwardProperties = forwardProperties,
+  	      inverseProperties = inverseProperties,
   	      unreifiedRelationships = unreifiedRelationships,
   	      chainRules = chainRules,
   	      ruleBodySegments = ruleBodySegments,
-  	      aspectPredicates = aspectPredicates,
-  	      conceptPredicates = conceptPredicates,
-  	      reifiedRelationshipPredicates = reifiedRelationshipPredicates,
-  	      reifiedRelationshipPropertyPredicates = reifiedRelationshipPropertyPredicates,
-  	      reifiedRelationshipSourcePropertyPredicates = reifiedRelationshipSourcePropertyPredicates,
-  	      reifiedRelationshipTargetPropertyPredicates = reifiedRelationshipTargetPropertyPredicates,
-  	      unreifiedRelationshipPropertyPredicates = unreifiedRelationshipPropertyPredicates,
-  	      reifiedRelationshipInversePropertyPredicates = reifiedRelationshipInversePropertyPredicates,
-  	      reifiedRelationshipSourceInversePropertyPredicates = reifiedRelationshipSourceInversePropertyPredicates,
-  	      reifiedRelationshipTargetInversePropertyPredicates = reifiedRelationshipTargetInversePropertyPredicates,
-  	      unreifiedRelationshipInversePropertyPredicates = unreifiedRelationshipInversePropertyPredicates,
+  	      segmentPredicates = segmentPredicates,
   	      entityExistentialRestrictionAxioms = entityExistentialRestrictionAxioms,
   	      entityUniversalRestrictionAxioms = entityUniversalRestrictionAxioms,
   	      entityScalarDataPropertyExistentialRestrictionAxioms = entityScalarDataPropertyExistentialRestrictionAxioms,
@@ -3722,6 +3352,22 @@ object OMLSpecificationTypedDatasets {
         .jdbc(url, "OML.RRs", props)
 
       TypedDataset
+        .create(t.forwardProperties)
+        .dataset
+        .map(OMLReaders.ForwardPropertyType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.FwdProps", props)
+
+      TypedDataset
+        .create(t.inverseProperties)
+        .dataset
+        .map(OMLReaders.InversePropertyType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.InvProps", props)
+
+      TypedDataset
         .create(t.unreifiedRelationships)
         .dataset
         .map(OMLReaders.UnreifiedRelationshipType2Tuple)
@@ -3748,92 +3394,12 @@ object OMLSpecificationTypedDatasets {
           OMLWriters.ruleBodySegmentPartitioner)
 
       TypedDataset
-        .create(t.aspectPredicates)
+        .create(t.segmentPredicates)
         .dataset
-        .map(OMLReaders.AspectPredicateType2Tuple)
+        .map(OMLReaders.SegmentPredicateType2Tuple)
         .write
         .mode(SaveMode.Append)
-        .jdbc(url, "OML.AspectP", props)
-
-      TypedDataset
-        .create(t.conceptPredicates)
-        .dataset
-        .map(OMLReaders.ConceptPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.CP", props)
-
-      TypedDataset
-        .create(t.reifiedRelationshipPredicates)
-        .dataset
-        .map(OMLReaders.ReifiedRelationshipPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.RRP", props)
-
-      TypedDataset
-        .create(t.reifiedRelationshipPropertyPredicates)
-        .dataset
-        .map(OMLReaders.ReifiedRelationshipPropertyPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.RRPropP", props)
-
-      TypedDataset
-        .create(t.reifiedRelationshipSourcePropertyPredicates)
-        .dataset
-        .map(OMLReaders.ReifiedRelationshipSourcePropertyPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.RRSrcPropP", props)
-
-      TypedDataset
-        .create(t.reifiedRelationshipTargetPropertyPredicates)
-        .dataset
-        .map(OMLReaders.ReifiedRelationshipTargetPropertyPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.RRTgtPropP", props)
-
-      TypedDataset
-        .create(t.unreifiedRelationshipPropertyPredicates)
-        .dataset
-        .map(OMLReaders.UnreifiedRelationshipPropertyPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.URPropP", props)
-
-      TypedDataset
-        .create(t.reifiedRelationshipInversePropertyPredicates)
-        .dataset
-        .map(OMLReaders.ReifiedRelationshipInversePropertyPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.RRInvPropP", props)
-
-      TypedDataset
-        .create(t.reifiedRelationshipSourceInversePropertyPredicates)
-        .dataset
-        .map(OMLReaders.ReifiedRelationshipSourceInversePropertyPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.RRSrcInvPropP", props)
-
-      TypedDataset
-        .create(t.reifiedRelationshipTargetInversePropertyPredicates)
-        .dataset
-        .map(OMLReaders.ReifiedRelationshipTargetInversePropertyPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.RRTgtInvPropP", props)
-
-      TypedDataset
-        .create(t.unreifiedRelationshipInversePropertyPredicates)
-        .dataset
-        .map(OMLReaders.UnreifiedRelationshipInversePropertyPredicateType2Tuple)
-        .write
-        .mode(SaveMode.Append)
-        .jdbc(url, "OML.URInvPropP", props)
+        .jdbc(url, "OML.SegP", props)
 
       TypedDataset
         .create(t.entityExistentialRestrictionAxioms)
@@ -4094,9 +3660,6 @@ case class OMLSpecificationTypedDatasets
   aspects
   : TypedDataset[api.Aspect],
 
-  aspectPredicates
-  : TypedDataset[api.AspectPredicate],
-
   aspectSpecializationAxioms
   : TypedDataset[api.AspectSpecializationAxiom],
 
@@ -4120,9 +3683,6 @@ case class OMLSpecificationTypedDatasets
 
   conceptInstances
   : TypedDataset[api.ConceptInstance],
-
-  conceptPredicates
-  : TypedDataset[api.ConceptPredicate],
 
   conceptSpecializationAxioms
   : TypedDataset[api.ConceptSpecializationAxiom],
@@ -4160,8 +3720,14 @@ case class OMLSpecificationTypedDatasets
   entityUniversalRestrictionAxioms
   : TypedDataset[api.EntityUniversalRestrictionAxiom],
 
+  forwardProperties
+  : TypedDataset[api.ForwardProperty],
+
   iriScalarRestrictions
   : TypedDataset[api.IRIScalarRestriction],
+
+  inverseProperties
+  : TypedDataset[api.InverseProperty],
 
   numericScalarRestrictions
   : TypedDataset[api.NumericScalarRestriction],
@@ -4181,29 +3747,8 @@ case class OMLSpecificationTypedDatasets
   reifiedRelationshipInstanceRanges
   : TypedDataset[api.ReifiedRelationshipInstanceRange],
 
-  reifiedRelationshipInversePropertyPredicates
-  : TypedDataset[api.ReifiedRelationshipInversePropertyPredicate],
-
-  reifiedRelationshipPredicates
-  : TypedDataset[api.ReifiedRelationshipPredicate],
-
-  reifiedRelationshipPropertyPredicates
-  : TypedDataset[api.ReifiedRelationshipPropertyPredicate],
-
-  reifiedRelationshipSourceInversePropertyPredicates
-  : TypedDataset[api.ReifiedRelationshipSourceInversePropertyPredicate],
-
-  reifiedRelationshipSourcePropertyPredicates
-  : TypedDataset[api.ReifiedRelationshipSourcePropertyPredicate],
-
   reifiedRelationshipSpecializationAxioms
   : TypedDataset[api.ReifiedRelationshipSpecializationAxiom],
-
-  reifiedRelationshipTargetInversePropertyPredicates
-  : TypedDataset[api.ReifiedRelationshipTargetInversePropertyPredicate],
-
-  reifiedRelationshipTargetPropertyPredicates
-  : TypedDataset[api.ReifiedRelationshipTargetPropertyPredicate],
 
   restrictionScalarDataPropertyValues
   : TypedDataset[api.RestrictionScalarDataPropertyValue],
@@ -4231,6 +3776,9 @@ case class OMLSpecificationTypedDatasets
 
   scalarOneOfRestrictions
   : TypedDataset[api.ScalarOneOfRestriction],
+
+  segmentPredicates
+  : TypedDataset[api.SegmentPredicate],
 
   singletonInstanceScalarDataPropertyValues
   : TypedDataset[api.SingletonInstanceScalarDataPropertyValue],
@@ -4278,12 +3826,6 @@ case class OMLSpecificationTypedDatasets
   : TypedDataset[api.UnreifiedRelationship],
 
   unreifiedRelationshipInstanceTuples
-  : TypedDataset[api.UnreifiedRelationshipInstanceTuple],
-
-  unreifiedRelationshipInversePropertyPredicates
-  : TypedDataset[api.UnreifiedRelationshipInversePropertyPredicate],
-
-  unreifiedRelationshipPropertyPredicates
-  : TypedDataset[api.UnreifiedRelationshipPropertyPredicate]
+  : TypedDataset[api.UnreifiedRelationshipInstanceTuple]
 )
 

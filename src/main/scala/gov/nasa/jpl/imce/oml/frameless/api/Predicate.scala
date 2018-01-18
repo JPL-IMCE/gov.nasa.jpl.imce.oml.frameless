@@ -21,10 +21,6 @@ package gov.nasa.jpl.imce.oml.frameless.api
 
 import gov.nasa.jpl.imce.oml.tables._
 
-case class UnreifiedRelationshipInversePropertyPredicate(
-  uuid: taggedTypes.UnreifiedRelationshipInversePropertyPredicateUUID,
-    
-  unreifiedRelationshipUUID: taggedTypes.UnreifiedRelationshipUUID,
-    
-  bodySegmentUUID: taggedTypes.RuleBodySegmentUUID
+case class Predicate(
+  uuid: taggedTypes.PredicateUUID
 )

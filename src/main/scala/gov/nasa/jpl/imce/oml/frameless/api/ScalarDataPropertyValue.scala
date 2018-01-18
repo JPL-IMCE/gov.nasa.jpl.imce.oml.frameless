@@ -24,11 +24,11 @@ import gov.nasa.jpl.imce.oml.tables._
 case class ScalarDataPropertyValue(
   uuid: taggedTypes.ScalarDataPropertyValueUUID,
     
+  structuredDataPropertyContextUUID: taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID,
+    
   scalarDataPropertyUUID: taggedTypes.DataRelationshipToScalarUUID,
     
   scalarPropertyValue: LiteralValue,
-    
-  structuredDataPropertyContextUUID: taggedTypes.SingletonInstanceStructuredDataPropertyContextUUID,
     
   valueTypeUUID: scala.Option[taggedTypes.DataRangeUUID]
 )
