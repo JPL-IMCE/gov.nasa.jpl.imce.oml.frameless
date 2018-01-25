@@ -23,10 +23,11 @@ import java.util.Properties
 
 import ammonite.ops.Path
 
-import frameless.{Injection, TypedDataset}
+import frameless.{Injection, TypedDataset, TypedExpressionEncoder}
 import gov.nasa.jpl.imce.oml.covariantTag
 import gov.nasa.jpl.imce.oml.covariantTag.@@
 import gov.nasa.jpl.imce.oml.tables
+import org.apache.spark.sql.catalyst.encoders.ExpressionEncoder
 import org.apache.spark.sql.{SQLContext, SaveMode, SparkSession}
 
 import scala.collection.immutable.Seq
@@ -2106,381 +2107,521 @@ object OMLSpecificationTypedDatasets {
   	    ))
   	}
 
+  implicit val descriptionKindI
+  : Injection[tables.DescriptionKind, Int]
+  = Injection(
+  {
+  	case tables.Final => 0
+  	case tables.Partial => 1
+  },
+  {
+  	case 0 => tables.Final
+  	case 1 => tables.Partial
+  }
+  )
+  
+  implicit val terminologyKindI
+  : Injection[tables.TerminologyKind, Int]
+  = Injection(
+  {
+  	case tables.OpenWorldDefinitions => 0
+  	case tables.ClosedWorldDesignations => 1
+  },
+  {
+  	case 0 => tables.OpenWorldDefinitions
+  	case 1 => tables.ClosedWorldDesignations
+  }
+  )
+  
+  implicit val annotationPropertiesEncoder
+  : ExpressionEncoder[tables.AnnotationProperty]
+  = TypedExpressionEncoder[tables.AnnotationProperty]
+  
+  implicit val annotationPropertyValuesEncoder
+  : ExpressionEncoder[tables.AnnotationPropertyValue]
+  = TypedExpressionEncoder[tables.AnnotationPropertyValue]
+  
+  implicit val anonymousConceptUnionAxiomsEncoder
+  : ExpressionEncoder[tables.AnonymousConceptUnionAxiom]
+  = TypedExpressionEncoder[tables.AnonymousConceptUnionAxiom]
+  
+  implicit val aspectsEncoder
+  : ExpressionEncoder[tables.Aspect]
+  = TypedExpressionEncoder[tables.Aspect]
+  
+  implicit val aspectSpecializationAxiomsEncoder
+  : ExpressionEncoder[tables.AspectSpecializationAxiom]
+  = TypedExpressionEncoder[tables.AspectSpecializationAxiom]
+  
+  implicit val binaryScalarRestrictionsEncoder
+  : ExpressionEncoder[tables.BinaryScalarRestriction]
+  = TypedExpressionEncoder[tables.BinaryScalarRestriction]
+  
+  implicit val bundlesEncoder
+  : ExpressionEncoder[tables.Bundle]
+  = TypedExpressionEncoder[tables.Bundle]
+  
+  implicit val bundledTerminologyAxiomsEncoder
+  : ExpressionEncoder[tables.BundledTerminologyAxiom]
+  = TypedExpressionEncoder[tables.BundledTerminologyAxiom]
+  
+  implicit val chainRulesEncoder
+  : ExpressionEncoder[tables.ChainRule]
+  = TypedExpressionEncoder[tables.ChainRule]
+  
+  implicit val conceptsEncoder
+  : ExpressionEncoder[tables.Concept]
+  = TypedExpressionEncoder[tables.Concept]
+  
+  implicit val conceptDesignationTerminologyAxiomsEncoder
+  : ExpressionEncoder[tables.ConceptDesignationTerminologyAxiom]
+  = TypedExpressionEncoder[tables.ConceptDesignationTerminologyAxiom]
+  
+  implicit val conceptInstancesEncoder
+  : ExpressionEncoder[tables.ConceptInstance]
+  = TypedExpressionEncoder[tables.ConceptInstance]
+  
+  implicit val conceptSpecializationAxiomsEncoder
+  : ExpressionEncoder[tables.ConceptSpecializationAxiom]
+  = TypedExpressionEncoder[tables.ConceptSpecializationAxiom]
+  
+  implicit val descriptionBoxesEncoder
+  : ExpressionEncoder[tables.DescriptionBox]
+  = TypedExpressionEncoder[tables.DescriptionBox]
+  
+  implicit val descriptionBoxExtendsClosedWorldDefinitionsEncoder
+  : ExpressionEncoder[tables.DescriptionBoxExtendsClosedWorldDefinitions]
+  = TypedExpressionEncoder[tables.DescriptionBoxExtendsClosedWorldDefinitions]
+  
+  implicit val descriptionBoxRefinementsEncoder
+  : ExpressionEncoder[tables.DescriptionBoxRefinement]
+  = TypedExpressionEncoder[tables.DescriptionBoxRefinement]
+  
+  implicit val entityExistentialRestrictionAxiomsEncoder
+  : ExpressionEncoder[tables.EntityExistentialRestrictionAxiom]
+  = TypedExpressionEncoder[tables.EntityExistentialRestrictionAxiom]
+  
+  implicit val entityScalarDataPropertiesEncoder
+  : ExpressionEncoder[tables.EntityScalarDataProperty]
+  = TypedExpressionEncoder[tables.EntityScalarDataProperty]
+  
+  implicit val entityScalarDataPropertyExistentialRestrictionAxiomsEncoder
+  : ExpressionEncoder[tables.EntityScalarDataPropertyExistentialRestrictionAxiom]
+  = TypedExpressionEncoder[tables.EntityScalarDataPropertyExistentialRestrictionAxiom]
+  
+  implicit val entityScalarDataPropertyParticularRestrictionAxiomsEncoder
+  : ExpressionEncoder[tables.EntityScalarDataPropertyParticularRestrictionAxiom]
+  = TypedExpressionEncoder[tables.EntityScalarDataPropertyParticularRestrictionAxiom]
+  
+  implicit val entityScalarDataPropertyUniversalRestrictionAxiomsEncoder
+  : ExpressionEncoder[tables.EntityScalarDataPropertyUniversalRestrictionAxiom]
+  = TypedExpressionEncoder[tables.EntityScalarDataPropertyUniversalRestrictionAxiom]
+  
+  implicit val entityStructuredDataPropertiesEncoder
+  : ExpressionEncoder[tables.EntityStructuredDataProperty]
+  = TypedExpressionEncoder[tables.EntityStructuredDataProperty]
+  
+  implicit val entityStructuredDataPropertyParticularRestrictionAxiomsEncoder
+  : ExpressionEncoder[tables.EntityStructuredDataPropertyParticularRestrictionAxiom]
+  = TypedExpressionEncoder[tables.EntityStructuredDataPropertyParticularRestrictionAxiom]
+  
+  implicit val entityUniversalRestrictionAxiomsEncoder
+  : ExpressionEncoder[tables.EntityUniversalRestrictionAxiom]
+  = TypedExpressionEncoder[tables.EntityUniversalRestrictionAxiom]
+  
+  implicit val forwardPropertiesEncoder
+  : ExpressionEncoder[tables.ForwardProperty]
+  = TypedExpressionEncoder[tables.ForwardProperty]
+  
+  implicit val iriScalarRestrictionsEncoder
+  : ExpressionEncoder[tables.IRIScalarRestriction]
+  = TypedExpressionEncoder[tables.IRIScalarRestriction]
+  
+  implicit val inversePropertiesEncoder
+  : ExpressionEncoder[tables.InverseProperty]
+  = TypedExpressionEncoder[tables.InverseProperty]
+  
+  implicit val numericScalarRestrictionsEncoder
+  : ExpressionEncoder[tables.NumericScalarRestriction]
+  = TypedExpressionEncoder[tables.NumericScalarRestriction]
+  
+  implicit val plainLiteralScalarRestrictionsEncoder
+  : ExpressionEncoder[tables.PlainLiteralScalarRestriction]
+  = TypedExpressionEncoder[tables.PlainLiteralScalarRestriction]
+  
+  implicit val reifiedRelationshipsEncoder
+  : ExpressionEncoder[tables.ReifiedRelationship]
+  = TypedExpressionEncoder[tables.ReifiedRelationship]
+  
+  implicit val reifiedRelationshipInstancesEncoder
+  : ExpressionEncoder[tables.ReifiedRelationshipInstance]
+  = TypedExpressionEncoder[tables.ReifiedRelationshipInstance]
+  
+  implicit val reifiedRelationshipInstanceDomainsEncoder
+  : ExpressionEncoder[tables.ReifiedRelationshipInstanceDomain]
+  = TypedExpressionEncoder[tables.ReifiedRelationshipInstanceDomain]
+  
+  implicit val reifiedRelationshipInstanceRangesEncoder
+  : ExpressionEncoder[tables.ReifiedRelationshipInstanceRange]
+  = TypedExpressionEncoder[tables.ReifiedRelationshipInstanceRange]
+  
+  implicit val reifiedRelationshipSpecializationAxiomsEncoder
+  : ExpressionEncoder[tables.ReifiedRelationshipSpecializationAxiom]
+  = TypedExpressionEncoder[tables.ReifiedRelationshipSpecializationAxiom]
+  
+  implicit val restrictionScalarDataPropertyValuesEncoder
+  : ExpressionEncoder[tables.RestrictionScalarDataPropertyValue]
+  = TypedExpressionEncoder[tables.RestrictionScalarDataPropertyValue]
+  
+  implicit val restrictionStructuredDataPropertyTuplesEncoder
+  : ExpressionEncoder[tables.RestrictionStructuredDataPropertyTuple]
+  = TypedExpressionEncoder[tables.RestrictionStructuredDataPropertyTuple]
+  
+  implicit val rootConceptTaxonomyAxiomsEncoder
+  : ExpressionEncoder[tables.RootConceptTaxonomyAxiom]
+  = TypedExpressionEncoder[tables.RootConceptTaxonomyAxiom]
+  
+  implicit val ruleBodySegmentsEncoder
+  : ExpressionEncoder[tables.RuleBodySegment]
+  = TypedExpressionEncoder[tables.RuleBodySegment]
+  
+  implicit val scalarsEncoder
+  : ExpressionEncoder[tables.Scalar]
+  = TypedExpressionEncoder[tables.Scalar]
+  
+  implicit val scalarDataPropertiesEncoder
+  : ExpressionEncoder[tables.ScalarDataProperty]
+  = TypedExpressionEncoder[tables.ScalarDataProperty]
+  
+  implicit val scalarDataPropertyValuesEncoder
+  : ExpressionEncoder[tables.ScalarDataPropertyValue]
+  = TypedExpressionEncoder[tables.ScalarDataPropertyValue]
+  
+  implicit val scalarOneOfLiteralAxiomsEncoder
+  : ExpressionEncoder[tables.ScalarOneOfLiteralAxiom]
+  = TypedExpressionEncoder[tables.ScalarOneOfLiteralAxiom]
+  
+  implicit val scalarOneOfRestrictionsEncoder
+  : ExpressionEncoder[tables.ScalarOneOfRestriction]
+  = TypedExpressionEncoder[tables.ScalarOneOfRestriction]
+  
+  implicit val segmentPredicatesEncoder
+  : ExpressionEncoder[tables.SegmentPredicate]
+  = TypedExpressionEncoder[tables.SegmentPredicate]
+  
+  implicit val singletonInstanceScalarDataPropertyValuesEncoder
+  : ExpressionEncoder[tables.SingletonInstanceScalarDataPropertyValue]
+  = TypedExpressionEncoder[tables.SingletonInstanceScalarDataPropertyValue]
+  
+  implicit val singletonInstanceStructuredDataPropertyValuesEncoder
+  : ExpressionEncoder[tables.SingletonInstanceStructuredDataPropertyValue]
+  = TypedExpressionEncoder[tables.SingletonInstanceStructuredDataPropertyValue]
+  
+  implicit val specificDisjointConceptAxiomsEncoder
+  : ExpressionEncoder[tables.SpecificDisjointConceptAxiom]
+  = TypedExpressionEncoder[tables.SpecificDisjointConceptAxiom]
+  
+  implicit val stringScalarRestrictionsEncoder
+  : ExpressionEncoder[tables.StringScalarRestriction]
+  = TypedExpressionEncoder[tables.StringScalarRestriction]
+  
+  implicit val structuresEncoder
+  : ExpressionEncoder[tables.Structure]
+  = TypedExpressionEncoder[tables.Structure]
+  
+  implicit val structuredDataPropertiesEncoder
+  : ExpressionEncoder[tables.StructuredDataProperty]
+  = TypedExpressionEncoder[tables.StructuredDataProperty]
+  
+  implicit val structuredDataPropertyTuplesEncoder
+  : ExpressionEncoder[tables.StructuredDataPropertyTuple]
+  = TypedExpressionEncoder[tables.StructuredDataPropertyTuple]
+  
+  implicit val subDataPropertyOfAxiomsEncoder
+  : ExpressionEncoder[tables.SubDataPropertyOfAxiom]
+  = TypedExpressionEncoder[tables.SubDataPropertyOfAxiom]
+  
+  implicit val subObjectPropertyOfAxiomsEncoder
+  : ExpressionEncoder[tables.SubObjectPropertyOfAxiom]
+  = TypedExpressionEncoder[tables.SubObjectPropertyOfAxiom]
+  
+  implicit val synonymScalarRestrictionsEncoder
+  : ExpressionEncoder[tables.SynonymScalarRestriction]
+  = TypedExpressionEncoder[tables.SynonymScalarRestriction]
+  
+  implicit val terminologyExtensionAxiomsEncoder
+  : ExpressionEncoder[tables.TerminologyExtensionAxiom]
+  = TypedExpressionEncoder[tables.TerminologyExtensionAxiom]
+  
+  implicit val terminologyGraphsEncoder
+  : ExpressionEncoder[tables.TerminologyGraph]
+  = TypedExpressionEncoder[tables.TerminologyGraph]
+  
+  implicit val terminologyNestingAxiomsEncoder
+  : ExpressionEncoder[tables.TerminologyNestingAxiom]
+  = TypedExpressionEncoder[tables.TerminologyNestingAxiom]
+  
+  implicit val timeScalarRestrictionsEncoder
+  : ExpressionEncoder[tables.TimeScalarRestriction]
+  = TypedExpressionEncoder[tables.TimeScalarRestriction]
+  
+  implicit val unreifiedRelationshipsEncoder
+  : ExpressionEncoder[tables.UnreifiedRelationship]
+  = TypedExpressionEncoder[tables.UnreifiedRelationship]
+  
+  implicit val unreifiedRelationshipInstanceTuplesEncoder
+  : ExpressionEncoder[tables.UnreifiedRelationshipInstanceTuple]
+  = TypedExpressionEncoder[tables.UnreifiedRelationshipInstanceTuple]
+  
+
   def parquetWriteOMLSpecificationTables
   (t: tables.OMLSpecificationTables,
    dir: Path)
   (implicit spark: SparkSession, sqlContext: SQLContext)
-  : Try[Unit]
-  = nonFatalCatch[Try[Unit]]
-    .withApply {
-      (cause: java.lang.Throwable) =>
-        Failure(cause)
-    }
-    .apply {
-
+  : Unit
+  = {
   	  dir.toIO.mkdirs()
 
-      TypedDataset
-        .create(t.annotationProperties)
-        .dataset
-        .write
-        .parquet((dir / "AnnotationProperty.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.annotationPropertyValues)
-        .dataset
-        .write
-        .parquet((dir / "AnnotationPropertyValue.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.anonymousConceptUnionAxioms)
-        .dataset
-        .write
-        .parquet((dir / "AnonymousConceptUnionAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.aspects)
-        .dataset
-        .write
-        .parquet((dir / "Aspect.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.aspectSpecializationAxioms)
-        .dataset
-        .write
-        .parquet((dir / "AspectSpecializationAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.binaryScalarRestrictions)
-        .dataset
-        .write
-        .parquet((dir / "BinaryScalarRestriction.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.bundles)
-        .dataset
-        .write
-        .parquet((dir / "Bundle.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.bundledTerminologyAxioms)
-        .dataset
-        .write
-        .parquet((dir / "BundledTerminologyAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.chainRules)
-        .dataset
-        .write
-        .parquet((dir / "ChainRule.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.concepts)
-        .dataset
-        .write
-        .parquet((dir / "Concept.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.conceptDesignationTerminologyAxioms)
-        .dataset
-        .write
-        .parquet((dir / "ConceptDesignationTerminologyAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.conceptInstances)
-        .dataset
-        .write
-        .parquet((dir / "ConceptInstance.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.conceptSpecializationAxioms)
-        .dataset
-        .write
-        .parquet((dir / "ConceptSpecializationAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.descriptionBoxes)
-        .dataset
-        .write
-        .parquet((dir / "DescriptionBox.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.descriptionBoxExtendsClosedWorldDefinitions)
-        .dataset
-        .write
-        .parquet((dir / "DescriptionBoxExtendsClosedWorldDefinitions.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.descriptionBoxRefinements)
-        .dataset
-        .write
-        .parquet((dir / "DescriptionBoxRefinement.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.entityExistentialRestrictionAxioms)
-        .dataset
-        .write
-        .parquet((dir / "EntityExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.entityScalarDataProperties)
-        .dataset
-        .write
-        .parquet((dir / "EntityScalarDataProperty.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.entityScalarDataPropertyExistentialRestrictionAxioms)
-        .dataset
-        .write
-        .parquet((dir / "EntityScalarDataPropertyExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.entityScalarDataPropertyParticularRestrictionAxioms)
-        .dataset
-        .write
-        .parquet((dir / "EntityScalarDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.entityScalarDataPropertyUniversalRestrictionAxioms)
-        .dataset
-        .write
-        .parquet((dir / "EntityScalarDataPropertyUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.entityStructuredDataProperties)
-        .dataset
-        .write
-        .parquet((dir / "EntityStructuredDataProperty.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.entityStructuredDataPropertyParticularRestrictionAxioms)
-        .dataset
-        .write
-        .parquet((dir / "EntityStructuredDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.entityUniversalRestrictionAxioms)
-        .dataset
-        .write
-        .parquet((dir / "EntityUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.forwardProperties)
-        .dataset
-        .write
-        .parquet((dir / "ForwardProperty.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.iriScalarRestrictions)
-        .dataset
-        .write
-        .parquet((dir / "IRIScalarRestriction.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.inverseProperties)
-        .dataset
-        .write
-        .parquet((dir / "InverseProperty.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.numericScalarRestrictions)
-        .dataset
-        .write
-        .parquet((dir / "NumericScalarRestriction.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.plainLiteralScalarRestrictions)
-        .dataset
-        .write
-        .parquet((dir / "PlainLiteralScalarRestriction.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationships)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationship.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipInstances)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipInstance.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipInstanceDomains)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipInstanceDomain.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipInstanceRanges)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipInstanceRange.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.reifiedRelationshipSpecializationAxioms)
-        .dataset
-        .write
-        .parquet((dir / "ReifiedRelationshipSpecializationAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.restrictionScalarDataPropertyValues)
-        .dataset
-        .write
-        .parquet((dir / "RestrictionScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.restrictionStructuredDataPropertyTuples)
-        .dataset
-        .write
-        .parquet((dir / "RestrictionStructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.rootConceptTaxonomyAxioms)
-        .dataset
-        .write
-        .parquet((dir / "RootConceptTaxonomyAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.ruleBodySegments)
-        .dataset
-        .write
-        .parquet((dir / "RuleBodySegment.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.scalars)
-        .dataset
-        .write
-        .parquet((dir / "Scalar.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.scalarDataProperties)
-        .dataset
-        .write
-        .parquet((dir / "ScalarDataProperty.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.scalarDataPropertyValues)
-        .dataset
-        .write
-        .parquet((dir / "ScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.scalarOneOfLiteralAxioms)
-        .dataset
-        .write
-        .parquet((dir / "ScalarOneOfLiteralAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.scalarOneOfRestrictions)
-        .dataset
-        .write
-        .parquet((dir / "ScalarOneOfRestriction.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.segmentPredicates)
-        .dataset
-        .write
-        .parquet((dir / "SegmentPredicate.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.singletonInstanceScalarDataPropertyValues)
-        .dataset
-        .write
-        .parquet((dir / "SingletonInstanceScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.singletonInstanceStructuredDataPropertyValues)
-        .dataset
-        .write
-        .parquet((dir / "SingletonInstanceStructuredDataPropertyValue.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.specificDisjointConceptAxioms)
-        .dataset
-        .write
-        .parquet((dir / "SpecificDisjointConceptAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.stringScalarRestrictions)
-        .dataset
-        .write
-        .parquet((dir / "StringScalarRestriction.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.structures)
-        .dataset
-        .write
-        .parquet((dir / "Structure.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.structuredDataProperties)
-        .dataset
-        .write
-        .parquet((dir / "StructuredDataProperty.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.structuredDataPropertyTuples)
-        .dataset
-        .write
-        .parquet((dir / "StructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.subDataPropertyOfAxioms)
-        .dataset
-        .write
-        .parquet((dir / "SubDataPropertyOfAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.subObjectPropertyOfAxioms)
-        .dataset
-        .write
-        .parquet((dir / "SubObjectPropertyOfAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.synonymScalarRestrictions)
-        .dataset
-        .write
-        .parquet((dir / "SynonymScalarRestriction.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.terminologyExtensionAxioms)
-        .dataset
-        .write
-        .parquet((dir / "TerminologyExtensionAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.terminologyGraphs)
-        .dataset
-        .write
-        .parquet((dir / "TerminologyGraph.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.terminologyNestingAxioms)
-        .dataset
-        .write
-        .parquet((dir / "TerminologyNestingAxiom.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.timeScalarRestrictions)
-        .dataset
-        .write
-        .parquet((dir / "TimeScalarRestriction.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.unreifiedRelationships)
-        .dataset
-        .write
-        .parquet((dir / "UnreifiedRelationship.parquet").toIO.getAbsolutePath)
-      
-      TypedDataset
-        .create(t.unreifiedRelationshipInstanceTuples)
-        .dataset
-        .write
-        .parquet((dir / "UnreifiedRelationshipInstanceTuple.parquet").toIO.getAbsolutePath)
-      
-  	  Success(())
+      OMLParquetWriters.writeAnnotationProperties(
+        t.annotationProperties,
+        (dir / "AnnotationProperty.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeAnnotationPropertyValues(
+        t.annotationPropertyValues,
+        (dir / "AnnotationPropertyValue.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeAnonymousConceptUnionAxioms(
+        t.anonymousConceptUnionAxioms,
+        (dir / "AnonymousConceptUnionAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeAspects(
+        t.aspects,
+        (dir / "Aspect.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeAspectSpecializationAxioms(
+        t.aspectSpecializationAxioms,
+        (dir / "AspectSpecializationAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeBinaryScalarRestrictions(
+        t.binaryScalarRestrictions,
+        (dir / "BinaryScalarRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeBundles(
+        t.bundles,
+        (dir / "Bundle.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeBundledTerminologyAxioms(
+        t.bundledTerminologyAxioms,
+        (dir / "BundledTerminologyAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeChainRules(
+        t.chainRules,
+        (dir / "ChainRule.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeConcepts(
+        t.concepts,
+        (dir / "Concept.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeConceptDesignationTerminologyAxioms(
+        t.conceptDesignationTerminologyAxioms,
+        (dir / "ConceptDesignationTerminologyAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeConceptInstances(
+        t.conceptInstances,
+        (dir / "ConceptInstance.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeConceptSpecializationAxioms(
+        t.conceptSpecializationAxioms,
+        (dir / "ConceptSpecializationAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeDescriptionBoxes(
+        t.descriptionBoxes,
+        (dir / "DescriptionBox.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeDescriptionBoxExtendsClosedWorldDefinitions(
+        t.descriptionBoxExtendsClosedWorldDefinitions,
+        (dir / "DescriptionBoxExtendsClosedWorldDefinitions.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeDescriptionBoxRefinements(
+        t.descriptionBoxRefinements,
+        (dir / "DescriptionBoxRefinement.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeEntityExistentialRestrictionAxioms(
+        t.entityExistentialRestrictionAxioms,
+        (dir / "EntityExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeEntityScalarDataProperties(
+        t.entityScalarDataProperties,
+        (dir / "EntityScalarDataProperty.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeEntityScalarDataPropertyExistentialRestrictionAxioms(
+        t.entityScalarDataPropertyExistentialRestrictionAxioms,
+        (dir / "EntityScalarDataPropertyExistentialRestrictionAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeEntityScalarDataPropertyParticularRestrictionAxioms(
+        t.entityScalarDataPropertyParticularRestrictionAxioms,
+        (dir / "EntityScalarDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeEntityScalarDataPropertyUniversalRestrictionAxioms(
+        t.entityScalarDataPropertyUniversalRestrictionAxioms,
+        (dir / "EntityScalarDataPropertyUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeEntityStructuredDataProperties(
+        t.entityStructuredDataProperties,
+        (dir / "EntityStructuredDataProperty.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeEntityStructuredDataPropertyParticularRestrictionAxioms(
+        t.entityStructuredDataPropertyParticularRestrictionAxioms,
+        (dir / "EntityStructuredDataPropertyParticularRestrictionAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeEntityUniversalRestrictionAxioms(
+        t.entityUniversalRestrictionAxioms,
+        (dir / "EntityUniversalRestrictionAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeForwardProperties(
+        t.forwardProperties,
+        (dir / "ForwardProperty.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeIRIScalarRestrictions(
+        t.iriScalarRestrictions,
+        (dir / "IRIScalarRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeInverseProperties(
+        t.inverseProperties,
+        (dir / "InverseProperty.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeNumericScalarRestrictions(
+        t.numericScalarRestrictions,
+        (dir / "NumericScalarRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writePlainLiteralScalarRestrictions(
+        t.plainLiteralScalarRestrictions,
+        (dir / "PlainLiteralScalarRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeReifiedRelationships(
+        t.reifiedRelationships,
+        (dir / "ReifiedRelationship.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeReifiedRelationshipInstances(
+        t.reifiedRelationshipInstances,
+        (dir / "ReifiedRelationshipInstance.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeReifiedRelationshipInstanceDomains(
+        t.reifiedRelationshipInstanceDomains,
+        (dir / "ReifiedRelationshipInstanceDomain.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeReifiedRelationshipInstanceRanges(
+        t.reifiedRelationshipInstanceRanges,
+        (dir / "ReifiedRelationshipInstanceRange.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeReifiedRelationshipSpecializationAxioms(
+        t.reifiedRelationshipSpecializationAxioms,
+        (dir / "ReifiedRelationshipSpecializationAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeRestrictionScalarDataPropertyValues(
+        t.restrictionScalarDataPropertyValues,
+        (dir / "RestrictionScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeRestrictionStructuredDataPropertyTuples(
+        t.restrictionStructuredDataPropertyTuples,
+        (dir / "RestrictionStructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeRootConceptTaxonomyAxioms(
+        t.rootConceptTaxonomyAxioms,
+        (dir / "RootConceptTaxonomyAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeRuleBodySegments(
+        t.ruleBodySegments,
+        (dir / "RuleBodySegment.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeScalars(
+        t.scalars,
+        (dir / "Scalar.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeScalarDataProperties(
+        t.scalarDataProperties,
+        (dir / "ScalarDataProperty.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeScalarDataPropertyValues(
+        t.scalarDataPropertyValues,
+        (dir / "ScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeScalarOneOfLiteralAxioms(
+        t.scalarOneOfLiteralAxioms,
+        (dir / "ScalarOneOfLiteralAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeScalarOneOfRestrictions(
+        t.scalarOneOfRestrictions,
+        (dir / "ScalarOneOfRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeSegmentPredicates(
+        t.segmentPredicates,
+        (dir / "SegmentPredicate.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeSingletonInstanceScalarDataPropertyValues(
+        t.singletonInstanceScalarDataPropertyValues,
+        (dir / "SingletonInstanceScalarDataPropertyValue.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeSingletonInstanceStructuredDataPropertyValues(
+        t.singletonInstanceStructuredDataPropertyValues,
+        (dir / "SingletonInstanceStructuredDataPropertyValue.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeSpecificDisjointConceptAxioms(
+        t.specificDisjointConceptAxioms,
+        (dir / "SpecificDisjointConceptAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeStringScalarRestrictions(
+        t.stringScalarRestrictions,
+        (dir / "StringScalarRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeStructures(
+        t.structures,
+        (dir / "Structure.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeStructuredDataProperties(
+        t.structuredDataProperties,
+        (dir / "StructuredDataProperty.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeStructuredDataPropertyTuples(
+        t.structuredDataPropertyTuples,
+        (dir / "StructuredDataPropertyTuple.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeSubDataPropertyOfAxioms(
+        t.subDataPropertyOfAxioms,
+        (dir / "SubDataPropertyOfAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeSubObjectPropertyOfAxioms(
+        t.subObjectPropertyOfAxioms,
+        (dir / "SubObjectPropertyOfAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeSynonymScalarRestrictions(
+        t.synonymScalarRestrictions,
+        (dir / "SynonymScalarRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeTerminologyExtensionAxioms(
+        t.terminologyExtensionAxioms,
+        (dir / "TerminologyExtensionAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeTerminologyGraphs(
+        t.terminologyGraphs,
+        (dir / "TerminologyGraph.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeTerminologyNestingAxioms(
+        t.terminologyNestingAxioms,
+        (dir / "TerminologyNestingAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeTimeScalarRestrictions(
+        t.timeScalarRestrictions,
+        (dir / "TimeScalarRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeUnreifiedRelationships(
+        t.unreifiedRelationships,
+        (dir / "UnreifiedRelationship.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeUnreifiedRelationshipInstanceTuples(
+        t.unreifiedRelationshipInstanceTuples,
+        (dir / "UnreifiedRelationshipInstanceTuple.parquet").toIO.getAbsolutePath)
+
   	}
 
   def sqlReadOMLSpecificationTables
@@ -3617,33 +3758,6 @@ object OMLSpecificationTypedDatasets {
 
   	  Success(())
   	}
-
-  implicit val descriptionKindI
-  : Injection[tables.DescriptionKind, Int]
-  = Injection(
-  {
-  	case tables.Final => 0
-  	case tables.Partial => 1
-  },
-  {
-  	case 0 => tables.Final
-  	case 1 => tables.Partial
-  }
-  )
-  
-  implicit val terminologyKindI
-  : Injection[tables.TerminologyKind, Int]
-  = Injection(
-  {
-  	case tables.OpenWorldDefinitions => 0
-  	case tables.ClosedWorldDesignations => 1
-  },
-  {
-  	case 0 => tables.OpenWorldDefinitions
-  	case 1 => tables.ClosedWorldDesignations
-  }
-  )
-  
 }
 		
 case class OMLSpecificationTypedDatasets
