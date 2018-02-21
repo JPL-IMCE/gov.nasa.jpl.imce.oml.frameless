@@ -9,11 +9,11 @@ object Settings {
 
   val organization = "gov.nasa.jpl.imce"
 
-  val version = "0.12.2"
+  val version = "0.12.3"
 
   object versions {
     val scala = "2.11.11"
-    val oml_resolver = "0.91.5"
+    val oml_resolver = "0.91.7"
     val ammonite = "1.0.3"
     val circeVersion = "0.9.0-M2"
     val catsCoreVersion = "1.0.0-RC1"
