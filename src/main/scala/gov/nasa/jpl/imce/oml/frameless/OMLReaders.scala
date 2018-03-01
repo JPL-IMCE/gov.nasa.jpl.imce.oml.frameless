@@ -1546,7 +1546,7 @@ object OMLReaders {
 	case class ReifiedRelationshipInstanceTuple
 	(uuid: String,
 	 descriptionBoxUUID: String,
-	 singletonReifiedRelationshipClassifierUUID: String,
+	 singletonConceptualRelationshipClassifierUUID: String,
 	 name: String)
 
 	def ReifiedRelationshipInstanceRow2Tuple
@@ -1555,7 +1555,7 @@ object OMLReaders {
 	= ReifiedRelationshipInstanceTuple(
 	  row.getAs[String]("uuid"),
 	  row.getAs[String]("descriptionBoxUUID"),
-	  row.getAs[String]("singletonReifiedRelationshipClassifierUUID"),
+	  row.getAs[String]("singletonConceptualRelationshipClassifierUUID"),
 	  row.getAs[String]("name")
 	)
 
@@ -1565,7 +1565,7 @@ object OMLReaders {
 	= ReifiedRelationshipInstanceTuple(
 	  row.getAs[String]("uuid"),
 	  row.getAs[String]("descriptionBoxUUID"),
-	  row.getAs[String]("singletonReifiedRelationshipClassifierUUID"),
+	  row.getAs[String]("singletonConceptualRelationshipClassifierUUID"),
 	  row.getAs[String]("name")
 	)
 				
@@ -1575,7 +1575,7 @@ object OMLReaders {
 	= tables.ReifiedRelationshipInstance(
 	  tables.taggedTypes.reifiedRelationshipInstanceUUID(tuple.uuid),
 	  tables.taggedTypes.descriptionBoxUUID(tuple.descriptionBoxUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.singletonReifiedRelationshipClassifierUUID),
+	  tables.taggedTypes.conceptualRelationshipUUID(tuple.singletonConceptualRelationshipClassifierUUID),
 	  tables.taggedTypes.localName(tuple.name)
 	)
 
@@ -1585,7 +1585,7 @@ object OMLReaders {
 	= ReifiedRelationshipInstanceTuple(
 	  e.uuid,
 	  e.descriptionBoxUUID,
-	  e.singletonReifiedRelationshipClassifierUUID,
+	  e.singletonConceptualRelationshipClassifierUUID,
 	  e.name
 	)
 	case class ReifiedRelationshipInstanceDomainTuple
@@ -1678,6 +1678,56 @@ object OMLReaders {
 	  e.reifiedRelationshipInstanceUUID,
 	  e.rangeUUID
 	)
+	case class ReifiedRelationshipRestrictionTuple
+	(uuid: String,
+	 tboxUUID: String,
+	 sourceUUID: String,
+	 targetUUID: String,
+	 name: String)
+
+	def ReifiedRelationshipRestrictionRow2Tuple
+	(row: Row)
+	: ReifiedRelationshipRestrictionTuple
+	= ReifiedRelationshipRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("tboxUUID"),
+	  row.getAs[String]("sourceUUID"),
+	  row.getAs[String]("targetUUID"),
+	  row.getAs[String]("name")
+	)
+
+	def ReifiedRelationshipRestrictionSQL2Tuple
+	(row: Row)
+	: ReifiedRelationshipRestrictionTuple
+	= ReifiedRelationshipRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("tboxUUID"),
+	  row.getAs[String]("sourceUUID"),
+	  row.getAs[String]("targetUUID"),
+	  row.getAs[String]("name")
+	)
+				
+	def ReifiedRelationshipRestrictionTuple2Type
+	(tuple: ReifiedRelationshipRestrictionTuple)
+	: tables.ReifiedRelationshipRestriction
+	= tables.ReifiedRelationshipRestriction(
+	  tables.taggedTypes.reifiedRelationshipRestrictionUUID(tuple.uuid),
+	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
+	  tables.taggedTypes.entityUUID(tuple.sourceUUID),
+	  tables.taggedTypes.entityUUID(tuple.targetUUID),
+	  tables.taggedTypes.localName(tuple.name)
+	)
+
+	def ReifiedRelationshipRestrictionType2Tuple
+	(e: tables.ReifiedRelationshipRestriction)
+	: ReifiedRelationshipRestrictionTuple
+	= ReifiedRelationshipRestrictionTuple(
+	  e.uuid,
+	  e.tboxUUID,
+	  e.sourceUUID,
+	  e.targetUUID,
+	  e.name
+	)
 	case class ReifiedRelationshipSpecializationAxiomTuple
 	(uuid: String,
 	 tboxUUID: String,
@@ -1710,8 +1760,8 @@ object OMLReaders {
 	= tables.ReifiedRelationshipSpecializationAxiom(
 	  tables.taggedTypes.reifiedRelationshipSpecializationAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.superRelationshipUUID),
-	  tables.taggedTypes.reifiedRelationshipUUID(tuple.subRelationshipUUID)
+	  tables.taggedTypes.conceptualRelationshipUUID(tuple.superRelationshipUUID),
+	  tables.taggedTypes.conceptualRelationshipUUID(tuple.subRelationshipUUID)
 	)
 
 	def ReifiedRelationshipSpecializationAxiomType2Tuple

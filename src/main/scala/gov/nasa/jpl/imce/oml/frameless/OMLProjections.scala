@@ -280,6 +280,46 @@ object OMLProjections {
 	        result
 	      })
 
+	// 1 smart projects for api.CharacterizedEntityRelationship
+	
+	implicit val CharacterizedEntityRelationship2EntityRelationshipProjection
+	: SmartProject
+	  [ api.CharacterizedEntityRelationship,
+	    api.EntityRelationship]
+	= SmartProject
+	  [ api.CharacterizedEntityRelationship,
+	    api.EntityRelationship](
+	      (x: TypedDataset[api.CharacterizedEntityRelationship]) => {
+	        val x_uuid: TypedColumn[api.CharacterizedEntityRelationship, taggedTypes.EntityRelationshipUUID]
+	        = x.col[taggedTypes.CharacterizedEntityRelationshipUUID]('uuid).cast[taggedTypes.EntityRelationshipUUID]
+	    
+	        val x_tboxUUID: TypedColumn[api.CharacterizedEntityRelationship, taggedTypes.TerminologyBoxUUID]
+	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
+	    
+	        val x_sourceUUID: TypedColumn[api.CharacterizedEntityRelationship, taggedTypes.EntityUUID]
+	        = x.col[taggedTypes.EntityUUID]('sourceUUID)
+	    
+	        val x_targetUUID: TypedColumn[api.CharacterizedEntityRelationship, taggedTypes.EntityUUID]
+	        = x.col[taggedTypes.EntityUUID]('targetUUID)
+	    
+	        val x_name: TypedColumn[api.CharacterizedEntityRelationship, taggedTypes.LocalName]
+	        = x.col[taggedTypes.LocalName]('name)
+	    
+	        val result
+	        : TypedDataset[api.EntityRelationship]
+	        = x
+	          .selectMany
+	          .applyProduct(
+	            x_uuid :: 
+	            x_tboxUUID :: 
+	            x_sourceUUID :: 
+	            x_targetUUID :: 
+	            x_name ::
+	            HNil)
+	          .as[api.EntityRelationship]
+	        result
+	      })
+
 	// 2 smart projects for api.Concept
 	
 	implicit val Concept2ConceptualEntityProjection
@@ -462,6 +502,76 @@ object OMLProjections {
 
 	// 2 smart projects for api.ConceptualEntitySingletonInstance
 	
+	// 2 smart projects for api.ConceptualRelationship
+	
+	implicit val ConceptualRelationship2ConceptualEntityProjection
+	: SmartProject
+	  [ api.ConceptualRelationship,
+	    api.ConceptualEntity]
+	= SmartProject
+	  [ api.ConceptualRelationship,
+	    api.ConceptualEntity](
+	      (x: TypedDataset[api.ConceptualRelationship]) => {
+	        val x_uuid: TypedColumn[api.ConceptualRelationship, taggedTypes.ConceptualEntityUUID]
+	        = x.col[taggedTypes.ConceptualRelationshipUUID]('uuid).cast[taggedTypes.ConceptualEntityUUID]
+	    
+	        val x_tboxUUID: TypedColumn[api.ConceptualRelationship, taggedTypes.TerminologyBoxUUID]
+	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
+	    
+	        val x_name: TypedColumn[api.ConceptualRelationship, taggedTypes.LocalName]
+	        = x.col[taggedTypes.LocalName]('name)
+	    
+	        val result
+	        : TypedDataset[api.ConceptualEntity]
+	        = x
+	          .selectMany
+	          .applyProduct(
+	            x_uuid :: 
+	            x_tboxUUID :: 
+	            x_name ::
+	            HNil)
+	          .as[api.ConceptualEntity]
+	        result
+	      })
+
+	implicit val ConceptualRelationship2EntityRelationshipProjection
+	: SmartProject
+	  [ api.ConceptualRelationship,
+	    api.EntityRelationship]
+	= SmartProject
+	  [ api.ConceptualRelationship,
+	    api.EntityRelationship](
+	      (x: TypedDataset[api.ConceptualRelationship]) => {
+	        val x_uuid: TypedColumn[api.ConceptualRelationship, taggedTypes.EntityRelationshipUUID]
+	        = x.col[taggedTypes.ConceptualRelationshipUUID]('uuid).cast[taggedTypes.EntityRelationshipUUID]
+	    
+	        val x_tboxUUID: TypedColumn[api.ConceptualRelationship, taggedTypes.TerminologyBoxUUID]
+	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
+	    
+	        val x_sourceUUID: TypedColumn[api.ConceptualRelationship, taggedTypes.EntityUUID]
+	        = x.col[taggedTypes.EntityUUID]('sourceUUID)
+	    
+	        val x_targetUUID: TypedColumn[api.ConceptualRelationship, taggedTypes.EntityUUID]
+	        = x.col[taggedTypes.EntityUUID]('targetUUID)
+	    
+	        val x_name: TypedColumn[api.ConceptualRelationship, taggedTypes.LocalName]
+	        = x.col[taggedTypes.LocalName]('name)
+	    
+	        val result
+	        : TypedDataset[api.EntityRelationship]
+	        = x
+	          .selectMany
+	          .applyProduct(
+	            x_uuid :: 
+	            x_tboxUUID :: 
+	            x_sourceUUID :: 
+	            x_targetUUID :: 
+	            x_name ::
+	            HNil)
+	          .as[api.EntityRelationship]
+	        result
+	      })
+
 	// 1 smart projects for api.CrossReferencableKind
 	
 	// 1 smart projects for api.DataRange
@@ -1618,46 +1728,16 @@ object OMLProjections {
 	
 	// 2 smart projects for api.ReifiedRelationship
 	
-	implicit val ReifiedRelationship2ConceptualEntityProjection
+	implicit val ReifiedRelationship2CharacterizedEntityRelationshipProjection
 	: SmartProject
 	  [ api.ReifiedRelationship,
-	    api.ConceptualEntity]
+	    api.CharacterizedEntityRelationship]
 	= SmartProject
 	  [ api.ReifiedRelationship,
-	    api.ConceptualEntity](
+	    api.CharacterizedEntityRelationship](
 	      (x: TypedDataset[api.ReifiedRelationship]) => {
-	        val x_uuid: TypedColumn[api.ReifiedRelationship, taggedTypes.ConceptualEntityUUID]
-	        = x.col[taggedTypes.ReifiedRelationshipUUID]('uuid).cast[taggedTypes.ConceptualEntityUUID]
-	    
-	        val x_tboxUUID: TypedColumn[api.ReifiedRelationship, taggedTypes.TerminologyBoxUUID]
-	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
-	    
-	        val x_name: TypedColumn[api.ReifiedRelationship, taggedTypes.LocalName]
-	        = x.col[taggedTypes.LocalName]('name)
-	    
-	        val result
-	        : TypedDataset[api.ConceptualEntity]
-	        = x
-	          .selectMany
-	          .applyProduct(
-	            x_uuid :: 
-	            x_tboxUUID :: 
-	            x_name ::
-	            HNil)
-	          .as[api.ConceptualEntity]
-	        result
-	      })
-
-	implicit val ReifiedRelationship2EntityRelationshipProjection
-	: SmartProject
-	  [ api.ReifiedRelationship,
-	    api.EntityRelationship]
-	= SmartProject
-	  [ api.ReifiedRelationship,
-	    api.EntityRelationship](
-	      (x: TypedDataset[api.ReifiedRelationship]) => {
-	        val x_uuid: TypedColumn[api.ReifiedRelationship, taggedTypes.EntityRelationshipUUID]
-	        = x.col[taggedTypes.ReifiedRelationshipUUID]('uuid).cast[taggedTypes.EntityRelationshipUUID]
+	        val x_uuid: TypedColumn[api.ReifiedRelationship, taggedTypes.CharacterizedEntityRelationshipUUID]
+	        = x.col[taggedTypes.ReifiedRelationshipUUID]('uuid).cast[taggedTypes.CharacterizedEntityRelationshipUUID]
 	    
 	        val x_tboxUUID: TypedColumn[api.ReifiedRelationship, taggedTypes.TerminologyBoxUUID]
 	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
@@ -1699,7 +1779,7 @@ object OMLProjections {
 	        = x.col[taggedTypes.LocalName]('name)
 	    
 	        val result
-	        : TypedDataset[api.EntityRelationship]
+	        : TypedDataset[api.CharacterizedEntityRelationship]
 	        = x
 	          .selectMany
 	          .applyProduct(
@@ -1718,7 +1798,45 @@ object OMLProjections {
 	            x_isTransitive :: 
 	            x_name ::
 	            HNil)
-	          .as[api.EntityRelationship]
+	          .as[api.CharacterizedEntityRelationship]
+	        result
+	      })
+
+	implicit val ReifiedRelationship2ConceptualRelationshipProjection
+	: SmartProject
+	  [ api.ReifiedRelationship,
+	    api.ConceptualRelationship]
+	= SmartProject
+	  [ api.ReifiedRelationship,
+	    api.ConceptualRelationship](
+	      (x: TypedDataset[api.ReifiedRelationship]) => {
+	        val x_uuid: TypedColumn[api.ReifiedRelationship, taggedTypes.ConceptualRelationshipUUID]
+	        = x.col[taggedTypes.ReifiedRelationshipUUID]('uuid).cast[taggedTypes.ConceptualRelationshipUUID]
+	    
+	        val x_tboxUUID: TypedColumn[api.ReifiedRelationship, taggedTypes.TerminologyBoxUUID]
+	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
+	    
+	        val x_sourceUUID: TypedColumn[api.ReifiedRelationship, taggedTypes.EntityUUID]
+	        = x.col[taggedTypes.EntityUUID]('sourceUUID)
+	    
+	        val x_targetUUID: TypedColumn[api.ReifiedRelationship, taggedTypes.EntityUUID]
+	        = x.col[taggedTypes.EntityUUID]('targetUUID)
+	    
+	        val x_name: TypedColumn[api.ReifiedRelationship, taggedTypes.LocalName]
+	        = x.col[taggedTypes.LocalName]('name)
+	    
+	        val result
+	        : TypedDataset[api.ConceptualRelationship]
+	        = x
+	          .selectMany
+	          .applyProduct(
+	            x_uuid :: 
+	            x_tboxUUID :: 
+	            x_sourceUUID :: 
+	            x_targetUUID :: 
+	            x_name ::
+	            HNil)
+	          .as[api.ConceptualRelationship]
 	        result
 	      })
 
@@ -1754,6 +1872,46 @@ object OMLProjections {
 	
 	// 2 smart projects for api.ReifiedRelationshipInstanceRange
 	
+	// 1 smart projects for api.ReifiedRelationshipRestriction
+	
+	implicit val ReifiedRelationshipRestriction2ConceptualRelationshipProjection
+	: SmartProject
+	  [ api.ReifiedRelationshipRestriction,
+	    api.ConceptualRelationship]
+	= SmartProject
+	  [ api.ReifiedRelationshipRestriction,
+	    api.ConceptualRelationship](
+	      (x: TypedDataset[api.ReifiedRelationshipRestriction]) => {
+	        val x_uuid: TypedColumn[api.ReifiedRelationshipRestriction, taggedTypes.ConceptualRelationshipUUID]
+	        = x.col[taggedTypes.ReifiedRelationshipRestrictionUUID]('uuid).cast[taggedTypes.ConceptualRelationshipUUID]
+	    
+	        val x_tboxUUID: TypedColumn[api.ReifiedRelationshipRestriction, taggedTypes.TerminologyBoxUUID]
+	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
+	    
+	        val x_sourceUUID: TypedColumn[api.ReifiedRelationshipRestriction, taggedTypes.EntityUUID]
+	        = x.col[taggedTypes.EntityUUID]('sourceUUID)
+	    
+	        val x_targetUUID: TypedColumn[api.ReifiedRelationshipRestriction, taggedTypes.EntityUUID]
+	        = x.col[taggedTypes.EntityUUID]('targetUUID)
+	    
+	        val x_name: TypedColumn[api.ReifiedRelationshipRestriction, taggedTypes.LocalName]
+	        = x.col[taggedTypes.LocalName]('name)
+	    
+	        val result
+	        : TypedDataset[api.ConceptualRelationship]
+	        = x
+	          .selectMany
+	          .applyProduct(
+	            x_uuid :: 
+	            x_tboxUUID :: 
+	            x_sourceUUID :: 
+	            x_targetUUID :: 
+	            x_name ::
+	            HNil)
+	          .as[api.ConceptualRelationship]
+	        result
+	      })
+
 	// 1 smart projects for api.ReifiedRelationshipSpecializationAxiom
 	
 	implicit val ReifiedRelationshipSpecializationAxiom2SpecializationAxiomProjection
@@ -2802,16 +2960,16 @@ object OMLProjections {
 
 	// 2 smart projects for api.UnreifiedRelationship
 	
-	implicit val UnreifiedRelationship2EntityRelationshipProjection
+	implicit val UnreifiedRelationship2CharacterizedEntityRelationshipProjection
 	: SmartProject
 	  [ api.UnreifiedRelationship,
-	    api.EntityRelationship]
+	    api.CharacterizedEntityRelationship]
 	= SmartProject
 	  [ api.UnreifiedRelationship,
-	    api.EntityRelationship](
+	    api.CharacterizedEntityRelationship](
 	      (x: TypedDataset[api.UnreifiedRelationship]) => {
-	        val x_uuid: TypedColumn[api.UnreifiedRelationship, taggedTypes.EntityRelationshipUUID]
-	        = x.col[taggedTypes.UnreifiedRelationshipUUID]('uuid).cast[taggedTypes.EntityRelationshipUUID]
+	        val x_uuid: TypedColumn[api.UnreifiedRelationship, taggedTypes.CharacterizedEntityRelationshipUUID]
+	        = x.col[taggedTypes.UnreifiedRelationshipUUID]('uuid).cast[taggedTypes.CharacterizedEntityRelationshipUUID]
 	    
 	        val x_tboxUUID: TypedColumn[api.UnreifiedRelationship, taggedTypes.TerminologyBoxUUID]
 	        = x.col[taggedTypes.TerminologyBoxUUID]('tboxUUID)
@@ -2853,7 +3011,7 @@ object OMLProjections {
 	        = x.col[taggedTypes.LocalName]('name)
 	    
 	        val result
-	        : TypedDataset[api.EntityRelationship]
+	        : TypedDataset[api.CharacterizedEntityRelationship]
 	        = x
 	          .selectMany
 	          .applyProduct(
@@ -2872,7 +3030,7 @@ object OMLProjections {
 	            x_isTransitive :: 
 	            x_name ::
 	            HNil)
-	          .as[api.EntityRelationship]
+	          .as[api.CharacterizedEntityRelationship]
 	        result
 	      })
 

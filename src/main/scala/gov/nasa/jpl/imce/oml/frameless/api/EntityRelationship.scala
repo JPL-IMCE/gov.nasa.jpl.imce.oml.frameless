@@ -30,23 +30,5 @@ case class EntityRelationship(
     
   targetUUID: taggedTypes.EntityUUID,
     
-  isAsymmetric: scala.Boolean,
-    
-  isEssential: scala.Boolean,
-    
-  isFunctional: scala.Boolean,
-    
-  isInverseEssential: scala.Boolean,
-    
-  isInverseFunctional: scala.Boolean,
-    
-  isIrreflexive: scala.Boolean,
-    
-  isReflexive: scala.Boolean,
-    
-  isSymmetric: scala.Boolean,
-    
-  isTransitive: scala.Boolean,
-    
   name: taggedTypes.LocalName
 )

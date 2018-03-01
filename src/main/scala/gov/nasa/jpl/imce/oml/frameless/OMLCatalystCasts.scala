@@ -148,6 +148,16 @@ object OMLCatalystCasts {
 	  [ taggedTypes.ChainRuleUUID,
 	    taggedTypes.RuleUUID]]
 	
+	// 1 casts for CharacterizedEntityRelationship
+	
+	implicit val CharacterizedEntityRelationship2EntityRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.CharacterizedEntityRelationshipUUID,
+	    taggedTypes.EntityRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.CharacterizedEntityRelationshipUUID,
+	    taggedTypes.EntityRelationshipUUID]]
+	
 	// 2 casts for Concept
 	
 	implicit val Concept2ConceptualEntityUUIDCast
@@ -233,6 +243,24 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ConceptualEntitySingletonInstanceUUID,
 	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 2 casts for ConceptualRelationship
+	
+	implicit val ConceptualRelationship2ConceptualEntityUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptualRelationshipUUID,
+	    taggedTypes.ConceptualEntityUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptualRelationshipUUID,
+	    taggedTypes.ConceptualEntityUUID]]
+	
+	implicit val ConceptualRelationship2EntityRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptualRelationshipUUID,
+	    taggedTypes.EntityRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptualRelationshipUUID,
+	    taggedTypes.EntityRelationshipUUID]]
 	
 	// 1 casts for CrossReferencableKind
 	
@@ -822,21 +850,21 @@ object OMLCatalystCasts {
 	
 	// 2 casts for ReifiedRelationship
 	
-	implicit val ReifiedRelationship2ConceptualEntityUUIDCast
+	implicit val ReifiedRelationship2CharacterizedEntityRelationshipUUIDCast
 	: CatalystCast
 	  [ taggedTypes.ReifiedRelationshipUUID,
-	    taggedTypes.ConceptualEntityUUID]
+	    taggedTypes.CharacterizedEntityRelationshipUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ReifiedRelationshipUUID,
-	    taggedTypes.ConceptualEntityUUID]]
+	    taggedTypes.CharacterizedEntityRelationshipUUID]]
 	
-	implicit val ReifiedRelationship2EntityRelationshipUUIDCast
+	implicit val ReifiedRelationship2ConceptualRelationshipUUIDCast
 	: CatalystCast
 	  [ taggedTypes.ReifiedRelationshipUUID,
-	    taggedTypes.EntityRelationshipUUID]
+	    taggedTypes.ConceptualRelationshipUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ReifiedRelationshipUUID,
-	    taggedTypes.EntityRelationshipUUID]]
+	    taggedTypes.ConceptualRelationshipUUID]]
 	
 	// 1 casts for ReifiedRelationshipInstance
 	
@@ -883,6 +911,16 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ReifiedRelationshipInstanceRangeUUID,
 	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 1 casts for ReifiedRelationshipRestriction
+	
+	implicit val ReifiedRelationshipRestriction2ConceptualRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ReifiedRelationshipRestrictionUUID,
+	    taggedTypes.ConceptualRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ReifiedRelationshipRestrictionUUID,
+	    taggedTypes.ConceptualRelationshipUUID]]
 	
 	// 1 casts for ReifiedRelationshipSpecializationAxiom
 	
@@ -1450,13 +1488,13 @@ object OMLCatalystCasts {
 	
 	// 2 casts for UnreifiedRelationship
 	
-	implicit val UnreifiedRelationship2EntityRelationshipUUIDCast
+	implicit val UnreifiedRelationship2CharacterizedEntityRelationshipUUIDCast
 	: CatalystCast
 	  [ taggedTypes.UnreifiedRelationshipUUID,
-	    taggedTypes.EntityRelationshipUUID]
+	    taggedTypes.CharacterizedEntityRelationshipUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.UnreifiedRelationshipUUID,
-	    taggedTypes.EntityRelationshipUUID]]
+	    taggedTypes.CharacterizedEntityRelationshipUUID]]
 	
 	implicit val UnreifiedRelationship2RestrictableRelationshipUUIDCast
 	: CatalystCast

@@ -188,6 +188,10 @@ object OMLSpecificationTypedDatasets {
     TypedDataset.create[api.ReifiedRelationshipInstanceRange](
       Seq.empty[api.ReifiedRelationshipInstanceRange]),
   
+    reifiedRelationshipRestrictions = 
+    TypedDataset.create[api.ReifiedRelationshipRestriction](
+      Seq.empty[api.ReifiedRelationshipRestriction]),
+  
     reifiedRelationshipSpecializationAxioms = 
     TypedDataset.create[api.ReifiedRelationshipSpecializationAxiom](
       Seq.empty[api.ReifiedRelationshipSpecializationAxiom]),
@@ -604,7 +608,7 @@ object OMLSpecificationTypedDatasets {
        api.ReifiedRelationshipInstance(
          uuid = i.uuid,
          descriptionBoxUUID = i.descriptionBoxUUID,
-         singletonReifiedRelationshipClassifierUUID = i.singletonReifiedRelationshipClassifierUUID,
+         singletonConceptualRelationshipClassifierUUID = i.singletonConceptualRelationshipClassifierUUID,
          name = i.name))),
   
     reifiedRelationshipInstanceDomains = 
@@ -624,6 +628,16 @@ object OMLSpecificationTypedDatasets {
          descriptionBoxUUID = i.descriptionBoxUUID,
          reifiedRelationshipInstanceUUID = i.reifiedRelationshipInstanceUUID,
          rangeUUID = i.rangeUUID))),
+  
+    reifiedRelationshipRestrictions = 
+    TypedDataset.create[api.ReifiedRelationshipRestriction](
+      t.reifiedRelationshipRestrictions.map(i =>
+       api.ReifiedRelationshipRestriction(
+         uuid = i.uuid,
+         tboxUUID = i.tboxUUID,
+         sourceUUID = i.sourceUUID,
+         targetUUID = i.targetUUID,
+         name = i.name))),
   
     reifiedRelationshipSpecializationAxioms = 
     TypedDataset.create[api.ReifiedRelationshipSpecializationAxiom](
@@ -1169,7 +1183,7 @@ object OMLSpecificationTypedDatasets {
   	  tables.ReifiedRelationshipInstance(
   	    uuid = i.uuid,
   	    descriptionBoxUUID = i.descriptionBoxUUID,
-  	    singletonReifiedRelationshipClassifierUUID = i.singletonReifiedRelationshipClassifierUUID,
+  	    singletonConceptualRelationshipClassifierUUID = i.singletonConceptualRelationshipClassifierUUID,
   	    name = i.name)),
   	
   	  reifiedRelationshipInstanceDomains = 
@@ -1187,6 +1201,15 @@ object OMLSpecificationTypedDatasets {
   	    descriptionBoxUUID = i.descriptionBoxUUID,
   	    reifiedRelationshipInstanceUUID = i.reifiedRelationshipInstanceUUID,
   	    rangeUUID = i.rangeUUID)),
+  	
+  	  reifiedRelationshipRestrictions = 
+  	t.reifiedRelationshipRestrictions.collect().run().to[Seq].map(i =>
+  	  tables.ReifiedRelationshipRestriction(
+  	    uuid = i.uuid,
+  	    tboxUUID = i.tboxUUID,
+  	    sourceUUID = i.sourceUUID,
+  	    targetUUID = i.targetUUID,
+  	    name = i.name)),
   	
   	  reifiedRelationshipSpecializationAxioms = 
   	t.reifiedRelationshipSpecializationAxioms.collect().run().to[Seq].map(i =>
@@ -1772,6 +1795,16 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ReifiedRelationshipInstanceRangeTuple2Type)
         .to[Seq]
       
+      val reifiedRelationshipRestrictions
+      : Seq[tables.ReifiedRelationshipRestriction]
+      = spark
+        .read
+        .parquet((dir / "ReifiedRelationshipRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.ReifiedRelationshipRestrictionRow2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipRestrictionTuple2Type)
+        .to[Seq]
+      
       val reifiedRelationshipSpecializationAxioms
       : Seq[tables.ReifiedRelationshipSpecializationAxiom]
       = spark
@@ -2072,6 +2105,7 @@ object OMLSpecificationTypedDatasets {
   	      scalarDataProperties = scalarDataProperties,
   	      structuredDataProperties = structuredDataProperties,
   	      reifiedRelationships = reifiedRelationships,
+  	      reifiedRelationshipRestrictions = reifiedRelationshipRestrictions,
   	      forwardProperties = forwardProperties,
   	      inverseProperties = inverseProperties,
   	      unreifiedRelationships = unreifiedRelationships,
@@ -2264,6 +2298,10 @@ object OMLSpecificationTypedDatasets {
   implicit val reifiedRelationshipInstanceRangesEncoder
   : ExpressionEncoder[tables.ReifiedRelationshipInstanceRange]
   = TypedExpressionEncoder[tables.ReifiedRelationshipInstanceRange]
+  
+  implicit val reifiedRelationshipRestrictionsEncoder
+  : ExpressionEncoder[tables.ReifiedRelationshipRestriction]
+  = TypedExpressionEncoder[tables.ReifiedRelationshipRestriction]
   
   implicit val reifiedRelationshipSpecializationAxiomsEncoder
   : ExpressionEncoder[tables.ReifiedRelationshipSpecializationAxiom]
@@ -2513,6 +2551,10 @@ object OMLSpecificationTypedDatasets {
       OMLParquetWriters.writeReifiedRelationshipInstanceRanges(
         t.reifiedRelationshipInstanceRanges,
         (dir / "ReifiedRelationshipInstanceRange.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeReifiedRelationshipRestrictions(
+        t.reifiedRelationshipRestrictions,
+        (dir / "ReifiedRelationshipRestriction.parquet").toIO.getAbsolutePath)
 
       OMLParquetWriters.writeReifiedRelationshipSpecializationAxioms(
         t.reifiedRelationshipSpecializationAxioms,
@@ -2969,6 +3011,16 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ReifiedRelationshipInstanceRangeTuple2Type)
         .to[Seq]
       
+      val reifiedRelationshipRestrictions
+      : Seq[tables.ReifiedRelationshipRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.RRRs", props)
+        .map(OMLReaders.ReifiedRelationshipRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.ReifiedRelationshipRestrictionTuple2Type)
+        .to[Seq]
+      
       val reifiedRelationshipSpecializationAxioms
       : Seq[tables.ReifiedRelationshipSpecializationAxiom]
       = spark
@@ -3269,6 +3321,7 @@ object OMLSpecificationTypedDatasets {
   	      scalarDataProperties = scalarDataProperties,
   	      structuredDataProperties = structuredDataProperties,
   	      reifiedRelationships = reifiedRelationships,
+  	      reifiedRelationshipRestrictions = reifiedRelationshipRestrictions,
   	      forwardProperties = forwardProperties,
   	      inverseProperties = inverseProperties,
   	      unreifiedRelationships = unreifiedRelationships,
@@ -3860,6 +3913,9 @@ case class OMLSpecificationTypedDatasets
 
   reifiedRelationshipInstanceRanges
   : TypedDataset[api.ReifiedRelationshipInstanceRange],
+
+  reifiedRelationshipRestrictions
+  : TypedDataset[api.ReifiedRelationshipRestriction],
 
   reifiedRelationshipSpecializationAxioms
   : TypedDataset[api.ReifiedRelationshipSpecializationAxiom],

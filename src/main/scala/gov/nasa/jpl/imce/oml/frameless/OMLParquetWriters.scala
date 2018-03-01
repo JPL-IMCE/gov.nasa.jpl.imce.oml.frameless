@@ -326,6 +326,15 @@ object OMLParquetWriters {
 	  .write
 	  .parquet(path)
 	
+	def writeReifiedRelationshipRestrictions
+	(table: Seq[tables.ReifiedRelationshipRestriction], path: String)
+	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.ReifiedRelationshipRestriction])
+	: Unit
+	= sqlContext
+	  .createDataset(table)
+	  .write
+	  .parquet(path)
+	
 	def writeReifiedRelationshipSpecializationAxioms
 	(table: Seq[tables.ReifiedRelationshipSpecializationAxiom], path: String)
 	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.ReifiedRelationshipSpecializationAxiom])

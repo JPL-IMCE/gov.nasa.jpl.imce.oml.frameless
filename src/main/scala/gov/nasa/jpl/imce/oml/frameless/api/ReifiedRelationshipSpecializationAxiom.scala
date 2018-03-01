@@ -26,7 +26,7 @@ case class ReifiedRelationshipSpecializationAxiom(
     
   tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  superRelationshipUUID: taggedTypes.ReifiedRelationshipUUID,
+  superRelationshipUUID: taggedTypes.ConceptualRelationshipUUID,
     
-  subRelationshipUUID: taggedTypes.ReifiedRelationshipUUID
+  subRelationshipUUID: taggedTypes.ConceptualRelationshipUUID
 )

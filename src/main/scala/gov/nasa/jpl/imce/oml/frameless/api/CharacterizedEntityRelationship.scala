@@ -21,12 +21,32 @@ package gov.nasa.jpl.imce.oml.frameless.api
 
 import gov.nasa.jpl.imce.oml.tables._
 
-case class ReifiedRelationshipInstance(
-  uuid: taggedTypes.ReifiedRelationshipInstanceUUID,
+case class CharacterizedEntityRelationship(
+  uuid: taggedTypes.CharacterizedEntityRelationshipUUID,
     
-  descriptionBoxUUID: taggedTypes.DescriptionBoxUUID,
+  tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  singletonConceptualRelationshipClassifierUUID: taggedTypes.ConceptualRelationshipUUID,
+  sourceUUID: taggedTypes.EntityUUID,
+    
+  targetUUID: taggedTypes.EntityUUID,
+    
+  isAsymmetric: scala.Boolean,
+    
+  isEssential: scala.Boolean,
+    
+  isFunctional: scala.Boolean,
+    
+  isInverseEssential: scala.Boolean,
+    
+  isInverseFunctional: scala.Boolean,
+    
+  isIrreflexive: scala.Boolean,
+    
+  isReflexive: scala.Boolean,
+    
+  isSymmetric: scala.Boolean,
+    
+  isTransitive: scala.Boolean,
     
   name: taggedTypes.LocalName
 )

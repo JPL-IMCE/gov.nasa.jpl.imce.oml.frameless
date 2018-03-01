@@ -21,12 +21,14 @@ package gov.nasa.jpl.imce.oml.frameless.api
 
 import gov.nasa.jpl.imce.oml.tables._
 
-case class ReifiedRelationshipInstance(
-  uuid: taggedTypes.ReifiedRelationshipInstanceUUID,
+case class ReifiedRelationshipRestriction(
+  uuid: taggedTypes.ReifiedRelationshipRestrictionUUID,
     
-  descriptionBoxUUID: taggedTypes.DescriptionBoxUUID,
+  tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  singletonConceptualRelationshipClassifierUUID: taggedTypes.ConceptualRelationshipUUID,
+  sourceUUID: taggedTypes.EntityUUID,
+    
+  targetUUID: taggedTypes.EntityUUID,
     
   name: taggedTypes.LocalName
 )
