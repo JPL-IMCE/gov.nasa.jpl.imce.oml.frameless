@@ -21,12 +21,18 @@ package gov.nasa.jpl.imce.oml.frameless.api
 
 import gov.nasa.jpl.imce.oml.tables._
 
-case class ConceptSpecializationAxiom(
-  uuid: taggedTypes.ConceptSpecializationAxiomUUID,
+case class CardinalityRestrictedReifiedRelationship(
+  uuid: taggedTypes.CardinalityRestrictedReifiedRelationshipUUID,
     
   tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  superConceptUUID: taggedTypes.ConceptKindUUID,
+  restrictedRangeUUID: scala.Option[taggedTypes.EntityUUID],
     
-  subConceptUUID: taggedTypes.ConceptKindUUID
+  name: taggedTypes.LocalName,
+    
+  restrictedCardinality: taggedTypes.PositiveIntegerLiteral,
+    
+  restrictedRelationshipUUID: taggedTypes.RestrictableRelationshipUUID,
+    
+  restrictionKind: CardinalityRestrictionKind
 )

@@ -26,5 +26,5 @@ case class SpecificDisjointConceptAxiom(
     
   disjointTaxonomyParentUUID: taggedTypes.ConceptTreeDisjunctionUUID,
     
-  disjointLeafUUID: taggedTypes.ConceptUUID
+  disjointLeafUUID: taggedTypes.ConceptKindUUID
 )

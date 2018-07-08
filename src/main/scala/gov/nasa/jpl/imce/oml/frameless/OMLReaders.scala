@@ -27,7 +27,29 @@ import scala.Predef.{identity,String}
 
 object OMLReaders {
 	
-	def terminologyKind(kind: Int)
+	def cardinalityRestrictionKind(kind: Int)
+	: tables.CardinalityRestrictionKind
+	= kind match {
+		case 0 =>
+		  tables.MinCardinalityRestriction
+		case 1 =>
+		  tables.MaxCardinalityRestriction
+		case 2 =>
+		  tables.ExactCardinalityRestriction
+    }
+
+	def cardinalityRestrictionKind(kind: tables.CardinalityRestrictionKind)
+	: Int
+	= kind match {
+		case tables.MinCardinalityRestriction =>
+		  0
+		case tables.MaxCardinalityRestriction =>
+		  1
+		case tables.ExactCardinalityRestriction =>
+		  2
+    }
+    
+    def terminologyKind(kind: Int)
 	: tables.TerminologyKind
 	= kind match {
 		case 0 =>
@@ -265,7 +287,7 @@ object OMLReaders {
 	= tables.AspectSpecializationAxiom(
 	  tables.taggedTypes.aspectSpecializationAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
-	  tables.taggedTypes.aspectUUID(tuple.superAspectUUID),
+	  tables.taggedTypes.aspectKindUUID(tuple.superAspectUUID),
 	  tables.taggedTypes.entityUUID(tuple.subEntityUUID)
 	)
 
@@ -418,6 +440,186 @@ object OMLReaders {
 	  e.bundleUUID,
 	  e.bundledTerminologyIRI
 	)
+	case class CardinalityRestrictedAspectTuple
+	(uuid: String,
+	 tboxUUID: String,
+	 restrictedRangeUUID: String,
+	 name: String,
+	 restrictedCardinality: String,
+	 restrictedRelationshipUUID: String,
+	 restrictionKind: Int)
+
+	def CardinalityRestrictedAspectRow2Tuple
+	(row: Row)
+	: CardinalityRestrictedAspectTuple
+	= CardinalityRestrictedAspectTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("tboxUUID"),
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("restrictedCardinality"),
+	  row.getAs[String]("restrictedRelationshipUUID"),
+	  row.getAs[Int]("restrictionKind")
+	)
+
+	def CardinalityRestrictedAspectSQL2Tuple
+	(row: Row)
+	: CardinalityRestrictedAspectTuple
+	= CardinalityRestrictedAspectTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("tboxUUID"),
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("restrictedCardinality"),
+	  row.getAs[String]("restrictedRelationshipUUID"),
+	  row.getAs[Int]("restrictionKind")
+	)
+				
+	def CardinalityRestrictedAspectTuple2Type
+	(tuple: CardinalityRestrictedAspectTuple)
+	: tables.CardinalityRestrictedAspect
+	= tables.CardinalityRestrictedAspect(
+	  tables.taggedTypes.cardinalityRestrictedAspectUUID(tuple.uuid),
+	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
+	  if (null == tuple.restrictedRangeUUID || tuple.restrictedRangeUUID.isEmpty) None else Some(tables.taggedTypes.entityUUID(tuple.restrictedRangeUUID)),
+	  tables.taggedTypes.localName(tuple.name),
+	  tables.taggedTypes.positiveIntegerLiteral(tuple.restrictedCardinality),
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.restrictedRelationshipUUID),
+	  cardinalityRestrictionKind(tuple.restrictionKind)
+	)
+
+	def CardinalityRestrictedAspectType2Tuple
+	(e: tables.CardinalityRestrictedAspect)
+	: CardinalityRestrictedAspectTuple
+	= CardinalityRestrictedAspectTuple(
+	  e.uuid,
+	  e.tboxUUID,
+	  e.restrictedRangeUUID.fold[String](null)(identity),
+	  e.name,
+	  e.restrictedCardinality,
+	  e.restrictedRelationshipUUID,
+	  cardinalityRestrictionKind(e.restrictionKind)
+	)
+	case class CardinalityRestrictedConceptTuple
+	(uuid: String,
+	 tboxUUID: String,
+	 restrictedRangeUUID: String,
+	 name: String,
+	 restrictedCardinality: String,
+	 restrictedRelationshipUUID: String,
+	 restrictionKind: Int)
+
+	def CardinalityRestrictedConceptRow2Tuple
+	(row: Row)
+	: CardinalityRestrictedConceptTuple
+	= CardinalityRestrictedConceptTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("tboxUUID"),
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("restrictedCardinality"),
+	  row.getAs[String]("restrictedRelationshipUUID"),
+	  row.getAs[Int]("restrictionKind")
+	)
+
+	def CardinalityRestrictedConceptSQL2Tuple
+	(row: Row)
+	: CardinalityRestrictedConceptTuple
+	= CardinalityRestrictedConceptTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("tboxUUID"),
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("restrictedCardinality"),
+	  row.getAs[String]("restrictedRelationshipUUID"),
+	  row.getAs[Int]("restrictionKind")
+	)
+				
+	def CardinalityRestrictedConceptTuple2Type
+	(tuple: CardinalityRestrictedConceptTuple)
+	: tables.CardinalityRestrictedConcept
+	= tables.CardinalityRestrictedConcept(
+	  tables.taggedTypes.cardinalityRestrictedConceptUUID(tuple.uuid),
+	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
+	  if (null == tuple.restrictedRangeUUID || tuple.restrictedRangeUUID.isEmpty) None else Some(tables.taggedTypes.entityUUID(tuple.restrictedRangeUUID)),
+	  tables.taggedTypes.localName(tuple.name),
+	  tables.taggedTypes.positiveIntegerLiteral(tuple.restrictedCardinality),
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.restrictedRelationshipUUID),
+	  cardinalityRestrictionKind(tuple.restrictionKind)
+	)
+
+	def CardinalityRestrictedConceptType2Tuple
+	(e: tables.CardinalityRestrictedConcept)
+	: CardinalityRestrictedConceptTuple
+	= CardinalityRestrictedConceptTuple(
+	  e.uuid,
+	  e.tboxUUID,
+	  e.restrictedRangeUUID.fold[String](null)(identity),
+	  e.name,
+	  e.restrictedCardinality,
+	  e.restrictedRelationshipUUID,
+	  cardinalityRestrictionKind(e.restrictionKind)
+	)
+	case class CardinalityRestrictedReifiedRelationshipTuple
+	(uuid: String,
+	 tboxUUID: String,
+	 restrictedRangeUUID: String,
+	 name: String,
+	 restrictedCardinality: String,
+	 restrictedRelationshipUUID: String,
+	 restrictionKind: Int)
+
+	def CardinalityRestrictedReifiedRelationshipRow2Tuple
+	(row: Row)
+	: CardinalityRestrictedReifiedRelationshipTuple
+	= CardinalityRestrictedReifiedRelationshipTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("tboxUUID"),
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("restrictedCardinality"),
+	  row.getAs[String]("restrictedRelationshipUUID"),
+	  row.getAs[Int]("restrictionKind")
+	)
+
+	def CardinalityRestrictedReifiedRelationshipSQL2Tuple
+	(row: Row)
+	: CardinalityRestrictedReifiedRelationshipTuple
+	= CardinalityRestrictedReifiedRelationshipTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("tboxUUID"),
+	  row.getAs[String]("restrictedRangeUUID"),
+	  row.getAs[String]("name"),
+	  row.getAs[String]("restrictedCardinality"),
+	  row.getAs[String]("restrictedRelationshipUUID"),
+	  row.getAs[Int]("restrictionKind")
+	)
+				
+	def CardinalityRestrictedReifiedRelationshipTuple2Type
+	(tuple: CardinalityRestrictedReifiedRelationshipTuple)
+	: tables.CardinalityRestrictedReifiedRelationship
+	= tables.CardinalityRestrictedReifiedRelationship(
+	  tables.taggedTypes.cardinalityRestrictedReifiedRelationshipUUID(tuple.uuid),
+	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
+	  if (null == tuple.restrictedRangeUUID || tuple.restrictedRangeUUID.isEmpty) None else Some(tables.taggedTypes.entityUUID(tuple.restrictedRangeUUID)),
+	  tables.taggedTypes.localName(tuple.name),
+	  tables.taggedTypes.positiveIntegerLiteral(tuple.restrictedCardinality),
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.restrictedRelationshipUUID),
+	  cardinalityRestrictionKind(tuple.restrictionKind)
+	)
+
+	def CardinalityRestrictedReifiedRelationshipType2Tuple
+	(e: tables.CardinalityRestrictedReifiedRelationship)
+	: CardinalityRestrictedReifiedRelationshipTuple
+	= CardinalityRestrictedReifiedRelationshipTuple(
+	  e.uuid,
+	  e.tboxUUID,
+	  e.restrictedRangeUUID.fold[String](null)(identity),
+	  e.name,
+	  e.restrictedCardinality,
+	  e.restrictedRelationshipUUID,
+	  cardinalityRestrictionKind(e.restrictionKind)
+	)
 	case class ChainRuleTuple
 	(uuid: String,
 	 tboxUUID: String,
@@ -535,7 +737,7 @@ object OMLReaders {
 	= tables.ConceptDesignationTerminologyAxiom(
 	  tables.taggedTypes.conceptDesignationTerminologyAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
-	  tables.taggedTypes.conceptUUID(tuple.designatedConceptUUID),
+	  tables.taggedTypes.conceptKindUUID(tuple.designatedConceptUUID),
 	  tables.taggedTypes.iri(tuple.designatedTerminologyIRI)
 	)
 
@@ -580,7 +782,7 @@ object OMLReaders {
 	= tables.ConceptInstance(
 	  tables.taggedTypes.conceptInstanceUUID(tuple.uuid),
 	  tables.taggedTypes.descriptionBoxUUID(tuple.descriptionBoxUUID),
-	  tables.taggedTypes.conceptUUID(tuple.singletonConceptClassifierUUID),
+	  tables.taggedTypes.conceptKindUUID(tuple.singletonConceptClassifierUUID),
 	  tables.taggedTypes.localName(tuple.name)
 	)
 
@@ -625,8 +827,8 @@ object OMLReaders {
 	= tables.ConceptSpecializationAxiom(
 	  tables.taggedTypes.conceptSpecializationAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
-	  tables.taggedTypes.conceptUUID(tuple.superConceptUUID),
-	  tables.taggedTypes.conceptUUID(tuple.subConceptUUID)
+	  tables.taggedTypes.conceptKindUUID(tuple.superConceptUUID),
+	  tables.taggedTypes.conceptKindUUID(tuple.subConceptUUID)
 	)
 
 	def ConceptSpecializationAxiomType2Tuple
@@ -1892,7 +2094,7 @@ object OMLReaders {
 	= tables.RootConceptTaxonomyAxiom(
 	  tables.taggedTypes.rootConceptTaxonomyAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.bundleUUID(tuple.bundleUUID),
-	  tables.taggedTypes.conceptUUID(tuple.rootUUID)
+	  tables.taggedTypes.conceptKindUUID(tuple.rootUUID)
 	)
 
 	def RootConceptTaxonomyAxiomType2Tuple
@@ -2372,7 +2574,7 @@ object OMLReaders {
 	= tables.SpecificDisjointConceptAxiom(
 	  tables.taggedTypes.specificDisjointConceptAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.conceptTreeDisjunctionUUID(tuple.disjointTaxonomyParentUUID),
-	  tables.taggedTypes.conceptUUID(tuple.disjointLeafUUID)
+	  tables.taggedTypes.conceptKindUUID(tuple.disjointLeafUUID)
 	)
 
 	def SpecificDisjointConceptAxiomType2Tuple
@@ -2825,7 +3027,7 @@ object OMLReaders {
 	= tables.TerminologyNestingAxiom(
 	  tables.taggedTypes.terminologyNestingAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
-	  tables.taggedTypes.conceptUUID(tuple.nestingContextUUID),
+	  tables.taggedTypes.conceptKindUUID(tuple.nestingContextUUID),
 	  tables.taggedTypes.iri(tuple.nestingTerminologyIRI)
 	)
 

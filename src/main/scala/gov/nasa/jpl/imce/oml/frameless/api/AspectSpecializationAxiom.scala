@@ -26,7 +26,7 @@ case class AspectSpecializationAxiom(
     
   tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  superAspectUUID: taggedTypes.AspectUUID,
+  superAspectUUID: taggedTypes.AspectKindUUID,
     
   subEntityUUID: taggedTypes.EntityUUID
 )

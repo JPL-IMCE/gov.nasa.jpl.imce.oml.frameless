@@ -88,6 +88,18 @@ object OMLSpecificationTypedDatasets {
     TypedDataset.create[api.BundledTerminologyAxiom](
       Seq.empty[api.BundledTerminologyAxiom]),
   
+    cardinalityRestrictedAspects = 
+    TypedDataset.create[api.CardinalityRestrictedAspect](
+      Seq.empty[api.CardinalityRestrictedAspect]),
+  
+    cardinalityRestrictedConcepts = 
+    TypedDataset.create[api.CardinalityRestrictedConcept](
+      Seq.empty[api.CardinalityRestrictedConcept]),
+  
+    cardinalityRestrictedReifiedRelationships = 
+    TypedDataset.create[api.CardinalityRestrictedReifiedRelationship](
+      Seq.empty[api.CardinalityRestrictedReifiedRelationship]),
+  
     chainRules = 
     TypedDataset.create[api.ChainRule](
       Seq.empty[api.ChainRule]),
@@ -376,6 +388,42 @@ object OMLSpecificationTypedDatasets {
          uuid = i.uuid,
          bundleUUID = i.bundleUUID,
          bundledTerminologyIRI = i.bundledTerminologyIRI))),
+  
+    cardinalityRestrictedAspects = 
+    TypedDataset.create[api.CardinalityRestrictedAspect](
+      t.cardinalityRestrictedAspects.map(i =>
+       api.CardinalityRestrictedAspect(
+         uuid = i.uuid,
+         tboxUUID = i.tboxUUID,
+         restrictedRangeUUID = i.restrictedRangeUUID,
+         name = i.name,
+         restrictedCardinality = i.restrictedCardinality,
+         restrictedRelationshipUUID = i.restrictedRelationshipUUID,
+         restrictionKind = i.restrictionKind))),
+  
+    cardinalityRestrictedConcepts = 
+    TypedDataset.create[api.CardinalityRestrictedConcept](
+      t.cardinalityRestrictedConcepts.map(i =>
+       api.CardinalityRestrictedConcept(
+         uuid = i.uuid,
+         tboxUUID = i.tboxUUID,
+         restrictedRangeUUID = i.restrictedRangeUUID,
+         name = i.name,
+         restrictedCardinality = i.restrictedCardinality,
+         restrictedRelationshipUUID = i.restrictedRelationshipUUID,
+         restrictionKind = i.restrictionKind))),
+  
+    cardinalityRestrictedReifiedRelationships = 
+    TypedDataset.create[api.CardinalityRestrictedReifiedRelationship](
+      t.cardinalityRestrictedReifiedRelationships.map(i =>
+       api.CardinalityRestrictedReifiedRelationship(
+         uuid = i.uuid,
+         tboxUUID = i.tboxUUID,
+         restrictedRangeUUID = i.restrictedRangeUUID,
+         name = i.name,
+         restrictedCardinality = i.restrictedCardinality,
+         restrictedRelationshipUUID = i.restrictedRelationshipUUID,
+         restrictionKind = i.restrictionKind))),
   
     chainRules = 
     TypedDataset.create[api.ChainRule](
@@ -975,6 +1023,39 @@ object OMLSpecificationTypedDatasets {
   	    bundleUUID = i.bundleUUID,
   	    bundledTerminologyIRI = i.bundledTerminologyIRI)),
   	
+  	  cardinalityRestrictedAspects = 
+  	t.cardinalityRestrictedAspects.collect().run().to[Seq].map(i =>
+  	  tables.CardinalityRestrictedAspect(
+  	    uuid = i.uuid,
+  	    tboxUUID = i.tboxUUID,
+  	    restrictedRangeUUID = i.restrictedRangeUUID,
+  	    name = i.name,
+  	    restrictedCardinality = i.restrictedCardinality,
+  	    restrictedRelationshipUUID = i.restrictedRelationshipUUID,
+  	    restrictionKind = i.restrictionKind)),
+  	
+  	  cardinalityRestrictedConcepts = 
+  	t.cardinalityRestrictedConcepts.collect().run().to[Seq].map(i =>
+  	  tables.CardinalityRestrictedConcept(
+  	    uuid = i.uuid,
+  	    tboxUUID = i.tboxUUID,
+  	    restrictedRangeUUID = i.restrictedRangeUUID,
+  	    name = i.name,
+  	    restrictedCardinality = i.restrictedCardinality,
+  	    restrictedRelationshipUUID = i.restrictedRelationshipUUID,
+  	    restrictionKind = i.restrictionKind)),
+  	
+  	  cardinalityRestrictedReifiedRelationships = 
+  	t.cardinalityRestrictedReifiedRelationships.collect().run().to[Seq].map(i =>
+  	  tables.CardinalityRestrictedReifiedRelationship(
+  	    uuid = i.uuid,
+  	    tboxUUID = i.tboxUUID,
+  	    restrictedRangeUUID = i.restrictedRangeUUID,
+  	    name = i.name,
+  	    restrictedCardinality = i.restrictedCardinality,
+  	    restrictedRelationshipUUID = i.restrictedRelationshipUUID,
+  	    restrictionKind = i.restrictionKind)),
+  	
   	  chainRules = 
   	t.chainRules.collect().run().to[Seq].map(i =>
   	  tables.ChainRule(
@@ -1543,6 +1624,36 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.BundledTerminologyAxiomRow2Tuple)
         .collect()
         .map(OMLReaders.BundledTerminologyAxiomTuple2Type)
+        .to[Seq]
+      
+      val cardinalityRestrictedAspects
+      : Seq[tables.CardinalityRestrictedAspect]
+      = spark
+        .read
+        .parquet((dir / "CardinalityRestrictedAspect.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.CardinalityRestrictedAspectRow2Tuple)
+        .collect()
+        .map(OMLReaders.CardinalityRestrictedAspectTuple2Type)
+        .to[Seq]
+      
+      val cardinalityRestrictedConcepts
+      : Seq[tables.CardinalityRestrictedConcept]
+      = spark
+        .read
+        .parquet((dir / "CardinalityRestrictedConcept.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.CardinalityRestrictedConceptRow2Tuple)
+        .collect()
+        .map(OMLReaders.CardinalityRestrictedConceptTuple2Type)
+        .to[Seq]
+      
+      val cardinalityRestrictedReifiedRelationships
+      : Seq[tables.CardinalityRestrictedReifiedRelationship]
+      = spark
+        .read
+        .parquet((dir / "CardinalityRestrictedReifiedRelationship.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.CardinalityRestrictedReifiedRelationshipRow2Tuple)
+        .collect()
+        .map(OMLReaders.CardinalityRestrictedReifiedRelationshipTuple2Type)
         .to[Seq]
       
       val chainRules
@@ -2137,10 +2248,28 @@ object OMLSpecificationTypedDatasets {
   	      singletonInstanceScalarDataPropertyValues = singletonInstanceScalarDataPropertyValues,
   	      structuredDataPropertyTuples = structuredDataPropertyTuples,
   	      scalarDataPropertyValues = scalarDataPropertyValues,
-  	      annotationPropertyValues = annotationPropertyValues
+  	      annotationPropertyValues = annotationPropertyValues,
+  	      cardinalityRestrictedAspects = cardinalityRestrictedAspects,
+  	      cardinalityRestrictedConcepts = cardinalityRestrictedConcepts,
+  	      cardinalityRestrictedReifiedRelationships = cardinalityRestrictedReifiedRelationships
   	    ))
   	}
 
+  implicit val cardinalityRestrictionKindI
+  : Injection[tables.CardinalityRestrictionKind, Int]
+  = Injection(
+  {
+  	case tables.MinCardinalityRestriction => 0
+  	case tables.MaxCardinalityRestriction => 1
+  	case tables.ExactCardinalityRestriction => 2
+  },
+  {
+  	case 0 => tables.MinCardinalityRestriction
+  	case 1 => tables.MaxCardinalityRestriction
+  	case 2 => tables.ExactCardinalityRestriction
+  }
+  )
+  
   implicit val descriptionKindI
   : Injection[tables.DescriptionKind, Int]
   = Injection(
@@ -2198,6 +2327,18 @@ object OMLSpecificationTypedDatasets {
   implicit val bundledTerminologyAxiomsEncoder
   : ExpressionEncoder[tables.BundledTerminologyAxiom]
   = TypedExpressionEncoder[tables.BundledTerminologyAxiom]
+  
+  implicit val cardinalityRestrictedAspectsEncoder
+  : ExpressionEncoder[tables.CardinalityRestrictedAspect]
+  = TypedExpressionEncoder[tables.CardinalityRestrictedAspect]
+  
+  implicit val cardinalityRestrictedConceptsEncoder
+  : ExpressionEncoder[tables.CardinalityRestrictedConcept]
+  = TypedExpressionEncoder[tables.CardinalityRestrictedConcept]
+  
+  implicit val cardinalityRestrictedReifiedRelationshipsEncoder
+  : ExpressionEncoder[tables.CardinalityRestrictedReifiedRelationship]
+  = TypedExpressionEncoder[tables.CardinalityRestrictedReifiedRelationship]
   
   implicit val chainRulesEncoder
   : ExpressionEncoder[tables.ChainRule]
@@ -2451,6 +2592,18 @@ object OMLSpecificationTypedDatasets {
       OMLParquetWriters.writeBundledTerminologyAxioms(
         t.bundledTerminologyAxioms,
         (dir / "BundledTerminologyAxiom.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeCardinalityRestrictedAspects(
+        t.cardinalityRestrictedAspects,
+        (dir / "CardinalityRestrictedAspect.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeCardinalityRestrictedConcepts(
+        t.cardinalityRestrictedConcepts,
+        (dir / "CardinalityRestrictedConcept.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeCardinalityRestrictedReifiedRelationships(
+        t.cardinalityRestrictedReifiedRelationships,
+        (dir / "CardinalityRestrictedReifiedRelationship.parquet").toIO.getAbsolutePath)
 
       OMLParquetWriters.writeChainRules(
         t.chainRules,
@@ -2715,7 +2868,7 @@ object OMLSpecificationTypedDatasets {
       : Seq[tables.Aspect]
       = spark
         .read
-        .jdbc(url, "OML.Aspects", props)
+        .jdbc(url, "OML.As", props)
         .map(OMLReaders.AspectSQL2Tuple)
         .collect()
         .map(OMLReaders.AspectTuple2Type)
@@ -2761,11 +2914,41 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.BundledTerminologyAxiomTuple2Type)
         .to[Seq]
       
+      val cardinalityRestrictedAspects
+      : Seq[tables.CardinalityRestrictedAspect]
+      = spark
+        .read
+        .jdbc(url, "OML.CardinalityRestAs", props)
+        .map(OMLReaders.CardinalityRestrictedAspectSQL2Tuple)
+        .collect()
+        .map(OMLReaders.CardinalityRestrictedAspectTuple2Type)
+        .to[Seq]
+      
+      val cardinalityRestrictedConcepts
+      : Seq[tables.CardinalityRestrictedConcept]
+      = spark
+        .read
+        .jdbc(url, "OML.CardinalityRestCs", props)
+        .map(OMLReaders.CardinalityRestrictedConceptSQL2Tuple)
+        .collect()
+        .map(OMLReaders.CardinalityRestrictedConceptTuple2Type)
+        .to[Seq]
+      
+      val cardinalityRestrictedReifiedRelationships
+      : Seq[tables.CardinalityRestrictedReifiedRelationship]
+      = spark
+        .read
+        .jdbc(url, "OML.CardinalityRestRRs", props)
+        .map(OMLReaders.CardinalityRestrictedReifiedRelationshipSQL2Tuple)
+        .collect()
+        .map(OMLReaders.CardinalityRestrictedReifiedRelationshipTuple2Type)
+        .to[Seq]
+      
       val chainRules
       : Seq[tables.ChainRule]
       = spark
         .read
-        .jdbc(url, "OML.ChainRules", props)
+        .jdbc(url, "OML.CR", props)
         .map(OMLReaders.ChainRuleSQL2Tuple)
         .collect()
         .map(OMLReaders.ChainRuleTuple2Type)
@@ -3353,7 +3536,10 @@ object OMLSpecificationTypedDatasets {
   	      singletonInstanceScalarDataPropertyValues = singletonInstanceScalarDataPropertyValues,
   	      structuredDataPropertyTuples = structuredDataPropertyTuples,
   	      scalarDataPropertyValues = scalarDataPropertyValues,
-  	      annotationPropertyValues = annotationPropertyValues
+  	      annotationPropertyValues = annotationPropertyValues,
+  	      cardinalityRestrictedAspects = cardinalityRestrictedAspects,
+  	      cardinalityRestrictedConcepts = cardinalityRestrictedConcepts,
+  	      cardinalityRestrictedReifiedRelationships = cardinalityRestrictedReifiedRelationships
   	    ))
   	}
 
@@ -3409,7 +3595,7 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.AspectType2Tuple)
         .write
         .mode(SaveMode.Append)
-        .jdbc(url, "OML.Aspects", props)
+        .jdbc(url, "OML.As", props)
       
       TypedDataset
         .create(t.concepts)
@@ -3575,7 +3761,7 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.ChainRuleType2Tuple)
         .write
         .mode(SaveMode.Append)
-        .jdbc(url, "OML.ChainRules", props)
+        .jdbc(url, "OML.CR", props)
 
       OMLWriters
         .serializeAndWriteRuleBodySegments(
@@ -3809,6 +3995,30 @@ object OMLSpecificationTypedDatasets {
         .mode(SaveMode.Append)
         .jdbc(url, "OML.AnnotPropVals", props)
 
+      TypedDataset
+        .create(t.cardinalityRestrictedAspects)
+        .dataset
+        .map(OMLReaders.CardinalityRestrictedAspectType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.CardinalityRestAs", props)
+
+      TypedDataset
+        .create(t.cardinalityRestrictedConcepts)
+        .dataset
+        .map(OMLReaders.CardinalityRestrictedConceptType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.CardinalityRestCs", props)
+
+      TypedDataset
+        .create(t.cardinalityRestrictedReifiedRelationships)
+        .dataset
+        .map(OMLReaders.CardinalityRestrictedReifiedRelationshipType2Tuple)
+        .write
+        .mode(SaveMode.Append)
+        .jdbc(url, "OML.CardinalityRestRRs", props)
+
   	  Success(())
   	}
 }
@@ -3838,6 +4048,15 @@ case class OMLSpecificationTypedDatasets
 
   bundledTerminologyAxioms
   : TypedDataset[api.BundledTerminologyAxiom],
+
+  cardinalityRestrictedAspects
+  : TypedDataset[api.CardinalityRestrictedAspect],
+
+  cardinalityRestrictedConcepts
+  : TypedDataset[api.CardinalityRestrictedConcept],
+
+  cardinalityRestrictedReifiedRelationships
+  : TypedDataset[api.CardinalityRestrictedReifiedRelationship],
 
   chainRules
   : TypedDataset[api.ChainRule],

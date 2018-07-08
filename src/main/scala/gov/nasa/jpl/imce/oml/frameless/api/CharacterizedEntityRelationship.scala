@@ -26,10 +26,6 @@ case class CharacterizedEntityRelationship(
     
   tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  sourceUUID: taggedTypes.EntityUUID,
-    
-  targetUUID: taggedTypes.EntityUUID,
-    
   isAsymmetric: scala.Boolean,
     
   isEssential: scala.Boolean,

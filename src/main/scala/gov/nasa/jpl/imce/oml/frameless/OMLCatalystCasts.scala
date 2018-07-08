@@ -80,22 +80,32 @@ object OMLCatalystCasts {
 	  [ taggedTypes.AnonymousConceptUnionAxiomUUID,
 	    taggedTypes.DisjointUnionOfConceptsAxiomUUID]]
 	
-	// 2 casts for Aspect
+	// 1 casts for Aspect
 	
-	implicit val Aspect2EntityUUIDCast
+	implicit val Aspect2AspectKindUUIDCast
 	: CatalystCast
 	  [ taggedTypes.AspectUUID,
+	    taggedTypes.AspectKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.AspectUUID,
+	    taggedTypes.AspectKindUUID]]
+	
+	// 2 casts for AspectKind
+	
+	implicit val AspectKind2EntityUUIDCast
+	: CatalystCast
+	  [ taggedTypes.AspectKindUUID,
 	    taggedTypes.EntityUUID]
 	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.AspectUUID,
+	  [ taggedTypes.AspectKindUUID,
 	    taggedTypes.EntityUUID]]
 	
-	implicit val Aspect2UnaryTermKindUUIDCast
+	implicit val AspectKind2UnaryTermKindUUIDCast
 	: CatalystCast
-	  [ taggedTypes.AspectUUID,
+	  [ taggedTypes.AspectKindUUID,
 	    taggedTypes.UnaryTermKindUUID]
 	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.AspectUUID,
+	  [ taggedTypes.AspectKindUUID,
 	    taggedTypes.UnaryTermKindUUID]]
 	
 	// 1 casts for AspectSpecializationAxiom
@@ -138,6 +148,36 @@ object OMLCatalystCasts {
 	  [ taggedTypes.BundledTerminologyAxiomUUID,
 	    taggedTypes.TerminologyBundleAxiomUUID]]
 	
+	// 1 casts for CardinalityRestrictedAspect
+	
+	implicit val CardinalityRestrictedAspect2AspectKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.CardinalityRestrictedAspectUUID,
+	    taggedTypes.AspectKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.CardinalityRestrictedAspectUUID,
+	    taggedTypes.AspectKindUUID]]
+	
+	// 1 casts for CardinalityRestrictedConcept
+	
+	implicit val CardinalityRestrictedConcept2ConceptKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.CardinalityRestrictedConceptUUID,
+	    taggedTypes.ConceptKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.CardinalityRestrictedConceptUUID,
+	    taggedTypes.ConceptKindUUID]]
+	
+	// 1 casts for CardinalityRestrictedReifiedRelationship
+	
+	implicit val CardinalityRestrictedReifiedRelationship2ConceptualRelationshipUUIDCast
+	: CatalystCast
+	  [ taggedTypes.CardinalityRestrictedReifiedRelationshipUUID,
+	    taggedTypes.ConceptualRelationshipUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.CardinalityRestrictedReifiedRelationshipUUID,
+	    taggedTypes.ConceptualRelationshipUUID]]
+	
 	// 1 casts for ChainRule
 	
 	implicit val ChainRule2RuleUUIDCast
@@ -158,23 +198,15 @@ object OMLCatalystCasts {
 	  [ taggedTypes.CharacterizedEntityRelationshipUUID,
 	    taggedTypes.EntityRelationshipUUID]]
 	
-	// 2 casts for Concept
+	// 1 casts for Concept
 	
-	implicit val Concept2ConceptualEntityUUIDCast
+	implicit val Concept2ConceptKindUUIDCast
 	: CatalystCast
 	  [ taggedTypes.ConceptUUID,
-	    taggedTypes.ConceptualEntityUUID]
+	    taggedTypes.ConceptKindUUID]
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ConceptUUID,
-	    taggedTypes.ConceptualEntityUUID]]
-	
-	implicit val Concept2UnaryTermKindUUIDCast
-	: CatalystCast
-	  [ taggedTypes.ConceptUUID,
-	    taggedTypes.UnaryTermKindUUID]
-	= theInstance.asInstanceOf[CatalystCast
-	  [ taggedTypes.ConceptUUID,
-	    taggedTypes.UnaryTermKindUUID]]
+	    taggedTypes.ConceptKindUUID]]
 	
 	// 1 casts for ConceptDesignationTerminologyAxiom
 	
@@ -195,6 +227,24 @@ object OMLCatalystCasts {
 	= theInstance.asInstanceOf[CatalystCast
 	  [ taggedTypes.ConceptInstanceUUID,
 	    taggedTypes.ConceptualEntitySingletonInstanceUUID]]
+	
+	// 2 casts for ConceptKind
+	
+	implicit val ConceptKind2ConceptualEntityUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptKindUUID,
+	    taggedTypes.ConceptualEntityUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptKindUUID,
+	    taggedTypes.ConceptualEntityUUID]]
+	
+	implicit val ConceptKind2UnaryTermKindUUIDCast
+	: CatalystCast
+	  [ taggedTypes.ConceptKindUUID,
+	    taggedTypes.UnaryTermKindUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.ConceptKindUUID,
+	    taggedTypes.UnaryTermKindUUID]]
 	
 	// 1 casts for ConceptSpecializationAxiom
 	

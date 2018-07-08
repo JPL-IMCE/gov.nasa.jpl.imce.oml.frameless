@@ -26,9 +26,5 @@ case class ConceptualRelationship(
     
   tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  sourceUUID: taggedTypes.EntityUUID,
-    
-  targetUUID: taggedTypes.EntityUUID,
-    
   name: taggedTypes.LocalName
 )

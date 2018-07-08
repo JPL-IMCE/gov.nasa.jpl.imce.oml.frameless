@@ -26,7 +26,7 @@ case class TerminologyNestingAxiom(
     
   tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  nestingContextUUID: taggedTypes.ConceptUUID,
+  nestingContextUUID: taggedTypes.ConceptKindUUID,
     
   nestingTerminologyIRI: taggedTypes.IRI
 )
