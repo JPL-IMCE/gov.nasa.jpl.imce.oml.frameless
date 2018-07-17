@@ -26,7 +26,7 @@ case class ConceptDesignationTerminologyAxiom(
     
   tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  designatedConceptUUID: taggedTypes.ConceptUUID,
+  designatedConceptUUID: taggedTypes.ConceptKindUUID,
     
   designatedTerminologyIRI: taggedTypes.IRI
 )

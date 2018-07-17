@@ -26,5 +26,5 @@ case class RootConceptTaxonomyAxiom(
     
   bundleUUID: taggedTypes.BundleUUID,
     
-  rootUUID: taggedTypes.ConceptUUID
+  rootUUID: taggedTypes.ConceptKindUUID
 )

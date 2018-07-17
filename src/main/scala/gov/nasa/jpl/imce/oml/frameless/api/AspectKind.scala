@@ -21,12 +21,10 @@ package gov.nasa.jpl.imce.oml.frameless.api
 
 import gov.nasa.jpl.imce.oml.tables._
 
-case class ConceptSpecializationAxiom(
-  uuid: taggedTypes.ConceptSpecializationAxiomUUID,
+case class AspectKind(
+  uuid: taggedTypes.AspectKindUUID,
     
   tboxUUID: taggedTypes.TerminologyBoxUUID,
     
-  superConceptUUID: taggedTypes.ConceptKindUUID,
-    
-  subConceptUUID: taggedTypes.ConceptKindUUID
+  name: taggedTypes.LocalName
 )

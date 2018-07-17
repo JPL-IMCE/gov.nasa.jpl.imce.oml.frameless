@@ -26,7 +26,7 @@ case class ConceptInstance(
     
   descriptionBoxUUID: taggedTypes.DescriptionBoxUUID,
     
-  singletonConceptClassifierUUID: taggedTypes.ConceptUUID,
+  singletonConceptClassifierUUID: taggedTypes.ConceptKindUUID,
     
   name: taggedTypes.LocalName
 )

@@ -101,6 +101,33 @@ object OMLParquetWriters {
 	  .write
 	  .parquet(path)
 	
+	def writeCardinalityRestrictedAspects
+	(table: Seq[tables.CardinalityRestrictedAspect], path: String)
+	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.CardinalityRestrictedAspect])
+	: Unit
+	= sqlContext
+	  .createDataset(table)
+	  .write
+	  .parquet(path)
+	
+	def writeCardinalityRestrictedConcepts
+	(table: Seq[tables.CardinalityRestrictedConcept], path: String)
+	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.CardinalityRestrictedConcept])
+	: Unit
+	= sqlContext
+	  .createDataset(table)
+	  .write
+	  .parquet(path)
+	
+	def writeCardinalityRestrictedReifiedRelationships
+	(table: Seq[tables.CardinalityRestrictedReifiedRelationship], path: String)
+	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.CardinalityRestrictedReifiedRelationship])
+	: Unit
+	= sqlContext
+	  .createDataset(table)
+	  .write
+	  .parquet(path)
+	
 	def writeChainRules
 	(table: Seq[tables.ChainRule], path: String)
 	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.ChainRule])
