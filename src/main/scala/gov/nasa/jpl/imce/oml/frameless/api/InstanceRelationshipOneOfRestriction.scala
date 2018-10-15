@@ -21,12 +21,10 @@ package gov.nasa.jpl.imce.oml.frameless.api
 
 import gov.nasa.jpl.imce.oml.tables._
 
-case class ChainRule(
-  uuid: taggedTypes.ChainRuleUUID,
+case class InstanceRelationshipOneOfRestriction(
+  uuid: taggedTypes.InstanceRelationshipOneOfRestrictionUUID,
     
-  tboxUUID: taggedTypes.TerminologyBoxUUID,
+  rangeUUID: taggedTypes.ConceptualEntitySingletonInstanceUUID,
     
-  name: taggedTypes.LocalName,
-    
-  headUUID: taggedTypes.RestrictableRelationshipUUID
+  enumerationUUID: taggedTypes.InstanceRelationshipEnumerationRestrictionUUID
 )

@@ -780,6 +780,88 @@ object OMLCatalystCasts {
 	  [ taggedTypes.IdentityKindUUID,
 	    taggedTypes.CrossReferencabilityKindUUID]]
 	
+	// 2 casts for InstanceRelationshipEnumerationRestriction
+	
+	implicit val InstanceRelationshipEnumerationRestriction2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InstanceRelationshipEnumerationRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InstanceRelationshipEnumerationRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
+	
+	implicit val InstanceRelationshipEnumerationRestriction2TerminologyInstanceAssertionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InstanceRelationshipEnumerationRestrictionUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InstanceRelationshipEnumerationRestrictionUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 2 casts for InstanceRelationshipExistentialRangeRestriction
+	
+	implicit val InstanceRelationshipExistentialRangeRestriction2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InstanceRelationshipExistentialRangeRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InstanceRelationshipExistentialRangeRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
+	
+	implicit val InstanceRelationshipExistentialRangeRestriction2TerminologyInstanceAssertionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InstanceRelationshipExistentialRangeRestrictionUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InstanceRelationshipExistentialRangeRestrictionUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 1 casts for InstanceRelationshipOneOfRestriction
+	
+	implicit val InstanceRelationshipOneOfRestriction2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InstanceRelationshipOneOfRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InstanceRelationshipOneOfRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
+	
+	// 2 casts for InstanceRelationshipUniversalRangeRestriction
+	
+	implicit val InstanceRelationshipUniversalRangeRestriction2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InstanceRelationshipUniversalRangeRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InstanceRelationshipUniversalRangeRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
+	
+	implicit val InstanceRelationshipUniversalRangeRestriction2TerminologyInstanceAssertionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InstanceRelationshipUniversalRangeRestrictionUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InstanceRelationshipUniversalRangeRestrictionUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
+	// 2 casts for InstanceRelationshipValueRestriction
+	
+	implicit val InstanceRelationshipValueRestriction2ElementCrossReferenceTupleUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InstanceRelationshipValueRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InstanceRelationshipValueRestrictionUUID,
+	    taggedTypes.ElementCrossReferenceTupleUUID]]
+	
+	implicit val InstanceRelationshipValueRestriction2TerminologyInstanceAssertionUUIDCast
+	: CatalystCast
+	  [ taggedTypes.InstanceRelationshipValueRestrictionUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]
+	= theInstance.asInstanceOf[CatalystCast
+	  [ taggedTypes.InstanceRelationshipValueRestrictionUUID,
+	    taggedTypes.TerminologyInstanceAssertionUUID]]
+	
 	// 2 casts for IntrinsicIdentityKind
 	
 	implicit val IntrinsicIdentityKind2CrossReferencableKindUUIDCast
