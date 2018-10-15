@@ -290,6 +290,51 @@ object OMLParquetWriters {
 	  .write
 	  .parquet(path)
 	
+	def writeInstanceRelationshipEnumerationRestrictions
+	(table: Seq[tables.InstanceRelationshipEnumerationRestriction], path: String)
+	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.InstanceRelationshipEnumerationRestriction])
+	: Unit
+	= sqlContext
+	  .createDataset(table)
+	  .write
+	  .parquet(path)
+	
+	def writeInstanceRelationshipExistentialRangeRestrictions
+	(table: Seq[tables.InstanceRelationshipExistentialRangeRestriction], path: String)
+	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.InstanceRelationshipExistentialRangeRestriction])
+	: Unit
+	= sqlContext
+	  .createDataset(table)
+	  .write
+	  .parquet(path)
+	
+	def writeInstanceRelationshipOneOfRestrictions
+	(table: Seq[tables.InstanceRelationshipOneOfRestriction], path: String)
+	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.InstanceRelationshipOneOfRestriction])
+	: Unit
+	= sqlContext
+	  .createDataset(table)
+	  .write
+	  .parquet(path)
+	
+	def writeInstanceRelationshipUniversalRangeRestrictions
+	(table: Seq[tables.InstanceRelationshipUniversalRangeRestriction], path: String)
+	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.InstanceRelationshipUniversalRangeRestriction])
+	: Unit
+	= sqlContext
+	  .createDataset(table)
+	  .write
+	  .parquet(path)
+	
+	def writeInstanceRelationshipValueRestrictions
+	(table: Seq[tables.InstanceRelationshipValueRestriction], path: String)
+	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.InstanceRelationshipValueRestriction])
+	: Unit
+	= sqlContext
+	  .createDataset(table)
+	  .write
+	  .parquet(path)
+	
 	def writeInverseProperties
 	(table: Seq[tables.InverseProperty], path: String)
 	(implicit sqlContext: SQLContext, encoder: ExpressionEncoder[tables.InverseProperty])

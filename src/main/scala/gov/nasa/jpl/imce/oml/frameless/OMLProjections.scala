@@ -1780,6 +1780,16 @@ object OMLProjections {
 
 	// 1 smart projects for api.IdentityKind
 	
+	// 2 smart projects for api.InstanceRelationshipEnumerationRestriction
+	
+	// 2 smart projects for api.InstanceRelationshipExistentialRangeRestriction
+	
+	// 1 smart projects for api.InstanceRelationshipOneOfRestriction
+	
+	// 2 smart projects for api.InstanceRelationshipUniversalRangeRestriction
+	
+	// 2 smart projects for api.InstanceRelationshipValueRestriction
+	
 	// 2 smart projects for api.IntrinsicIdentityKind
 	
 	// 1 smart projects for api.InverseProperty

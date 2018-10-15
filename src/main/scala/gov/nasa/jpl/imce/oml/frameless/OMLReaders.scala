@@ -653,7 +653,7 @@ object OMLReaders {
 	  tables.taggedTypes.chainRuleUUID(tuple.uuid),
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
 	  tables.taggedTypes.localName(tuple.name),
-	  tables.taggedTypes.unreifiedRelationshipUUID(tuple.headUUID)
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.headUUID)
 	)
 
 	def ChainRuleType2Tuple
@@ -1474,6 +1474,241 @@ object OMLReaders {
 	  e.maxLength.fold[String](null)(identity),
 	  e.name,
 	  e.pattern.fold[String](null)(identity)
+	)
+	case class InstanceRelationshipEnumerationRestrictionTuple
+	(uuid: String,
+	 descriptionBoxUUID: String,
+	 domainUUID: String,
+	 restrictedRelationshipUUID: String)
+
+	def InstanceRelationshipEnumerationRestrictionRow2Tuple
+	(row: Row)
+	: InstanceRelationshipEnumerationRestrictionTuple
+	= InstanceRelationshipEnumerationRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("descriptionBoxUUID"),
+	  row.getAs[String]("domainUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
+	)
+
+	def InstanceRelationshipEnumerationRestrictionSQL2Tuple
+	(row: Row)
+	: InstanceRelationshipEnumerationRestrictionTuple
+	= InstanceRelationshipEnumerationRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("descriptionBoxUUID"),
+	  row.getAs[String]("domainUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
+	)
+				
+	def InstanceRelationshipEnumerationRestrictionTuple2Type
+	(tuple: InstanceRelationshipEnumerationRestrictionTuple)
+	: tables.InstanceRelationshipEnumerationRestriction
+	= tables.InstanceRelationshipEnumerationRestriction(
+	  tables.taggedTypes.instanceRelationshipEnumerationRestrictionUUID(tuple.uuid),
+	  tables.taggedTypes.descriptionBoxUUID(tuple.descriptionBoxUUID),
+	  tables.taggedTypes.conceptualEntitySingletonInstanceUUID(tuple.domainUUID),
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.restrictedRelationshipUUID)
+	)
+
+	def InstanceRelationshipEnumerationRestrictionType2Tuple
+	(e: tables.InstanceRelationshipEnumerationRestriction)
+	: InstanceRelationshipEnumerationRestrictionTuple
+	= InstanceRelationshipEnumerationRestrictionTuple(
+	  e.uuid,
+	  e.descriptionBoxUUID,
+	  e.domainUUID,
+	  e.restrictedRelationshipUUID
+	)
+	case class InstanceRelationshipExistentialRangeRestrictionTuple
+	(uuid: String,
+	 descriptionBoxUUID: String,
+	 domainUUID: String,
+	 rangeUUID: String,
+	 restrictedRelationshipUUID: String)
+
+	def InstanceRelationshipExistentialRangeRestrictionRow2Tuple
+	(row: Row)
+	: InstanceRelationshipExistentialRangeRestrictionTuple
+	= InstanceRelationshipExistentialRangeRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("descriptionBoxUUID"),
+	  row.getAs[String]("domainUUID"),
+	  row.getAs[String]("rangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
+	)
+
+	def InstanceRelationshipExistentialRangeRestrictionSQL2Tuple
+	(row: Row)
+	: InstanceRelationshipExistentialRangeRestrictionTuple
+	= InstanceRelationshipExistentialRangeRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("descriptionBoxUUID"),
+	  row.getAs[String]("domainUUID"),
+	  row.getAs[String]("rangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
+	)
+				
+	def InstanceRelationshipExistentialRangeRestrictionTuple2Type
+	(tuple: InstanceRelationshipExistentialRangeRestrictionTuple)
+	: tables.InstanceRelationshipExistentialRangeRestriction
+	= tables.InstanceRelationshipExistentialRangeRestriction(
+	  tables.taggedTypes.instanceRelationshipExistentialRangeRestrictionUUID(tuple.uuid),
+	  tables.taggedTypes.descriptionBoxUUID(tuple.descriptionBoxUUID),
+	  tables.taggedTypes.conceptualEntitySingletonInstanceUUID(tuple.domainUUID),
+	  tables.taggedTypes.entityUUID(tuple.rangeUUID),
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.restrictedRelationshipUUID)
+	)
+
+	def InstanceRelationshipExistentialRangeRestrictionType2Tuple
+	(e: tables.InstanceRelationshipExistentialRangeRestriction)
+	: InstanceRelationshipExistentialRangeRestrictionTuple
+	= InstanceRelationshipExistentialRangeRestrictionTuple(
+	  e.uuid,
+	  e.descriptionBoxUUID,
+	  e.domainUUID,
+	  e.rangeUUID,
+	  e.restrictedRelationshipUUID
+	)
+	case class InstanceRelationshipOneOfRestrictionTuple
+	(uuid: String,
+	 rangeUUID: String,
+	 enumerationUUID: String)
+
+	def InstanceRelationshipOneOfRestrictionRow2Tuple
+	(row: Row)
+	: InstanceRelationshipOneOfRestrictionTuple
+	= InstanceRelationshipOneOfRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("rangeUUID"),
+	  row.getAs[String]("enumerationUUID")
+	)
+
+	def InstanceRelationshipOneOfRestrictionSQL2Tuple
+	(row: Row)
+	: InstanceRelationshipOneOfRestrictionTuple
+	= InstanceRelationshipOneOfRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("rangeUUID"),
+	  row.getAs[String]("enumerationUUID")
+	)
+				
+	def InstanceRelationshipOneOfRestrictionTuple2Type
+	(tuple: InstanceRelationshipOneOfRestrictionTuple)
+	: tables.InstanceRelationshipOneOfRestriction
+	= tables.InstanceRelationshipOneOfRestriction(
+	  tables.taggedTypes.instanceRelationshipOneOfRestrictionUUID(tuple.uuid),
+	  tables.taggedTypes.conceptualEntitySingletonInstanceUUID(tuple.rangeUUID),
+	  tables.taggedTypes.instanceRelationshipEnumerationRestrictionUUID(tuple.enumerationUUID)
+	)
+
+	def InstanceRelationshipOneOfRestrictionType2Tuple
+	(e: tables.InstanceRelationshipOneOfRestriction)
+	: InstanceRelationshipOneOfRestrictionTuple
+	= InstanceRelationshipOneOfRestrictionTuple(
+	  e.uuid,
+	  e.rangeUUID,
+	  e.enumerationUUID
+	)
+	case class InstanceRelationshipUniversalRangeRestrictionTuple
+	(uuid: String,
+	 descriptionBoxUUID: String,
+	 domainUUID: String,
+	 rangeUUID: String,
+	 restrictedRelationshipUUID: String)
+
+	def InstanceRelationshipUniversalRangeRestrictionRow2Tuple
+	(row: Row)
+	: InstanceRelationshipUniversalRangeRestrictionTuple
+	= InstanceRelationshipUniversalRangeRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("descriptionBoxUUID"),
+	  row.getAs[String]("domainUUID"),
+	  row.getAs[String]("rangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
+	)
+
+	def InstanceRelationshipUniversalRangeRestrictionSQL2Tuple
+	(row: Row)
+	: InstanceRelationshipUniversalRangeRestrictionTuple
+	= InstanceRelationshipUniversalRangeRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("descriptionBoxUUID"),
+	  row.getAs[String]("domainUUID"),
+	  row.getAs[String]("rangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
+	)
+				
+	def InstanceRelationshipUniversalRangeRestrictionTuple2Type
+	(tuple: InstanceRelationshipUniversalRangeRestrictionTuple)
+	: tables.InstanceRelationshipUniversalRangeRestriction
+	= tables.InstanceRelationshipUniversalRangeRestriction(
+	  tables.taggedTypes.instanceRelationshipUniversalRangeRestrictionUUID(tuple.uuid),
+	  tables.taggedTypes.descriptionBoxUUID(tuple.descriptionBoxUUID),
+	  tables.taggedTypes.conceptualEntitySingletonInstanceUUID(tuple.domainUUID),
+	  tables.taggedTypes.entityUUID(tuple.rangeUUID),
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.restrictedRelationshipUUID)
+	)
+
+	def InstanceRelationshipUniversalRangeRestrictionType2Tuple
+	(e: tables.InstanceRelationshipUniversalRangeRestriction)
+	: InstanceRelationshipUniversalRangeRestrictionTuple
+	= InstanceRelationshipUniversalRangeRestrictionTuple(
+	  e.uuid,
+	  e.descriptionBoxUUID,
+	  e.domainUUID,
+	  e.rangeUUID,
+	  e.restrictedRelationshipUUID
+	)
+	case class InstanceRelationshipValueRestrictionTuple
+	(uuid: String,
+	 descriptionBoxUUID: String,
+	 domainUUID: String,
+	 rangeUUID: String,
+	 restrictedRelationshipUUID: String)
+
+	def InstanceRelationshipValueRestrictionRow2Tuple
+	(row: Row)
+	: InstanceRelationshipValueRestrictionTuple
+	= InstanceRelationshipValueRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("descriptionBoxUUID"),
+	  row.getAs[String]("domainUUID"),
+	  row.getAs[String]("rangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
+	)
+
+	def InstanceRelationshipValueRestrictionSQL2Tuple
+	(row: Row)
+	: InstanceRelationshipValueRestrictionTuple
+	= InstanceRelationshipValueRestrictionTuple(
+	  row.getAs[String]("uuid"),
+	  row.getAs[String]("descriptionBoxUUID"),
+	  row.getAs[String]("domainUUID"),
+	  row.getAs[String]("rangeUUID"),
+	  row.getAs[String]("restrictedRelationshipUUID")
+	)
+				
+	def InstanceRelationshipValueRestrictionTuple2Type
+	(tuple: InstanceRelationshipValueRestrictionTuple)
+	: tables.InstanceRelationshipValueRestriction
+	= tables.InstanceRelationshipValueRestriction(
+	  tables.taggedTypes.instanceRelationshipValueRestrictionUUID(tuple.uuid),
+	  tables.taggedTypes.descriptionBoxUUID(tuple.descriptionBoxUUID),
+	  tables.taggedTypes.conceptualEntitySingletonInstanceUUID(tuple.domainUUID),
+	  tables.taggedTypes.conceptualEntitySingletonInstanceUUID(tuple.rangeUUID),
+	  tables.taggedTypes.restrictableRelationshipUUID(tuple.restrictedRelationshipUUID)
+	)
+
+	def InstanceRelationshipValueRestrictionType2Tuple
+	(e: tables.InstanceRelationshipValueRestriction)
+	: InstanceRelationshipValueRestrictionTuple
+	= InstanceRelationshipValueRestrictionTuple(
+	  e.uuid,
+	  e.descriptionBoxUUID,
+	  e.domainUUID,
+	  e.rangeUUID,
+	  e.restrictedRelationshipUUID
 	)
 	case class InversePropertyTuple
 	(uuid: String,

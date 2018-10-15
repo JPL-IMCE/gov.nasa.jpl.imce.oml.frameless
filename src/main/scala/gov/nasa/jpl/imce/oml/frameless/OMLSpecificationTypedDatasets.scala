@@ -172,6 +172,26 @@ object OMLSpecificationTypedDatasets {
     TypedDataset.create[api.IRIScalarRestriction](
       Seq.empty[api.IRIScalarRestriction]),
   
+    instanceRelationshipEnumerationRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipEnumerationRestriction](
+      Seq.empty[api.InstanceRelationshipEnumerationRestriction]),
+  
+    instanceRelationshipExistentialRangeRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipExistentialRangeRestriction](
+      Seq.empty[api.InstanceRelationshipExistentialRangeRestriction]),
+  
+    instanceRelationshipOneOfRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipOneOfRestriction](
+      Seq.empty[api.InstanceRelationshipOneOfRestriction]),
+  
+    instanceRelationshipUniversalRangeRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipUniversalRangeRestriction](
+      Seq.empty[api.InstanceRelationshipUniversalRangeRestriction]),
+  
+    instanceRelationshipValueRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipValueRestriction](
+      Seq.empty[api.InstanceRelationshipValueRestriction]),
+  
     inverseProperties = 
     TypedDataset.create[api.InverseProperty](
       Seq.empty[api.InverseProperty]),
@@ -595,6 +615,53 @@ object OMLSpecificationTypedDatasets {
          maxLength = i.maxLength,
          name = i.name,
          pattern = i.pattern))),
+  
+    instanceRelationshipEnumerationRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipEnumerationRestriction](
+      t.instanceRelationshipEnumerationRestrictions.map(i =>
+       api.InstanceRelationshipEnumerationRestriction(
+         uuid = i.uuid,
+         descriptionBoxUUID = i.descriptionBoxUUID,
+         domainUUID = i.domainUUID,
+         restrictedRelationshipUUID = i.restrictedRelationshipUUID))),
+  
+    instanceRelationshipExistentialRangeRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipExistentialRangeRestriction](
+      t.instanceRelationshipExistentialRangeRestrictions.map(i =>
+       api.InstanceRelationshipExistentialRangeRestriction(
+         uuid = i.uuid,
+         descriptionBoxUUID = i.descriptionBoxUUID,
+         domainUUID = i.domainUUID,
+         rangeUUID = i.rangeUUID,
+         restrictedRelationshipUUID = i.restrictedRelationshipUUID))),
+  
+    instanceRelationshipOneOfRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipOneOfRestriction](
+      t.instanceRelationshipOneOfRestrictions.map(i =>
+       api.InstanceRelationshipOneOfRestriction(
+         uuid = i.uuid,
+         rangeUUID = i.rangeUUID,
+         enumerationUUID = i.enumerationUUID))),
+  
+    instanceRelationshipUniversalRangeRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipUniversalRangeRestriction](
+      t.instanceRelationshipUniversalRangeRestrictions.map(i =>
+       api.InstanceRelationshipUniversalRangeRestriction(
+         uuid = i.uuid,
+         descriptionBoxUUID = i.descriptionBoxUUID,
+         domainUUID = i.domainUUID,
+         rangeUUID = i.rangeUUID,
+         restrictedRelationshipUUID = i.restrictedRelationshipUUID))),
+  
+    instanceRelationshipValueRestrictions = 
+    TypedDataset.create[api.InstanceRelationshipValueRestriction](
+      t.instanceRelationshipValueRestrictions.map(i =>
+       api.InstanceRelationshipValueRestriction(
+         uuid = i.uuid,
+         descriptionBoxUUID = i.descriptionBoxUUID,
+         domainUUID = i.domainUUID,
+         rangeUUID = i.rangeUUID,
+         restrictedRelationshipUUID = i.restrictedRelationshipUUID))),
   
     inverseProperties = 
     TypedDataset.create[api.InverseProperty](
@@ -1208,6 +1275,48 @@ object OMLSpecificationTypedDatasets {
   	    maxLength = i.maxLength,
   	    name = i.name,
   	    pattern = i.pattern)),
+  	
+  	  instanceRelationshipEnumerationRestrictions = 
+  	t.instanceRelationshipEnumerationRestrictions.collect().run().to[Seq].map(i =>
+  	  tables.InstanceRelationshipEnumerationRestriction(
+  	    uuid = i.uuid,
+  	    descriptionBoxUUID = i.descriptionBoxUUID,
+  	    domainUUID = i.domainUUID,
+  	    restrictedRelationshipUUID = i.restrictedRelationshipUUID)),
+  	
+  	  instanceRelationshipExistentialRangeRestrictions = 
+  	t.instanceRelationshipExistentialRangeRestrictions.collect().run().to[Seq].map(i =>
+  	  tables.InstanceRelationshipExistentialRangeRestriction(
+  	    uuid = i.uuid,
+  	    descriptionBoxUUID = i.descriptionBoxUUID,
+  	    domainUUID = i.domainUUID,
+  	    rangeUUID = i.rangeUUID,
+  	    restrictedRelationshipUUID = i.restrictedRelationshipUUID)),
+  	
+  	  instanceRelationshipOneOfRestrictions = 
+  	t.instanceRelationshipOneOfRestrictions.collect().run().to[Seq].map(i =>
+  	  tables.InstanceRelationshipOneOfRestriction(
+  	    uuid = i.uuid,
+  	    rangeUUID = i.rangeUUID,
+  	    enumerationUUID = i.enumerationUUID)),
+  	
+  	  instanceRelationshipUniversalRangeRestrictions = 
+  	t.instanceRelationshipUniversalRangeRestrictions.collect().run().to[Seq].map(i =>
+  	  tables.InstanceRelationshipUniversalRangeRestriction(
+  	    uuid = i.uuid,
+  	    descriptionBoxUUID = i.descriptionBoxUUID,
+  	    domainUUID = i.domainUUID,
+  	    rangeUUID = i.rangeUUID,
+  	    restrictedRelationshipUUID = i.restrictedRelationshipUUID)),
+  	
+  	  instanceRelationshipValueRestrictions = 
+  	t.instanceRelationshipValueRestrictions.collect().run().to[Seq].map(i =>
+  	  tables.InstanceRelationshipValueRestriction(
+  	    uuid = i.uuid,
+  	    descriptionBoxUUID = i.descriptionBoxUUID,
+  	    domainUUID = i.domainUUID,
+  	    rangeUUID = i.rangeUUID,
+  	    restrictedRelationshipUUID = i.restrictedRelationshipUUID)),
   	
   	  inverseProperties = 
   	t.inverseProperties.collect().run().to[Seq].map(i =>
@@ -1836,6 +1945,56 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.IRIScalarRestrictionTuple2Type)
         .to[Seq]
       
+      val instanceRelationshipEnumerationRestrictions
+      : Seq[tables.InstanceRelationshipEnumerationRestriction]
+      = spark
+        .read
+        .parquet((dir / "InstanceRelationshipEnumerationRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.InstanceRelationshipEnumerationRestrictionRow2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipEnumerationRestrictionTuple2Type)
+        .to[Seq]
+      
+      val instanceRelationshipExistentialRangeRestrictions
+      : Seq[tables.InstanceRelationshipExistentialRangeRestriction]
+      = spark
+        .read
+        .parquet((dir / "InstanceRelationshipExistentialRangeRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.InstanceRelationshipExistentialRangeRestrictionRow2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipExistentialRangeRestrictionTuple2Type)
+        .to[Seq]
+      
+      val instanceRelationshipOneOfRestrictions
+      : Seq[tables.InstanceRelationshipOneOfRestriction]
+      = spark
+        .read
+        .parquet((dir / "InstanceRelationshipOneOfRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.InstanceRelationshipOneOfRestrictionRow2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipOneOfRestrictionTuple2Type)
+        .to[Seq]
+      
+      val instanceRelationshipUniversalRangeRestrictions
+      : Seq[tables.InstanceRelationshipUniversalRangeRestriction]
+      = spark
+        .read
+        .parquet((dir / "InstanceRelationshipUniversalRangeRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.InstanceRelationshipUniversalRangeRestrictionRow2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipUniversalRangeRestrictionTuple2Type)
+        .to[Seq]
+      
+      val instanceRelationshipValueRestrictions
+      : Seq[tables.InstanceRelationshipValueRestriction]
+      = spark
+        .read
+        .parquet((dir / "InstanceRelationshipValueRestriction.parquet").toIO.getAbsolutePath)
+        .map(OMLReaders.InstanceRelationshipValueRestrictionRow2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipValueRestrictionTuple2Type)
+        .to[Seq]
+      
       val inverseProperties
       : Seq[tables.InverseProperty]
       = spark
@@ -2251,7 +2410,12 @@ object OMLSpecificationTypedDatasets {
   	      annotationPropertyValues = annotationPropertyValues,
   	      cardinalityRestrictedAspects = cardinalityRestrictedAspects,
   	      cardinalityRestrictedConcepts = cardinalityRestrictedConcepts,
-  	      cardinalityRestrictedReifiedRelationships = cardinalityRestrictedReifiedRelationships
+  	      cardinalityRestrictedReifiedRelationships = cardinalityRestrictedReifiedRelationships,
+  	      instanceRelationshipEnumerationRestrictions = instanceRelationshipEnumerationRestrictions,
+  	      instanceRelationshipExistentialRangeRestrictions = instanceRelationshipExistentialRangeRestrictions,
+  	      instanceRelationshipOneOfRestrictions = instanceRelationshipOneOfRestrictions,
+  	      instanceRelationshipUniversalRangeRestrictions = instanceRelationshipUniversalRangeRestrictions,
+  	      instanceRelationshipValueRestrictions = instanceRelationshipValueRestrictions
   	    ))
   	}
 
@@ -2411,6 +2575,26 @@ object OMLSpecificationTypedDatasets {
   implicit val iriScalarRestrictionsEncoder
   : ExpressionEncoder[tables.IRIScalarRestriction]
   = TypedExpressionEncoder[tables.IRIScalarRestriction]
+  
+  implicit val instanceRelationshipEnumerationRestrictionsEncoder
+  : ExpressionEncoder[tables.InstanceRelationshipEnumerationRestriction]
+  = TypedExpressionEncoder[tables.InstanceRelationshipEnumerationRestriction]
+  
+  implicit val instanceRelationshipExistentialRangeRestrictionsEncoder
+  : ExpressionEncoder[tables.InstanceRelationshipExistentialRangeRestriction]
+  = TypedExpressionEncoder[tables.InstanceRelationshipExistentialRangeRestriction]
+  
+  implicit val instanceRelationshipOneOfRestrictionsEncoder
+  : ExpressionEncoder[tables.InstanceRelationshipOneOfRestriction]
+  = TypedExpressionEncoder[tables.InstanceRelationshipOneOfRestriction]
+  
+  implicit val instanceRelationshipUniversalRangeRestrictionsEncoder
+  : ExpressionEncoder[tables.InstanceRelationshipUniversalRangeRestriction]
+  = TypedExpressionEncoder[tables.InstanceRelationshipUniversalRangeRestriction]
+  
+  implicit val instanceRelationshipValueRestrictionsEncoder
+  : ExpressionEncoder[tables.InstanceRelationshipValueRestriction]
+  = TypedExpressionEncoder[tables.InstanceRelationshipValueRestriction]
   
   implicit val inversePropertiesEncoder
   : ExpressionEncoder[tables.InverseProperty]
@@ -2676,6 +2860,26 @@ object OMLSpecificationTypedDatasets {
       OMLParquetWriters.writeIRIScalarRestrictions(
         t.iriScalarRestrictions,
         (dir / "IRIScalarRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeInstanceRelationshipEnumerationRestrictions(
+        t.instanceRelationshipEnumerationRestrictions,
+        (dir / "InstanceRelationshipEnumerationRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeInstanceRelationshipExistentialRangeRestrictions(
+        t.instanceRelationshipExistentialRangeRestrictions,
+        (dir / "InstanceRelationshipExistentialRangeRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeInstanceRelationshipOneOfRestrictions(
+        t.instanceRelationshipOneOfRestrictions,
+        (dir / "InstanceRelationshipOneOfRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeInstanceRelationshipUniversalRangeRestrictions(
+        t.instanceRelationshipUniversalRangeRestrictions,
+        (dir / "InstanceRelationshipUniversalRangeRestriction.parquet").toIO.getAbsolutePath)
+
+      OMLParquetWriters.writeInstanceRelationshipValueRestrictions(
+        t.instanceRelationshipValueRestrictions,
+        (dir / "InstanceRelationshipValueRestriction.parquet").toIO.getAbsolutePath)
 
       OMLParquetWriters.writeInverseProperties(
         t.inverseProperties,
@@ -3124,6 +3328,56 @@ object OMLSpecificationTypedDatasets {
         .map(OMLReaders.IRIScalarRestrictionTuple2Type)
         .to[Seq]
       
+      val instanceRelationshipEnumerationRestrictions
+      : Seq[tables.InstanceRelationshipEnumerationRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.IRelEnumerationRs", props)
+        .map(OMLReaders.InstanceRelationshipEnumerationRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipEnumerationRestrictionTuple2Type)
+        .to[Seq]
+      
+      val instanceRelationshipExistentialRangeRestrictions
+      : Seq[tables.InstanceRelationshipExistentialRangeRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.IRelExRangeRs", props)
+        .map(OMLReaders.InstanceRelationshipExistentialRangeRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipExistentialRangeRestrictionTuple2Type)
+        .to[Seq]
+      
+      val instanceRelationshipOneOfRestrictions
+      : Seq[tables.InstanceRelationshipOneOfRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.IRelOneOfRs", props)
+        .map(OMLReaders.InstanceRelationshipOneOfRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipOneOfRestrictionTuple2Type)
+        .to[Seq]
+      
+      val instanceRelationshipUniversalRangeRestrictions
+      : Seq[tables.InstanceRelationshipUniversalRangeRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.IRelUxRangeRs", props)
+        .map(OMLReaders.InstanceRelationshipUniversalRangeRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipUniversalRangeRestrictionTuple2Type)
+        .to[Seq]
+      
+      val instanceRelationshipValueRestrictions
+      : Seq[tables.InstanceRelationshipValueRestriction]
+      = spark
+        .read
+        .jdbc(url, "OML.IRelValRs", props)
+        .map(OMLReaders.InstanceRelationshipValueRestrictionSQL2Tuple)
+        .collect()
+        .map(OMLReaders.InstanceRelationshipValueRestrictionTuple2Type)
+        .to[Seq]
+      
       val inverseProperties
       : Seq[tables.InverseProperty]
       = spark
@@ -3539,7 +3793,12 @@ object OMLSpecificationTypedDatasets {
   	      annotationPropertyValues = annotationPropertyValues,
   	      cardinalityRestrictedAspects = cardinalityRestrictedAspects,
   	      cardinalityRestrictedConcepts = cardinalityRestrictedConcepts,
-  	      cardinalityRestrictedReifiedRelationships = cardinalityRestrictedReifiedRelationships
+  	      cardinalityRestrictedReifiedRelationships = cardinalityRestrictedReifiedRelationships,
+  	      instanceRelationshipEnumerationRestrictions = instanceRelationshipEnumerationRestrictions,
+  	      instanceRelationshipExistentialRangeRestrictions = instanceRelationshipExistentialRangeRestrictions,
+  	      instanceRelationshipOneOfRestrictions = instanceRelationshipOneOfRestrictions,
+  	      instanceRelationshipUniversalRangeRestrictions = instanceRelationshipUniversalRangeRestrictions,
+  	      instanceRelationshipValueRestrictions = instanceRelationshipValueRestrictions
   	    ))
   	}
 
@@ -4111,6 +4370,21 @@ case class OMLSpecificationTypedDatasets
 
   iriScalarRestrictions
   : TypedDataset[api.IRIScalarRestriction],
+
+  instanceRelationshipEnumerationRestrictions
+  : TypedDataset[api.InstanceRelationshipEnumerationRestriction],
+
+  instanceRelationshipExistentialRangeRestrictions
+  : TypedDataset[api.InstanceRelationshipExistentialRangeRestriction],
+
+  instanceRelationshipOneOfRestrictions
+  : TypedDataset[api.InstanceRelationshipOneOfRestriction],
+
+  instanceRelationshipUniversalRangeRestrictions
+  : TypedDataset[api.InstanceRelationshipUniversalRangeRestriction],
+
+  instanceRelationshipValueRestrictions
+  : TypedDataset[api.InstanceRelationshipValueRestriction],
 
   inverseProperties
   : TypedDataset[api.InverseProperty],
