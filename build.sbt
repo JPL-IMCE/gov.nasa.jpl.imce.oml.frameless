@@ -44,6 +44,7 @@ lazy val core = Project("omlFrameless", file("."))
     autoAPIMappings := true,
     apiURL := Some(url("https://jpl-imce.github.io/gov.nasa.jpl.imce.oml.frameless/latest/api/")),
 
+    resolvers += Resolver.mavenLocal,
     resolvers += Resolver.bintrayRepo("jpl-imce", "gov.nasa.jpl.imce"),
 
     resolvers += "Artima Maven Repository" at "http://repo.artima.com/releases",

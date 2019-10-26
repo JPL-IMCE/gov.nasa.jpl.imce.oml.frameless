@@ -22,8 +22,10 @@ package gov.nasa.jpl.imce.oml.frameless
 import org.apache.spark.sql.Row
 import org.apache.spark.sql.catalyst.expressions.GenericRowWithSchema
 import gov.nasa.jpl.imce.oml.tables
-import scala.{Boolean,Int,None,Some,StringContext}
-import scala.Predef.{identity,String}
+import io.circe.Json
+
+import scala.{Boolean, Int, None, Some, StringContext}
+import scala.Predef.{String, identity}
 
 object OMLReaders {
 	
@@ -1155,7 +1157,7 @@ object OMLReaders {
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
 	  tables.taggedTypes.entityUUID(tuple.restrictedEntityUUID),
 	  tables.taggedTypes.entityScalarDataPropertyUUID(tuple.scalarPropertyUUID),
-	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.literalValueLiteralType}","value":"${tuple.literalValue}"}"""),
+	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.literalValueLiteralType}","value":${Json.fromString(tuple.literalValue).toString}}"""),
 	  if (null == tuple.valueTypeUUID || tuple.valueTypeUUID.isEmpty) None else Some(tables.taggedTypes.dataRangeUUID(tuple.valueTypeUUID))
 	)
 
@@ -2246,7 +2248,7 @@ object OMLReaders {
 	  tables.taggedTypes.restrictionScalarDataPropertyValueUUID(tuple.uuid),
 	  tables.taggedTypes.restrictionStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID),
 	  tables.taggedTypes.dataRelationshipToScalarUUID(tuple.scalarDataPropertyUUID),
-	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.scalarPropertyValueLiteralType}","value":"${tuple.scalarPropertyValue}"}"""),
+	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.scalarPropertyValueLiteralType}","value":${Json.fromString(tuple.scalarPropertyValue).toString}}"""),
 	  if (null == tuple.valueTypeUUID || tuple.valueTypeUUID.isEmpty) None else Some(tables.taggedTypes.dataRangeUUID(tuple.valueTypeUUID))
 	)
 
@@ -2506,7 +2508,7 @@ object OMLReaders {
 	  tables.taggedTypes.scalarDataPropertyValueUUID(tuple.uuid),
 	  tables.taggedTypes.singletonInstanceStructuredDataPropertyContextUUID(tuple.structuredDataPropertyContextUUID),
 	  tables.taggedTypes.dataRelationshipToScalarUUID(tuple.scalarDataPropertyUUID),
-	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.scalarPropertyValueLiteralType}","value":"${tuple.scalarPropertyValue}"}"""),
+	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.scalarPropertyValueLiteralType}","value":${Json.fromString(tuple.scalarPropertyValue).toString}}"""),
 	  if (null == tuple.valueTypeUUID || tuple.valueTypeUUID.isEmpty) None else Some(tables.taggedTypes.dataRangeUUID(tuple.valueTypeUUID))
 	)
 
@@ -2556,7 +2558,7 @@ object OMLReaders {
 	  tables.taggedTypes.scalarOneOfLiteralAxiomUUID(tuple.uuid),
 	  tables.taggedTypes.terminologyBoxUUID(tuple.tboxUUID),
 	  tables.taggedTypes.scalarOneOfRestrictionUUID(tuple.axiomUUID),
-	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.valueLiteralType}","value":"${tuple.value}"}"""),
+	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.valueLiteralType}","value":${Json.fromString(tuple.value).toString}}"""),
 	  if (null == tuple.valueTypeUUID || tuple.valueTypeUUID.isEmpty) None else Some(tables.taggedTypes.dataRangeUUID(tuple.valueTypeUUID))
 	)
 
@@ -2720,7 +2722,7 @@ object OMLReaders {
 	  tables.taggedTypes.descriptionBoxUUID(tuple.descriptionBoxUUID),
 	  tables.taggedTypes.conceptualEntitySingletonInstanceUUID(tuple.singletonInstanceUUID),
 	  tables.taggedTypes.entityScalarDataPropertyUUID(tuple.scalarDataPropertyUUID),
-	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.scalarPropertyValueLiteralType}","value":"${tuple.scalarPropertyValue}"}"""),
+	  tables.LiteralValue.fromJSON(s"""{"literalType":"${tuple.scalarPropertyValueLiteralType}","value":${Json.fromString(tuple.scalarPropertyValue).toString}}"""),
 	  if (null == tuple.valueTypeUUID || tuple.valueTypeUUID.isEmpty) None else Some(tables.taggedTypes.dataRangeUUID(tuple.valueTypeUUID))
 	)
 
